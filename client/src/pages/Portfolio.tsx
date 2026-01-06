@@ -153,7 +153,7 @@ export default function Portfolio() {
 
   const projectCaseStudies: Record<string, CaseStudy> = {
     "Pickleball Session Manager": {
-      problem: "Pickleball clubs needed fair ladders and rating updates without spreadsheets.",
+      problem: "Pickleball clubs needed a fair ladders and rating updates without spreadsheets.",
       built: "Full-stack app with Prisma/Postgres and a React front end to schedule sessions, balance pairings, and keep ratings honest.",
       decisions: [
         "Prisma migrations and seed data for players, ladders, and sessions to keep environments reproducible.",
