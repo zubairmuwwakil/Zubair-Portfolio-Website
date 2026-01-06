@@ -9,7 +9,9 @@ import {
   Code2,
   Database,
   Layout,
-  Server
+  Server,
+  Menu,
+  X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -42,9 +44,19 @@ export default function Portfolio() {
     [],
   );
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     applyTheme(theme);
   }, [theme, applyTheme]);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
@@ -248,6 +260,7 @@ export default function Portfolio() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    setIsMobileMenuOpen(false);
   };
 
   const fadeInUp = {
@@ -318,33 +331,98 @@ export default function Portfolio() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sun h-5 w-5"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
                 )}
               </button>
-              <button className="text-foreground hover:text-primary transition-colors p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu w-6 h-6"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+              <button
+                className="text-foreground hover:text-primary transition-colors p-2 rounded-full border border-transparent hover:border-border"
+                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={isMobileMenuOpen}
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
               </button>
             </div>
           </div>
         </div>
       </nav>
 
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md md:hidden">
+          <div className="max-w-7xl mx-auto px-4 pt-24 pb-10 h-full flex flex-col">
+            <div className="space-y-6">
+              <div className="grid gap-3 text-lg font-semibold">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("about")}
+                  className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
+                >
+                  About
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("experience")}
+                  className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
+                >
+                  Professional Journey
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("projects")}
+                  className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
+                >
+                  Projects
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("contact")}
+                  className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
+                >
+                  Contact
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("contact")}
+                  className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold bg-primary text-primary-foreground border border-primary-border rounded-full px-6 py-3 hover:bg-primary/90 transition-colors"
+                >
+                  Hire Me
+                </button>
+                <a
+                  href={profileData.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold border border-border rounded-full px-6 py-3 hover:bg-secondary transition-colors"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section - new style from user HTML */}
-      <section className="relative min-h-[60vh] flex items-center pt-6 md:pt-10 pb-8 md:pb-12 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20 overflow-hidden">
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
         <div className="container-padding relative z-10 w-full flex justify-center">
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-10 items-center max-w-6xl w-full mx-auto">
-            <div className="space-y-4 md:space-y-6">
-              <div className="mt-12 mb-8">
-                <div className="whitespace-nowrap inline-flex items-center font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs px-4 py-1.5 text-sm rounded-full border-primary/20 bg-primary/5 text-primary">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-6xl w-full mx-auto">
+            <div className="space-y-5 md:space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+              <div className="mt-6 md:mt-8 mb-6 md:mb-8">
+                <div className="inline-flex items-center font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs px-4 py-1.5 text-xs sm:text-sm rounded-full border-primary/20 bg-primary/5 text-primary">
                   Software Engineer (Full-Stack / Backend)
                 </div>
               </div>
               <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
                 Building reliable systems <br />and the products that use them
               </h1>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed mx-auto lg:mx-0">
                 I ship web apps and data pipelines with a focus on reliability, data integrity, performance, and clean architecture. Finance background, SWE-first mindset: strong schemas, predictable APIs, and observability over vibes.
               </p>
-              <div className="flex flex-wrap gap-4 pt-2">
+              <div className="flex flex-wrap gap-4 pt-2 justify-center lg:justify-start">
                 <a href="#projects" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
                   View Projects
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-up-right w-4 h-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
@@ -354,12 +432,12 @@ export default function Portfolio() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-text w-4 h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
                 </a>
               </div>
-              <div className="flex flex-wrap gap-3 pt-4">
-                <div className="whitespace-nowrap inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-sm">Java / Spring Boot • React • SQL • Docker</div>
-                <div className="whitespace-nowrap inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-sm">Built data pipelines + web apps</div>
-                <div className="whitespace-nowrap inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-sm">Open to US remote (US citizen)</div>
+              <div className="flex flex-wrap gap-3 pt-4 justify-center lg:justify-start">
+                <div className="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-xs sm:text-sm leading-snug">Java / Spring Boot • React • SQL • Docker</div>
+                <div className="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-xs sm:text-sm leading-snug">Built data pipelines + web apps</div>
+                <div className="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-xs sm:text-sm leading-snug">Open to US remote (US citizen)</div>
               </div>
-              <div className="flex gap-6 pt-4 text-muted-foreground">
+              <div className="flex gap-6 pt-4 text-muted-foreground justify-center lg:justify-start">
                 <a href="https://github.com/ZthEchelon" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github w-6 h-6"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                 </a>
@@ -369,6 +447,15 @@ export default function Portfolio() {
                 <a href="mailto:zmuwwakil@gmail.com" className="hover:text-primary transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail w-6 h-6"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                 </a>
+              </div>
+              <div className="relative w-full max-w-xs mx-auto lg:hidden pt-4">
+                <div className="relative z-10 w-full aspect-square rounded-full overflow-hidden border-4 border-background shadow-2xl">
+                  <img
+                    src="https://i.imgur.com/aUXrp54.jpeg"
+                    alt="Zubair Muwwakil Logo"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
             <div className="relative hidden lg:block">

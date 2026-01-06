@@ -42,8 +42,8 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
       {/* Case Study Header - Modern Style */}
       <div className="flex flex-wrap items-start justify-between gap-4 p-6 pb-0">
         <div className="space-y-2">
-          <div className="flex items-center gap-3">
-            <div className="whitespace-nowrap inline-flex items-center border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="inline-flex items-center border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full break-words">
               {project.title}
             </div>
             <span className="text-sm text-muted-foreground">
@@ -54,12 +54,12 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
             {/* Stack badges: prefer project.stack, fallback to project.tags */}
             {Array.isArray(project.stack) && project.stack.length > 0
               ? project.stack.map((tech) => (
-                  <div key={tech} className="whitespace-nowrap inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs text-xs">
+                  <div key={tech} className="inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs text-xs break-words">
                     {tech}
                   </div>
                 ))
               : project.tags?.map((tag) => (
-                  <div key={tag} className="whitespace-nowrap inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs text-xs">
+                  <div key={tag} className="inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs text-xs break-words">
                     {tag}
                   </div>
                 ))}

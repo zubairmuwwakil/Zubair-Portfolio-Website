@@ -72,6 +72,10 @@
     font-family: var(--font-display);
     @apply tracking-tight font-bold;
   }
+
+  section {
+    scroll-margin-top: 96px;
+  }
 }
 
 @layer utilities {
@@ -81,5 +85,9 @@
   
   .glass-card {
     @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-xl;
+  }
+
+  .container-padding {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
