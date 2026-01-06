@@ -290,7 +290,7 @@ export default function Portfolio() {
             </a>
             <div className="hidden md:flex items-center space-x-8">
               <a href="#about" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">About</a>
-              <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Experience</a>
+              <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Professional Journey</a>
               <a href="#projects" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Projects</a>
               <a href="#contact" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
               <button
@@ -511,11 +511,11 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Experience Section */}
+      {/* Professional Journey Section */}
       <section id="experience" className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title="Experience" 
+            title="Professional Journey" 
             subtitle="Impact snapshots from recent roles."
           />
           
