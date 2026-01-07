@@ -215,7 +215,7 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
             href={links.caseStudy}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-card text-foreground border border-border/70 text-sm font-semibold hover:border-primary/60 transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-foreground text-background text-sm font-semibold shadow-lg shadow-black/15 hover:brightness-95 transition-colors"
           >
             <FileText className="w-4 h-4" /> Read Case Study
           </a>

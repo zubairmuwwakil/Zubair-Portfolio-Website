@@ -6,6 +6,14 @@ import {
   FileText, 
   Mail, 
   ChevronDown,
+  Sparkles,
+  Bolt,
+  TrendingUp,
+  GraduationCap,
+  BookOpen,
+  ShieldCheck,
+  PenTool,
+  Target,
   Code2,
   Database,
   Layout,
@@ -25,7 +33,7 @@ import {
 import { SectionHeader } from "@/components/SectionHeader";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ExperienceItem } from "@/components/ExperienceItem";
-import { ContactForm } from "@/components/ContactForm";
+// removed ContactForm per request
 import { 
   useProfile, 
   useProjects, 
@@ -96,33 +104,29 @@ export default function Portfolio() {
     resumeUrl: profile?.resumeUrl || profileDefaults.resumeUrl,
   };
 
-  type SkillLevel = "strong" | "working" | "familiar";
+  type SkillLevel = "familiar";
   type SkillDisplay = { name: string; category: string; level?: SkillLevel; proficiency?: number | null };
 
   const curatedSkills: SkillDisplay[] = [
-    { name: "Java (Spring Boot)", category: "core", level: "strong", proficiency: 95 },
-    { name: "TypeScript / JavaScript", category: "core", level: "strong", proficiency: 95 },
-    { name: "React", category: "core", level: "strong", proficiency: 92 },
-    { name: "SQL", category: "core", level: "strong", proficiency: 90 },
-    { name: "Node.js", category: "also", level: "working", proficiency: 85 },
-    { name: "Python", category: "also", level: "working", proficiency: 82 },
-    { name: "Docker", category: "also", level: "working", proficiency: 85 },
-    { name: "Postgres", category: "also", level: "working", proficiency: 85 },
-    { name: "Prisma", category: "also", level: "working", proficiency: 82 },
-    { name: "REST APIs", category: "also", level: "working", proficiency: 88 },
-    { name: "Testing (JUnit / Jest)", category: "also", level: "working", proficiency: 82 },
-    { name: "CI/CD", category: "also", level: "working", proficiency: 82 },
-    { name: "Clean Architecture", category: "practices", level: "strong", proficiency: 95 },
-    { name: "API Design", category: "practices", level: "strong", proficiency: 92 },
-    { name: "Schema Migrations", category: "practices", level: "working", proficiency: 85 },
-    { name: "Observability Basics", category: "practices", level: "working", proficiency: 80 },
+    { name: "Java (Spring Boot)", category: "core", proficiency: 95 },
+    { name: "TypeScript / JavaScript", category: "core", proficiency: 95 },
+    { name: "React", category: "core", proficiency: 92 },
+    { name: "SQL", category: "core", proficiency: 90 },
+    { name: "Node.js", category: "also", proficiency: 85 },
+    { name: "Python", category: "also", proficiency: 82 },
+    { name: "Docker", category: "also", proficiency: 85 },
+    { name: "Postgres", category: "also", proficiency: 85 },
+    { name: "Prisma", category: "also", proficiency: 82 },
+    { name: "REST APIs", category: "also", proficiency: 88 },
+    { name: "Testing (JUnit / Jest)", category: "also", proficiency: 82 },
+    { name: "CI/CD", category: "also", proficiency: 82 },
+    { name: "Clean Architecture", category: "practices", proficiency: 95 },
+    { name: "API Design", category: "practices", proficiency: 92 },
+    { name: "Schema Migrations", category: "practices", proficiency: 85 },
+    { name: "Observability Basics", category: "practices", proficiency: 80 },
   ];
 
-  const mapProficiencyToLevel = (proficiency?: number | null): SkillLevel => {
-    if ((proficiency || 0) >= 90) return "strong";
-    if ((proficiency || 0) >= 75) return "working";
-    return "familiar";
-  };
+  const mapProficiencyToLevel = (_?: number | null): SkillLevel => "familiar";
 
   const displaySkills = (skills?.length ? skills : curatedSkills).map((skill) => ({
     name: skill.name,
@@ -137,8 +141,6 @@ export default function Portfolio() {
   }, {} as Record<string, SkillDisplay[]>);
 
   const levelStyles: Record<SkillLevel, string> = {
-    strong: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-100",
-    working: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-100",
     familiar: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-100",
   };
 
@@ -196,7 +198,7 @@ export default function Portfolio() {
 
   const projectCaseStudies: Record<string, CaseStudy> = {
     "Pickleball Session Manager": {
-      problem: "Pickleball clubs needed a fair ladders and rating updates without spreadsheets.",
+      problem: "Pickleball clubs needed fair ladders and rating updates without spreadsheets.",
       built: "Full-stack app with Prisma/Postgres and a React front end to schedule sessions, balance pairings, and keep ratings honest.",
       decisions: [
         "Prisma migrations and seed data for players, ladders, and sessions to keep environments reproducible.",
@@ -281,13 +283,6 @@ export default function Portfolio() {
     },
   };
 
-  const orderedProjects = (projects || []).slice().sort((a, b) => {
-    const aFeatured = projectCaseStudies[a.title] ? 1 : 0;
-    const bFeatured = projectCaseStudies[b.title] ? 1 : 0;
-    if (aFeatured !== bFeatured) return bFeatured - aFeatured;
-    return (a.id || 0) - (b.id || 0);
-  });
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -313,27 +308,7 @@ export default function Portfolio() {
 
   const projectByTitle = new Map((projects || []).map((p) => [p.title, p]));
   const [featuredModal, setFeaturedModal] = useState<{ src: string; title: string } | null>(null);
-  const otherProjectsList = (orderedProjects || []).map((project) => {
-    const caseStudy = projectCaseStudies[project.title];
-    const link =
-      caseStudy?.links?.demo ||
-      caseStudy?.links?.github ||
-      project.link ||
-      project.githubLink ||
-      caseStudy?.links?.caseStudy;
-    return {
-      title: project.title,
-      blurb: caseStudy?.built || project.description,
-      link,
-    };
-  });
-  const experiencePairs =
-    experiences?.reduce<Experience[][]>((pairs, _, idx, arr) => {
-      if (idx % 2 === 0) {
-        pairs.push(arr.slice(idx, idx + 2));
-      }
-      return pairs;
-    }, []) || [];
+  const hasExperiences = (experiences?.length || 0) > 0;
 
   if (!profile && !projects && !experiences) {
     return (
@@ -475,12 +450,25 @@ export default function Portfolio() {
 
       {/* Hero Section */}
       <section
-        className={`relative min-h-[75vh] flex items-center pt-24 pb-20 md:pt-28 md:pb-24 overflow-hidden ${
+        className={`relative min-h-[75vh] flex items-center pt-28 pb-20 md:pt-32 md:pb-24 overflow-hidden ${
           theme === "dark" ? "hero-dark" : "hero-light"
         }`}
       >
+        {/* Light mode sky backdrop layers */}
+        {theme === "light" && (
+          <>
+            <div className="sky-bg" />
+            <div className="sky-sun" />
+            <div className="sun-rays" />
+            <div className="clouds">
+              <div className="cloud cloud--lg" style={{ top: "12%", left: "-25%", animationDelay: "0s" }} />
+              <div className="cloud cloud--sm" style={{ top: "28%", left: "55%", animationDelay: "10s" }} />
+              <div className="cloud" style={{ top: "56%", left: "5%", animationDelay: "20s" }} />
+            </div>
+          </>
+        )}
         <div
-          className={`absolute inset-0 opacity-40 ${
+          className={`absolute inset-0 opacity-40 z-[2] ${
             theme === "dark"
               ? "bg-[radial-gradient(circle_at_20%_20%,rgba(135,92,255,0.35),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(0,196,255,0.28),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(255,102,178,0.18),transparent_30%)]"
               : "bg-[radial-gradient(circle_at_20%_20%,rgba(135,92,255,0.15),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(0,156,255,0.15),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(255,102,178,0.1),transparent_30%)]"
@@ -489,7 +477,7 @@ export default function Portfolio() {
         <div className="absolute top-0 right-0 -mr-24 -mt-24 w-[520px] h-[520px] bg-primary/15 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-[460px] h-[460px] bg-accent/15 rounded-full blur-3xl"></div>
         <div className="container-padding relative z-10 w-full flex justify-center">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-6xl w-full mx-auto">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-screen-xl w-full mx-auto">
             <div className="space-y-5 md:space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0 -mt-8 md:-mt-12">
               <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.2] text-gradient">
                 {heroRoleLine}
@@ -521,22 +509,22 @@ export default function Portfolio() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail w-6 h-6"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                 </a>
               </div>
-              <div className="relative w-full max-w-xs mx-auto lg:hidden pt-4">
+              <div className="relative w-full max-w-xs mx-auto lg:hidden pt-6">
                 <div className="relative z-10 w-full aspect-square rounded-full overflow-hidden border-4 border-background shadow-2xl">
                   <img
-                    src="https://i.imgur.com/aUXrp54.jpeg"
+                    src="https://i.imgur.com/7BAT0Wz.jpeg"
                     alt="Zubair Muwwakil Logo"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-[center_60%]"
                   />
                 </div>
               </div>
             </div>
-            <div className="relative hidden lg:block">
+            <div className="relative hidden lg:block lg:pt-6">
               <div className="relative z-10 w-full aspect-square rounded-full overflow-hidden border-8 border-background shadow-2xl">
                 <img
-                  src="https://i.imgur.com/aUXrp54.jpeg"
+                  src="https://i.imgur.com/7BAT0Wz.jpeg"
                   alt="Zubair Muwwakil Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-[center_60%]"
                 />
               </div>
               <div className="absolute top-10 -left-10 bg-background p-4 rounded-xl shadow-lg border z-20" style={{ transform: "translateY(-16.8585px)" }}>
@@ -555,17 +543,27 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section className="py-10 border-y border-border/60 bg-muted/30">
+      <section className="py-12 border-y border-border/60 bg-muted/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-4">
-            {proofBarItems.map((item) => (
-              <div
-                key={item}
-                className="glass-card rounded-xl px-5 py-5 text-sm font-semibold text-foreground shadow-lg shadow-primary/10 border border-white/10"
-              >
-                {item}
-              </div>
-            ))}
+          <div className="grid md:grid-cols-3 gap-5">
+            {proofBarItems.map((item, idx) => {
+              const proofIcons = [Sparkles, Bolt, TrendingUp];
+              const Icon = proofIcons[idx % proofIcons.length];
+              return (
+                <div
+                  key={item}
+                  className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-primary/12 via-background to-accent/10 border border-border/60 shadow-xl shadow-primary/10 hover:shadow-primary/25 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+                  <div className="flex items-start gap-3">
+                    <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-white/70 dark:bg-black/20 text-primary shadow-lg shadow-primary/15">
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <p className="text-lg font-extrabold leading-snug text-foreground">{item}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -573,8 +571,20 @@ export default function Portfolio() {
       {/* Placeholder for reordered sections; About moved below */}
 
       {/* Featured Projects */}
-      <section id="featured" className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="featured" className="relative overflow-hidden py-20 bg-muted/30">
+        {theme === "light" && (
+          <>
+            <div className="sky-bg z-0" />
+            <div className="sky-sun sky-sun--sm" />
+            <div className="sun-rays sun-rays--sm" />
+            <div className="clouds z-0">
+              <div className="cloud cloud--sm" style={{ top: "14%", left: "-30%", animationDelay: "2s" }} />
+              <div className="cloud cloud--lg" style={{ top: "52%", left: "58%", animationDelay: "10s" }} />
+            </div>
+          </>
+        )}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="section-glow" />
           <SectionHeader 
             title="Featured Projects" 
             subtitle="Flagship builds with clear decisions, outcomes, and proof."
@@ -599,95 +609,101 @@ export default function Portfolio() {
 
                 return (
                   <CarouselItem key={title}>
-                    <div className="grid lg:grid-cols-2 gap-10 items-start">
-                      <div className="space-y-6">
-                        <div className="space-y-2">
-                          <div className="inline-flex items-center border px-3 py-1 rounded-full text-xs font-semibold bg-secondary text-secondary-foreground border-border/60 w-fit">
-                            Featured
+                    <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/12 via-background to-accent/10 shadow-2xl shadow-primary/15 p-8 lg:p-10">
+                      <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-90" />
+                      <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-stretch">
+                        <div className="space-y-6">
+                          <div className="space-y-3">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-primary text-primary-foreground shadow-md shadow-primary/30 w-fit">
+                              Featured Build
+                            </div>
+                            <h3 className="text-3xl font-extrabold font-display leading-tight">{title}</h3>
+                            <p className="text-foreground font-semibold leading-relaxed">{featuredCase.built}</p>
+                            <div className="flex flex-wrap gap-2">
+                              {stack.map((tech) => (
+                                <span key={tech} className="inline-flex items-center rounded-md px-3 py-1 font-semibold border border-border/80 text-xs bg-card shadow-sm">
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
                           </div>
-                          <h3 className="text-2xl font-bold font-display">{title}</h3>
-                          <p className="text-muted-foreground">{featuredCase.built}</p>
-                          <div className="flex flex-wrap gap-2">
-                            {stack.map((tech) => (
-                              <span key={tech} className="inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold border border-border/80 text-xs bg-card">
-                                {tech}
-                              </span>
-                            ))}
+                          <div className="grid sm:grid-cols-2 gap-4">
+                            <div className="bg-white/70 dark:bg-black/20 rounded-2xl border border-border/60 p-4 shadow-sm">
+                              <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold mb-1">Problem</p>
+                              <p className="text-foreground leading-relaxed font-semibold">{featuredCase.problem}</p>
+                            </div>
+                            <div className="bg-white/70 dark:bg-black/20 rounded-2xl border border-border/60 p-4 shadow-sm">
+                              <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold mb-1">Outcomes</p>
+                              <ul className="space-y-2 text-sm text-foreground font-semibold">
+                                {outcomes.map((outcome) => (
+                                  <li key={outcome} className="flex gap-2 leading-relaxed">
+                                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                                    <span>{outcome}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold mb-2">Technical decisions</p>
+                            <ul className="space-y-2 text-sm text-foreground font-semibold">
+                              {(featuredCase.decisions || []).slice(0, 3).map((decision) => (
+                                <li key={decision} className="flex gap-2 leading-relaxed">
+                                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                                  <span>{decision}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="flex flex-wrap gap-3">
+                            {featuredCase.links?.demo && (
+                              <a
+                                href={featuredCase.links.demo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors"
+                              >
+                                Live Demo
+                              </a>
+                            )}
+                            {featuredCase.links?.github && (
+                              <a
+                                href={featuredCase.links.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-semibold shadow-lg hover:bg-secondary/90 transition-colors"
+                              >
+                                GitHub
+                              </a>
+                            )}
+                            {featuredCase.links?.caseStudy && (
+                              <a
+                                href={featuredCase.links.caseStudy}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-sm font-semibold shadow-lg shadow-black/20 hover:brightness-95 transition-colors"
+                              >
+                                Case Study
+                              </a>
+                            )}
                           </div>
                         </div>
-                        <div>
-                          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Problem</p>
-                          <p className="text-foreground leading-relaxed">{featuredCase.problem}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Technical decisions</p>
-                          <ul className="space-y-2 text-sm text-foreground">
-                            {(featuredCase.decisions || []).slice(0, 3).map((decision) => (
-                              <li key={decision} className="flex gap-2 leading-relaxed">
-                                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                                <span className="text-muted-foreground">{decision}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Outcomes</p>
-                          <ul className="space-y-2 text-sm text-foreground">
-                            {outcomes.map((outcome) => (
-                              <li key={outcome} className="flex gap-2 leading-relaxed">
-                                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                                <span className="text-muted-foreground">{outcome}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div className="flex flex-wrap gap-3">
-                          {featuredCase.links?.demo && (
-                            <a
-                              href={featuredCase.links.demo}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
-                            >
-                              Live Demo
-                            </a>
-                          )}
-                          {featuredCase.links?.github && (
-                            <a
-                              href={featuredCase.links.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-semibold hover:bg-secondary/90 transition-colors"
-                            >
-                              GitHub
-                            </a>
-                          )}
-                          {featuredCase.links?.caseStudy && (
-                            <a
-                              href={featuredCase.links.caseStudy}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card text-foreground border border-border/70 text-sm font-semibold hover:border-primary/60 transition-colors"
-                            >
-                              Case Study
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                      <div className="relative mt-8">
-                        <div className="overflow-hidden rounded-2xl border border-border/60 shadow-lg bg-muted flex items-center justify-center h-[360px] md:h-[440px] lg:h-[500px]">
-                          <img
-                            src={featuredCase.photo || "https://i.imgur.com/vJnpwps.png"}
-                            alt={title}
-                            className="w-full h-full object-cover cursor-zoom-in"
-                            style={{ objectPosition: "center" }}
-                            onClick={() =>
-                              setFeaturedModal({
-                                src: featuredCase.photo || "https://i.imgur.com/vJnpwps.png",
-                                title,
-                              })
-                            }
-                          />
+                        <div className="relative mt-8 lg:mt-0">
+                          <div className="absolute -inset-6 lg:-inset-8 bg-gradient-to-br from-primary/15 via-accent/10 to-primary/10 blur-3xl opacity-70" />
+                          <div className="relative overflow-hidden rounded-3xl border border-border/60 shadow-2xl bg-muted/60 flex items-center justify-center h-[380px] md:h-[460px] lg:h-[520px]">
+                            <img
+                              src={featuredCase.photo || "https://i.imgur.com/vJnpwps.png"}
+                              alt={title}
+                              className="w-full h-full object-cover object-center cursor-zoom-in"
+                              style={{ objectPosition: "center" }}
+                              onClick={() =>
+                                setFeaturedModal({
+                                  src: featuredCase.photo || "https://i.imgur.com/vJnpwps.png",
+                                  title,
+                                })
+                              }
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -727,86 +743,94 @@ export default function Portfolio() {
       )}
 
       {/* Professional Journey Section */}
-      <section id="experience" className="py-24">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-10">
+      <section id="experience" className="relative overflow-hidden py-24">
+        {theme === "light" && (
+          <>
+            <div className="sky-bg z-0" />
+            <div className="sky-sun sky-sun--sm" />
+            <div className="clouds z-0">
+              <div className="cloud cloud--lg" style={{ top: "18%", left: "-25%", animationDelay: "0s" }} />
+              <div className="cloud cloud--sm" style={{ top: "60%", left: "62%", animationDelay: "8s" }} />
+            </div>
+          </>
+        )}
+        <div className="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-10">
           <SectionHeader 
             title="Experience" 
             subtitle="Impact snapshots from recent roles."
           />
-          
-          {/* Mobile: stacked */}
-          <div className="space-y-8 md:hidden">
-            {experiences?.map((exp, index) => (
-              <ExperienceItem key={exp.id} experience={exp} index={index} />
-            ))}
-          </div>
-
-          {/* Desktop: pairs across the width with a winding center line */}
-          <div className="hidden md:flex md:flex-col md:gap-16">
-            {experiencePairs.map((row, rowIdx) => (
-              <div key={rowIdx} className="relative grid grid-cols-[minmax(0,1fr),48px,minmax(0,1fr)] gap-16 items-start">
-                <div className="col-start-2 relative flex justify-center">
-                  <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-border/50" />
-                  <div className="absolute left-1/2 -translate-x-1/2 top-6">
-                    <div className="w-4 h-4 rounded-full bg-accent ring-4 ring-background" />
-                  </div>
-                </div>
-                <div className="col-start-1 relative">
-                  {row[0] && (
-                    <>
-                      <div className="absolute right-[-20px] top-12 h-[2px] w-20 bg-border/50" />
-                      <div className="absolute right-[-26px] top-[42px] w-3 h-3 rounded-full bg-accent ring-4 ring-background" />
-                      <ExperienceItem experience={row[0]} index={rowIdx * 2} />
-                    </>
-                  )}
-                </div>
-                <div className="col-start-3 relative">
-                  {row[1] && (
-                    <>
-                      <div className="absolute left-[-20px] top-12 h-[2px] w-20 bg-border/50" />
-                      <div className="absolute left-[-26px] top-[42px] w-3 h-3 rounded-full bg-accent ring-4 ring-background" />
-                      <ExperienceItem experience={row[1]} index={rowIdx * 2 + 1} />
-                    </>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          {hasExperiences ? (
+            <Carousel opts={{ align: "start", loop: (experiences?.length || 0) > 1 }} className="mt-8">
+              <CarouselContent>
+                {experiences?.map((exp, index) => (
+                  <CarouselItem key={exp.id} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="h-full">
+                      <ExperienceItem experience={exp} index={index} />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="bg-background/80 backdrop-blur" />
+              <CarouselNext className="bg-background/80 backdrop-blur" />
+            </Carousel>
+          ) : (
+            <p className="text-muted-foreground mt-6">Experience coming soon.</p>
+          )}
 
           <div className="mt-20">
             <h3 className="text-2xl font-bold font-display mb-8">Education</h3>
             <div className="grid gap-6">
-              {education?.map((edu, index) => (
-                <motion.div 
-                  key={edu.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-card p-6 rounded-xl border border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-                >
-                  <div>
-                    <h4 className="text-lg font-bold font-display">{edu.school}</h4>
-                    <p className="text-primary font-medium">{edu.degree}, {edu.field}</p>
-                  </div>
-                  <div className="text-sm text-muted-foreground bg-secondary px-3 py-1 rounded-full w-fit">
-                    {edu.school === "University of Toronto"
-                      ? `${edu.startDate?.split("-")[0] || edu.startDate} - ${edu.endDate?.split("-")[0] || "Present"}`
-                      : edu.startDate?.split("-")[0] || edu.startDate}
-                  </div>
-                </motion.div>
-              ))}
+              {education?.map((edu, index) => {
+                const eduIcons = [GraduationCap, BookOpen, Sparkles];
+                const Icon = eduIcons[index % eduIcons.length];
+                return (
+                  <motion.div 
+                    key={edu.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/12 via-background to-accent/10 p-6 shadow-lg shadow-primary/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
+                    <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+                    <div className="flex items-start gap-3">
+                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/70 dark:bg-black/20 text-primary shadow">
+                        <Icon className="w-5 h-5" />
+                      </span>
+                      <div>
+                        <h4 className="text-lg font-bold font-display leading-tight">{edu.school}</h4>
+                        <p className="text-primary font-semibold">{edu.degree}, {edu.field}</p>
+                      </div>
+                    </div>
+                    <div className="text-xs uppercase tracking-wide text-foreground bg-secondary px-3 py-2 rounded-full w-fit font-semibold shadow-sm">
+                      {edu.school === "University of Toronto"
+                        ? `${edu.startDate?.split("-")[0] || edu.startDate} - ${edu.endDate?.split("-")[0] || "Present"}`
+                        : edu.startDate?.split("-")[0] || edu.startDate}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="skills" className="relative overflow-hidden py-20">
+        {theme === "light" && (
+          <>
+            <div className="sky-bg z-0" />
+            <div className="sky-sun sky-sun--sm" />
+            <div className="clouds z-0">
+              <div className="cloud cloud--sm" style={{ top: "12%", left: "-28%", animationDelay: "1s" }} />
+              <div className="cloud cloud--lg" style={{ top: "58%", left: "60%", animationDelay: "9s" }} />
+            </div>
+          </>
+        )}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
             title="Technical Skills" 
-            subtitle="Signals I lean on: strong foundations, reliable delivery, and systems that hold up."
+            subtitle="Signals I lean on: foundations, reliability, and systems that hold up."
             centered 
           />
           
@@ -831,15 +855,18 @@ export default function Portfolio() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="bg-card rounded-xl p-6 border border-border/50 shadow-sm"
+                  className="relative overflow-hidden rounded-2xl p-6 border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/8 shadow-lg shadow-primary/10 hover:-translate-y-1 hover:shadow-primary/25 transition-all duration-300"
                 >
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
+                    <div className="p-3 bg-white/70 dark:bg-black/20 rounded-lg shadow-sm">
                       {icons[category as keyof typeof icons] || <Code2 className="w-6 h-6 text-primary" />}
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-muted-foreground">{categoryLabels[category] || "Toolkit"}</p>
-                      <h3 className="text-lg font-bold font-display capitalize">{category}</h3>
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold">
+                        {categoryLabels[category] || "Toolkit"}
+                      </p>
+                      <h3 className="text-xl font-extrabold font-display capitalize text-foreground leading-tight">{category}</h3>
                     </div>
                   </div>
                   
@@ -847,14 +874,9 @@ export default function Portfolio() {
                     {categorySkills.map(skill => (
                       <span 
                         key={skill.name}
-                        className="px-3 py-2 bg-secondary text-secondary-foreground rounded-lg text-sm font-medium inline-flex items-center gap-2"
+                        className="px-3 py-2 bg-secondary text-secondary-foreground rounded-lg text-sm font-semibold inline-flex items-center gap-2 shadow-sm"
                       >
                         {skill.name}
-                        {skill.level && (
-                          <span className={`text-[11px] px-2 py-0.5 rounded-full ${levelStyles[skill.level]}`}>
-                            {skill.level === "strong" ? "Strong" : skill.level === "working" ? "Working" : "Familiar"}
-                          </span>
-                        )}
                       </span>
                     ))}
                   </div>
@@ -866,28 +888,42 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="about" className="relative overflow-hidden py-16">
+        {theme === "light" && (
+          <>
+            <div className="sky-bg z-0" />
+            <div className="sky-sun sky-sun--sm" />
+            <div className="sun-rays sun-rays--sm" />
+            <div className="clouds z-0">
+              <div className="cloud cloud--lg" style={{ top: "20%", left: "-22%", animationDelay: "0s" }} />
+              <div className="cloud cloud--sm" style={{ top: "64%", left: "62%", animationDelay: "6s" }} />
+            </div>
+          </>
+        )}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="section-glow" />
           <SectionHeader 
             title="About" 
             subtitle="Evidence over hype—what I build and how I approach it."
           />
 
           <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 bg-card rounded-2xl border border-border/60 p-8 shadow-sm">
-              <ul className="space-y-3">
+            <div className="lg:col-span-2 relative overflow-hidden rounded-3xl border border-border/60 p-8 shadow-lg shadow-primary/10 bg-gradient-to-br from-primary/8 via-background to-accent/8">
+              <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+              <ul className="space-y-4">
                 {aboutLines.map((line) => (
-                  <li key={line} className="flex gap-3 leading-relaxed text-muted-foreground">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                    <span>{line}</span>
+                  <li key={line} className="flex gap-4 leading-relaxed text-foreground">
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-primary flex-shrink-0 shadow-sm" />
+                    <span className="text-lg font-semibold">{line}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div className="space-y-4">
-              <div className="bg-card rounded-2xl border border-border/60 p-6">
-                <h3 className="text-lg font-semibold font-display mb-4">Proof / Links</h3>
+              <div className="relative overflow-hidden rounded-2xl border border-border/60 p-6 bg-gradient-to-br from-primary/10 via-background to-accent/10 shadow-lg shadow-primary/10">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+                <h3 className="text-lg font-extrabold font-display mb-4">Proof / Links</h3>
                 <div className="space-y-3">
                   {proofLinks.map((link) => {
                     const Icon = link.icon;
@@ -914,87 +950,109 @@ export default function Portfolio() {
       </section>
 
       {/* How I Work */}
-      <section id="how-i-work" className="py-16 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="how-i-work" className="relative overflow-hidden py-16 bg-muted/30">
+        {theme === "light" && (
+          <>
+            <div className="sky-bg z-0" />
+            <div className="sky-sun sky-sun--sm" />
+            <div className="clouds z-0">
+              <div className="cloud cloud--sm" style={{ top: "10%", left: "-26%", animationDelay: "2s" }} />
+              <div className="cloud cloud--lg" style={{ top: "50%", left: "60%", animationDelay: "12s" }} />
+            </div>
+          </>
+        )}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
             title="How I Work" 
             subtitle="Signals that I deliver without slowing teams down."
             centered
           />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {howIWork.map((item) => (
-              <div key={item} className="bg-card rounded-xl border border-border/60 p-6 shadow-sm">
-                <p className="text-foreground font-semibold leading-relaxed">{item}</p>
-              </div>
-            ))}
+            {howIWork.map((item, idx) => {
+              const workIcons = [ShieldCheck, PenTool, Target, Bolt, Sparkles, Code2];
+              const Icon = workIcons[idx % workIcons.length];
+              return (
+                <div 
+                  key={item} 
+                  className="relative overflow-hidden rounded-2xl border border-border/60 p-6 bg-gradient-to-br from-primary/10 via-background to-accent/12 shadow-lg shadow-primary/10 hover:-translate-y-1 hover:shadow-primary/25 transition-all duration-300"
+                >
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+                  <div className="flex items-start gap-3">
+                    <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-white/70 dark:bg-black/20 text-primary shadow-sm">
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <p className="text-foreground font-semibold leading-relaxed">{item}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div>
+      <section id="contact" className="relative overflow-hidden py-16">
+        {theme === "light" && (
+          <>
+            <div className="sky-bg z-0" />
+            <div className="sky-sun sky-sun--sm" />
+            <div className="clouds z-0">
+              <div className="cloud cloud--lg" style={{ top: "16%", left: "-24%", animationDelay: "0s" }} />
+              <div className="cloud cloud--sm" style={{ top: "62%", left: "62%", animationDelay: "7s" }} />
+            </div>
+          </>
+        )}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-10 items-start">
+            <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-primary/12 via-background to-accent/10 p-8 shadow-xl shadow-primary/15">
+              <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-90" />
               <SectionHeader 
                 title="Let's Work Together" 
-                subtitle="Email or LinkedIn is fastest; the form routes straight to my inbox."
+                subtitle="Fastest via email or LinkedIn — quick intros welcome."
               />
-              
-              <div className="space-y-8 mt-8">
-                <div className="flex items-start gap-4">
-                  <div className="p-4 bg-primary/10 rounded-xl text-primary">
-                    <Mail className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-bold font-display mb-1">Email Me</h4>
-                    <p className="text-muted-foreground mb-2">Best for detailed notes or links—I'll reply with next steps.</p>
-                    <a href={`mailto:${profileData.email}`} className="text-primary font-medium hover:underline">
-                      {profileData.email}
+
+              <div className="mt-8 grid gap-6 md:grid-cols-[1.2fr,0.8fr] items-center">
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a 
+                      href={`mailto:${profileData.email}`} 
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors"
+                    >
+                      <Mail className="w-5 h-5" /> Email
                     </a>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="p-4 bg-primary/10 rounded-xl text-primary">
-                    <Linkedin className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-bold font-display mb-1">Connect on LinkedIn</h4>
-                    <p className="text-muted-foreground mb-2">Quick intros and updates—mention the role you have in mind.</p>
                     <a 
                       href={profileData.linkedinUrl || "#"} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-primary font-medium hover:underline"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-secondary text-secondary-foreground font-semibold shadow-lg hover:bg-secondary/90 transition-colors"
                     >
-                      View Profile
+                      <Linkedin className="w-5 h-5" /> LinkedIn
                     </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="p-4 bg-primary/10 rounded-xl text-primary">
-                    <SquareStack className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-bold font-display mb-1">Other Projects</h4>
-                    <p className="text-muted-foreground mb-2">View of my other projects.</p>
+                    <a 
+                      href={profileData.githubUrl || "#"} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-background font-semibold shadow-lg shadow-black/20 hover:brightness-95 transition-colors"
+                    >
+                      <Github className="w-5 h-5" /> GitHub
+                    </a>
                     <a 
                       href="https://projects.zubairmuwwakil.com" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-primary font-medium hover:underline"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-accent text-white font-semibold shadow-lg hover:bg-accent/90 transition-colors"
                     >
-                      View Projects
+                      <SquareStack className="w-5 h-5" /> Projects
                     </a>
                   </div>
+                  <p className="text-sm text-muted-foreground">Prefer email for detailed notes or links. Quick pings on LinkedIn are welcome.</p>
+                </div>
+                <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-white/70 dark:bg-black/20 p-5 shadow-lg shadow-primary/10 -mt-6 md:-mt-8 lg:-mt-10">
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+                  <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-2">Availability</p>
+                  <p className="text-lg font-extrabold text-foreground leading-snug">Backend / Full-Stack roles · US remote · New York City · Toronto, ON · Open to contract or full-time.</p>
                 </div>
               </div>
-            </div>
-            
-            <div className="lg:pt-8">
-              <ContactForm />
             </div>
           </div>
         </div>
