@@ -17,7 +17,7 @@ export function SectionHeader({ title, subtitle, centered = false }: SectionHead
     >
       <h2 className="text-3xl md:text-4xl font-bold font-display tracking-tight text-foreground mb-4 relative inline-block">
         {title}
-        <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary rounded-full"></span>
+        <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full blur-[0.5px]"></span>
       </h2>
       {subtitle && (
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-4 leading-relaxed">

@@ -347,9 +347,13 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen ${theme === "dark" ? "page-dark" : "page-light"}`}>
       {/* Navigation - updated to match provided HTML/CSS */}
-      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/80 backdrop-blur-md shadow-sm border-b">
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          theme === "dark" ? "nav-surface-dark" : "nav-surface-light"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             <a href="/" className="flex items-center space-x-2 group cursor-pointer">
@@ -469,14 +473,25 @@ export default function Portfolio() {
         </div>
       )}
 
-      {/* Hero Section - new style from user HTML */}
-      <section className="relative min-h-[70vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20 overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+      {/* Hero Section */}
+      <section
+        className={`relative min-h-[75vh] flex items-center pt-24 pb-20 md:pt-28 md:pb-24 overflow-hidden ${
+          theme === "dark" ? "hero-dark" : "hero-light"
+        }`}
+      >
+        <div
+          className={`absolute inset-0 opacity-40 ${
+            theme === "dark"
+              ? "bg-[radial-gradient(circle_at_20%_20%,rgba(135,92,255,0.35),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(0,196,255,0.28),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(255,102,178,0.18),transparent_30%)]"
+              : "bg-[radial-gradient(circle_at_20%_20%,rgba(135,92,255,0.15),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(0,156,255,0.15),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(255,102,178,0.1),transparent_30%)]"
+          }`}
+        ></div>
+        <div className="absolute top-0 right-0 -mr-24 -mt-24 w-[520px] h-[520px] bg-primary/15 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-[460px] h-[460px] bg-accent/15 rounded-full blur-3xl"></div>
         <div className="container-padding relative z-10 w-full flex justify-center">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-6xl w-full mx-auto">
-            <div className="space-y-5 md:space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
-              <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+            <div className="space-y-5 md:space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0 -mt-8 md:-mt-12">
+              <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.2] text-gradient">
                 {heroRoleLine}
               </h1>
               <p className="text-lg md:text-xl text-foreground leading-snug">
@@ -546,7 +561,7 @@ export default function Portfolio() {
             {proofBarItems.map((item) => (
               <div
                 key={item}
-                className="bg-card border border-border/60 rounded-xl px-5 py-4 shadow-sm text-sm font-semibold text-foreground"
+                className="glass-card rounded-xl px-5 py-5 text-sm font-semibold text-foreground shadow-lg shadow-primary/10 border border-white/10"
               >
                 {item}
               </div>
@@ -731,16 +746,28 @@ export default function Portfolio() {
             {experiencePairs.map((row, rowIdx) => (
               <div key={rowIdx} className="relative grid grid-cols-[minmax(0,1fr),48px,minmax(0,1fr)] gap-16 items-start">
                 <div className="col-start-2 relative flex justify-center">
-                  <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 border-l-2 border-dashed border-border" />
+                  <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-border/50" />
                   <div className="absolute left-1/2 -translate-x-1/2 top-6">
-                    <div className="w-4 h-4 rounded-full bg-primary ring-4 ring-background" />
+                    <div className="w-4 h-4 rounded-full bg-accent ring-4 ring-background" />
                   </div>
                 </div>
-                <div className="col-start-1">
-                  {row[0] && <ExperienceItem experience={row[0]} index={rowIdx * 2} />}
+                <div className="col-start-1 relative">
+                  {row[0] && (
+                    <>
+                      <div className="absolute right-[-20px] top-12 h-[2px] w-20 bg-border/50" />
+                      <div className="absolute right-[-26px] top-[42px] w-3 h-3 rounded-full bg-accent ring-4 ring-background" />
+                      <ExperienceItem experience={row[0]} index={rowIdx * 2} />
+                    </>
+                  )}
                 </div>
-                <div className="col-start-3">
-                  {row[1] && <ExperienceItem experience={row[1]} index={rowIdx * 2 + 1} />}
+                <div className="col-start-3 relative">
+                  {row[1] && (
+                    <>
+                      <div className="absolute left-[-20px] top-12 h-[2px] w-20 bg-border/50" />
+                      <div className="absolute left-[-26px] top-[42px] w-3 h-3 rounded-full bg-accent ring-4 ring-background" />
+                      <ExperienceItem experience={row[1]} index={rowIdx * 2 + 1} />
+                    </>
+                  )}
                 </div>
               </div>
             ))}
