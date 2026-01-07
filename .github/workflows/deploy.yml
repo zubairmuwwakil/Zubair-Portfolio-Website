@@ -42,7 +42,12 @@ jobs:
           fi
 
       - name: Build
-        run: npm run build -- --base="$BASE_PATH"
+        run: |
+          if [ "$BASE_PATH" = "/" ]; then
+            npm run build:ssg
+          else
+            npm run build -- --base="$BASE_PATH"
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
