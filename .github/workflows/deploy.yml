@@ -30,8 +30,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Determine base path
+        run: |
+          if [ -f CNAME ]; then
+            echo "BASE_PATH=/" >> "$GITHUB_ENV"
+          elif [[ "${GITHUB_REPOSITORY#*/}" == *.github.io ]]; then
+            echo "BASE_PATH=/" >> "$GITHUB_ENV"
+          else
+            repo_name="${GITHUB_REPOSITORY#*/}"
+            echo "BASE_PATH=/${repo_name}/" >> "$GITHUB_ENV"
+          fi
+
       - name: Build
-        run: npm run build
+        run: npm run build -- --base="$BASE_PATH"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

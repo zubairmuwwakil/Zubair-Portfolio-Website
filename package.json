@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite dev --config vite.config.ts",
     "build": "vite build --config vite.config.ts",
+    "build:gh": "npm run build -- --base=/Zubair-Portfolio-Website/",
+    "build:domain": "npm run build -- --base=/",
     "postbuild": "node script/copy-404.js",
     "start": "vite preview --config vite.config.ts",
     "check": "tsc",
