@@ -11,9 +11,17 @@ import {
   Layout,
   Server,
   Menu,
-  X
+  X,
+  SquareStack,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { SectionHeader } from "@/components/SectionHeader";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ExperienceItem } from "@/components/ExperienceItem";
@@ -135,15 +143,36 @@ export default function Portfolio() {
   };
 
   const aboutLines = [
-    "I ship backend-heavy systems, web apps, and data pipelines with Java/Spring Boot, TypeScript/Node, React, and SQL.",
-    "I care about correctness, maintainability, and data integrity—typed contracts, schema migrations, CI/CD, and observability basics.",
-    "Built Pickleball Session Manager: scheduling, balancing, and rating logic with Prisma migrations and a pairing algorithm tuned for fair play.",
-    "Built a Market Data Pipeline that normalizes indicators, caches responses, and exposes fast APIs for downstream dashboards.",
-    "Delivered client web apps and automation as a full-stack developer; I keep UX fast while the backend stays predictable.",
-    "Looking for backend or full-stack SWE roles on teams that value reliable, measurable releases.",
+    "Backend-leaning SWE: APIs, data pipelines, internal tools.",
+    "Reliability first: schemas, migrations, idempotency, CI/CD.",
+    "Finance background → correctness and auditability mindset.",
+    "Shipped multiple real systems (not tutorials).",
+    "Targeting backend / full-stack SWE roles (remote US).",
   ];
 
-  const lookingForLine = "Backend / Full-Stack SWE roles • Java/Spring Boot or TS/Node • Remote US";
+  const proofBarItems = [
+    "3+ yrs building production automation & apps",
+    "4 end-to-end systems (auth, DB, APIs, background jobs)",
+    "$25k+/yr impact from automation & data tooling",
+  ];
+
+  const howIWork = [
+    "PR-first workflow with small, reviewable changes.",
+    "Tests where they pay off; fast feedback over brittle suites.",
+    "Schema migrations over manual DB edits; reversible rollouts.",
+    "Idempotent jobs and predictable APIs to avoid surprises.",
+    "Typed contracts and clear handoffs to keep teams unblocked.",
+  ];
+
+  const heroRoleLine = "Backend / Full-Stack Software Engineer";
+  const heroFocusLine = "I build reliable APIs, data pipelines, and production web apps.";
+  const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · US Remote (US Citizen)";
+  const featuredProjectTitles = [
+    "Market Data Pipeline",
+    "Pickleball Session Manager",
+    "Return Reminder & Tracking SaaS",
+    "MindSky Website",
+  ];
 
   const proofLinks = [
     { label: "Resume PDF", href: profileData.resumeUrl, icon: FileText },
@@ -155,12 +184,14 @@ export default function Portfolio() {
     problem: string;
     built: string;
     decisions: string[];
-    impact: string;
+    impact: string | string[];
     links?: {
       demo?: string;
       github?: string;
       caseStudy?: string;
     };
+    photo?: string;
+    stack?: string[];
   };
 
   const projectCaseStudies: Record<string, CaseStudy> = {
@@ -186,12 +217,14 @@ export default function Portfolio() {
       problem: "Needed reliable, de-duplicated market indicators for dashboards without hammering upstream APIs.",
       built: "Backend pipeline that ingests price/indicator feeds, normalizes them into Postgres, and serves typed REST endpoints.",
       decisions: [
-        "Idempotent ingest jobs with upserts keyed by symbol/date to prevent duplicate rows across retries.",
-        "Caching hot indicator queries to cut API calls and keep dashboard latency predictable.",
-        "Normalized indicator tables with indexes by symbol/timeframe for fast slices and joins.",
-        "Contract-tested REST endpoints with sample payloads to keep downstream teams unblocked.",
+        "Idempotent ingest jobs with upserts keyed by symbol/date to stop duplicate rows across retries.",
+        "Cached hot indicator queries to cut upstream calls and keep dashboard latency predictable.",
+        "Normalized indicator tables + contract-tested REST endpoints for fast, typed slices.",
       ],
-      impact: "Consistent indicator data, faster dashboards, and predictable costs when third-party APIs rate-limit.",
+      impact: [
+        "Consistent indicator data and faster dashboards under rate limits.",
+        "Predictable costs by reducing upstream API churn.",
+      ],
       links: {
         demo: "https://marketdata.zubairmuwwakil.com",
         github: "https://github.com/ZthEchelon/market-data-pipeline",
@@ -278,6 +311,30 @@ export default function Portfolio() {
     }
   };
 
+  const projectByTitle = new Map((projects || []).map((p) => [p.title, p]));
+  const [featuredModal, setFeaturedModal] = useState<{ src: string; title: string } | null>(null);
+  const otherProjectsList = (orderedProjects || []).map((project) => {
+    const caseStudy = projectCaseStudies[project.title];
+    const link =
+      caseStudy?.links?.demo ||
+      caseStudy?.links?.github ||
+      project.link ||
+      project.githubLink ||
+      caseStudy?.links?.caseStudy;
+    return {
+      title: project.title,
+      blurb: caseStudy?.built || project.description,
+      link,
+    };
+  });
+  const experiencePairs =
+    experiences?.reduce<Experience[][]>((pairs, _, idx, arr) => {
+      if (idx % 2 === 0) {
+        pairs.push(arr.slice(idx, idx + 2));
+      }
+      return pairs;
+    }, []) || [];
+
   if (!profile && !projects && !experiences) {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-background">
@@ -302,9 +359,10 @@ export default function Portfolio() {
               <span className="font-serif font-bold text-xl tracking-tight">Zubair Muwwakil</span>
             </a>
             <div className="hidden md:flex items-center space-x-8">
+              <a href="#featured" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Featured</a>
+              <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Experience</a>
+              <a href="#skills" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Skills</a>
               <a href="#about" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">About</a>
-              <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Professional Journey</a>
-              <a href="#projects" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Projects</a>
               <a href="#contact" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
               <button
                 onClick={toggleTheme}
@@ -355,24 +413,31 @@ export default function Portfolio() {
               <div className="grid gap-3 text-lg font-semibold">
                 <button
                   type="button"
-                  onClick={() => scrollToSection("about")}
+                  onClick={() => scrollToSection("featured")}
                   className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
                 >
-                  About
+                  Featured
                 </button>
                 <button
                   type="button"
                   onClick={() => scrollToSection("experience")}
                   className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
                 >
-                  Professional Journey
+                  Experience
                 </button>
                 <button
                   type="button"
-                  onClick={() => scrollToSection("projects")}
+                  onClick={() => scrollToSection("skills")}
                   className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
                 >
-                  Projects
+                  Skills
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("about")}
+                  className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
+                >
+                  About
                 </button>
                 <button
                   type="button"
@@ -411,33 +476,26 @@ export default function Portfolio() {
         <div className="container-padding relative z-10 w-full flex justify-center">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-6xl w-full mx-auto">
             <div className="space-y-5 md:space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
-              <div className="mt-6 md:mt-8 mb-6 md:mb-8">
-                <div className="inline-flex items-center font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs px-4 py-1.5 text-xs sm:text-sm rounded-full border-primary/20 bg-primary/5 text-primary">
-                  Software Engineer (Full-Stack / Backend)
-                </div>
-              </div>
               <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-                Building reliable systems <br />and the products that use them
+                {heroRoleLine}
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed mx-auto lg:mx-0">
-                I ship web apps and data pipelines with a focus on reliability, data integrity, performance, and clean architecture. Finance background, SWE-first mindset: strong schemas, predictable APIs, and observability over vibes.
+              <p className="text-lg md:text-xl text-foreground leading-snug">
+                {heroFocusLine}
+              </p>
+              <p className="text-sm md:text-base text-muted-foreground font-semibold tracking-tight">
+                {heroStackLine}
               </p>
               <div className="flex flex-wrap gap-4 pt-2 justify-center lg:justify-start">
-                <a href="#projects" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
-                  View Projects
+                <a href="#featured" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
+                  View Featured Project
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-up-right w-4 h-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
                 </a>
-                <a href="https://drive.google.com/file/d/1Z87uMI6RrrPa9KeIhZChkpzl-YYZYgTr/view" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border [border-color:var(--button-outline)] shadow-xs active:shadow-none min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
-                  Resume (PDF)
+                <a href={profileData.resumeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border [border-color:var(--button-outline)] shadow-xs active:shadow-none min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
+                  Resume
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-text w-4 h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
                 </a>
               </div>
-              <div className="flex flex-wrap gap-3 pt-4 justify-center lg:justify-start">
-                <div className="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-xs sm:text-sm leading-snug">Java / Spring Boot • React • SQL • Docker</div>
-                <div className="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-xs sm:text-sm leading-snug">Built data pipelines + web apps</div>
-                <div className="inline-flex items-center border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border-transparent bg-secondary text-secondary-foreground rounded-full px-4 py-2 text-xs sm:text-sm leading-snug">Open to US remote (US citizen)</div>
-              </div>
-              <div className="flex gap-6 pt-4 text-muted-foreground justify-center lg:justify-start">
+              <div className="flex gap-6 pt-2 text-muted-foreground justify-center lg:justify-start">
                 <a href="https://github.com/ZthEchelon" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github w-6 h-6"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                 </a>
@@ -476,66 +534,248 @@ export default function Portfolio() {
           </div>
         </div>
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
+          <a href="#featured" className="text-muted-foreground hover:text-primary transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-down w-6 h-6"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
           </a>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-16">
+      <section className="py-10 border-y border-border/60 bg-muted/30">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-4">
+            {proofBarItems.map((item) => (
+              <div
+                key={item}
+                className="bg-card border border-border/60 rounded-xl px-5 py-4 shadow-sm text-sm font-semibold text-foreground"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Placeholder for reordered sections; About moved below */}
+
+      {/* Featured Projects */}
+      <section id="featured" className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title="About" 
-            subtitle="Evidence over hype—what I build, how I build it, and where I'm headed."
+            title="Featured Projects" 
+            subtitle="Flagship builds with clear decisions, outcomes, and proof."
           />
+          <Carousel opts={{ loop: true }}>
+            <CarouselContent>
+              {featuredProjectTitles.map((title) => {
+                const featuredCase = projectCaseStudies[title];
+                if (!featuredCase) return null;
+                const project = projectByTitle.get(title);
+                const stack = (featuredCase.stack || project?.stack || project?.tags || []).slice(0, 3);
+                const outcomes = (Array.isArray(featuredCase.impact)
+                  ? featuredCase.impact
+                  : featuredCase.impact
+                    ? featuredCase.impact
+                        .toString()
+                        .split("\n")
+                        .map((line) => line.trim())
+                        .filter(Boolean)
+                    : []
+                ).slice(0, 2);
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 bg-card rounded-2xl border border-border/60 p-8 shadow-sm">
-              <div className="grid gap-3">
-                {aboutLines.map((line) => (
-                  <p key={line} className="text-muted-foreground leading-relaxed">
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </div>
+                return (
+                  <CarouselItem key={title}>
+                    <div className="grid lg:grid-cols-2 gap-10 items-start">
+                      <div className="space-y-6">
+                        <div className="space-y-2">
+                          <div className="inline-flex items-center border px-3 py-1 rounded-full text-xs font-semibold bg-secondary text-secondary-foreground border-border/60 w-fit">
+                            Featured
+                          </div>
+                          <h3 className="text-2xl font-bold font-display">{title}</h3>
+                          <p className="text-muted-foreground">{featuredCase.built}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {stack.map((tech) => (
+                              <span key={tech} className="inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold border border-border/80 text-xs bg-card">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Problem</p>
+                          <p className="text-foreground leading-relaxed">{featuredCase.problem}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Technical decisions</p>
+                          <ul className="space-y-2 text-sm text-foreground">
+                            {(featuredCase.decisions || []).slice(0, 3).map((decision) => (
+                              <li key={decision} className="flex gap-2 leading-relaxed">
+                                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                                <span className="text-muted-foreground">{decision}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Outcomes</p>
+                          <ul className="space-y-2 text-sm text-foreground">
+                            {outcomes.map((outcome) => (
+                              <li key={outcome} className="flex gap-2 leading-relaxed">
+                                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                                <span className="text-muted-foreground">{outcome}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                          {featuredCase.links?.demo && (
+                            <a
+                              href={featuredCase.links.demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
+                            >
+                              Live Demo
+                            </a>
+                          )}
+                          {featuredCase.links?.github && (
+                            <a
+                              href={featuredCase.links.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-semibold hover:bg-secondary/90 transition-colors"
+                            >
+                              GitHub
+                            </a>
+                          )}
+                          {featuredCase.links?.caseStudy && (
+                            <a
+                              href={featuredCase.links.caseStudy}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card text-foreground border border-border/70 text-sm font-semibold hover:border-primary/60 transition-colors"
+                            >
+                              Case Study
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                      <div className="relative mt-8">
+                        <div className="overflow-hidden rounded-2xl border border-border/60 shadow-lg bg-muted flex items-center justify-center h-[360px] md:h-[440px] lg:h-[500px]">
+                          <img
+                            src={featuredCase.photo || "https://i.imgur.com/vJnpwps.png"}
+                            alt={title}
+                            className="w-full h-full object-cover cursor-zoom-in"
+                            style={{ objectPosition: "center" }}
+                            onClick={() =>
+                              setFeaturedModal({
+                                src: featuredCase.photo || "https://i.imgur.com/vJnpwps.png",
+                                title,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="bg-background/80 backdrop-blur" />
+            <CarouselNext className="bg-background/80 backdrop-blur" />
+          </Carousel>
+        </div>
+      </section>
 
-            <div className="space-y-4">
-              <div className="bg-card rounded-2xl border border-border/60 p-6">
-                <h3 className="text-lg font-semibold font-display mb-2">What I'm looking for</h3>
-                <p className="text-muted-foreground leading-relaxed">{lookingForLine}</p>
-              </div>
+      {featuredModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          onClick={() => setFeaturedModal(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-2 right-2 z-10 p-2 bg-white/80 hover:bg-white rounded-full shadow"
+              onClick={() => setFeaturedModal(null)}
+              aria-label="Close expanded image"
+            >
+              <X className="w-6 h-6 text-black" />
+            </button>
+            <img
+              src={featuredModal.src}
+              alt={featuredModal.title}
+              className="w-full h-auto max-h-[80vh] rounded-xl object-contain bg-white"
+            />
+          </div>
+        </div>
+      )}
 
-              <div className="bg-card rounded-2xl border border-border/60 p-6">
-                <h3 className="text-lg font-semibold font-display mb-4">Proof / Links</h3>
-                <div className="space-y-3">
-                  {proofLinks.map((link) => {
-                    const Icon = link.icon;
-                    return (
-                      <a 
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 text-foreground hover:text-primary transition-colors"
-                      >
-                        <span className="p-2 rounded-lg bg-secondary text-secondary-foreground">
-                          <Icon className="w-4 h-4" />
-                        </span>
-                        <span className="font-medium">{link.label}</span>
-                      </a>
-                    );
-                  })}
+      {/* Professional Journey Section */}
+      <section id="experience" className="py-24">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-10">
+          <SectionHeader 
+            title="Experience" 
+            subtitle="Impact snapshots from recent roles."
+          />
+          
+          {/* Mobile: stacked */}
+          <div className="space-y-8 md:hidden">
+            {experiences?.map((exp, index) => (
+              <ExperienceItem key={exp.id} experience={exp} index={index} />
+            ))}
+          </div>
+
+          {/* Desktop: pairs across the width with a winding center line */}
+          <div className="hidden md:flex md:flex-col md:gap-16">
+            {experiencePairs.map((row, rowIdx) => (
+              <div key={rowIdx} className="relative grid grid-cols-[minmax(0,1fr),48px,minmax(0,1fr)] gap-16 items-start">
+                <div className="col-start-2 relative flex justify-center">
+                  <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 border-l-2 border-dashed border-border" />
+                  <div className="absolute left-1/2 -translate-x-1/2 top-6">
+                    <div className="w-4 h-4 rounded-full bg-primary ring-4 ring-background" />
+                  </div>
+                </div>
+                <div className="col-start-1">
+                  {row[0] && <ExperienceItem experience={row[0]} index={rowIdx * 2} />}
+                </div>
+                <div className="col-start-3">
+                  {row[1] && <ExperienceItem experience={row[1]} index={rowIdx * 2 + 1} />}
                 </div>
               </div>
+            ))}
+          </div>
+
+          <div className="mt-20">
+            <h3 className="text-2xl font-bold font-display mb-8">Education</h3>
+            <div className="grid gap-6">
+              {education?.map((edu, index) => (
+                <motion.div 
+                  key={edu.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-card p-6 rounded-xl border border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                >
+                  <div>
+                    <h4 className="text-lg font-bold font-display">{edu.school}</h4>
+                    <p className="text-primary font-medium">{edu.degree}, {edu.field}</p>
+                  </div>
+                  <div className="text-sm text-muted-foreground bg-secondary px-3 py-1 rounded-full w-fit">
+                    {edu.school === "University of Toronto"
+                      ? `${edu.startDate?.split("-")[0] || edu.startDate} - ${edu.endDate?.split("-")[0] || "Present"}`
+                      : edu.startDate?.split("-")[0] || edu.startDate}
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 bg-muted/30">
+      <section id="skills" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
             title="Technical Skills" 
@@ -598,80 +838,68 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Professional Journey Section */}
-      <section id="experience" className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* About Section */}
+      <section id="about" className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title="Professional Journey" 
-            subtitle="Impact snapshots from recent roles."
+            title="About" 
+            subtitle="Evidence over hype—what I build and how I approach it."
           />
-          
-          <div className="space-y-12">
-            {experiences?.map((exp, index) => (
-              <ExperienceItem key={exp.id} experience={exp} index={index} />
-            ))}
-          </div>
 
-          <div className="mt-20">
-            <h3 className="text-2xl font-bold font-display mb-8">Education</h3>
-            <div className="grid gap-6">
-              {education?.map((edu, index) => (
-                <motion.div 
-                  key={edu.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-card p-6 rounded-xl border border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-                >
-                  <div>
-                    <h4 className="text-lg font-bold font-display">{edu.school}</h4>
-                    <p className="text-primary font-medium">{edu.degree}, {edu.field}</p>
-                  </div>
-                  <div className="text-sm text-muted-foreground bg-secondary px-3 py-1 rounded-full w-fit">
-                    {edu.school === "University of Toronto"
-                      ? `${edu.startDate?.split("-")[0] || edu.startDate} - ${edu.endDate?.split("-")[0] || "Present"}`
-                      : edu.startDate?.split("-")[0] || edu.startDate}
-                  </div>
-                </motion.div>
-              ))}
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 bg-card rounded-2xl border border-border/60 p-8 shadow-sm">
+              <ul className="space-y-3">
+                {aboutLines.map((line) => (
+                  <li key={line} className="flex gap-3 leading-relaxed text-muted-foreground">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <div className="bg-card rounded-2xl border border-border/60 p-6">
+                <h3 className="text-lg font-semibold font-display mb-4">Proof / Links</h3>
+                <div className="space-y-3">
+                  {proofLinks.map((link) => {
+                    const Icon = link.icon;
+                    return (
+                      <a 
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 text-foreground hover:text-primary transition-colors"
+                      >
+                        <span className="p-2 rounded-lg bg-secondary text-secondary-foreground">
+                          <Icon className="w-4 h-4" />
+                        </span>
+                        <span className="font-medium">{link.label}</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 bg-muted/30">
+      {/* How I Work */}
+      <section id="how-i-work" className="py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title="Case Studies" 
-            subtitle="What I built, why I built it that way, and how it performs."
+            title="How I Work" 
+            subtitle="Signals that I deliver without slowing teams down."
             centered
           />
-          {/* Render all project cards from orderedProjects, and always include Return Reminder & Tracking SaaS */}
-          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
-            {orderedProjects.map((project, index) => (
-              <ProjectCard 
-                key={project.id} 
-                project={project} 
-                caseStudy={projectCaseStudies[project.title]} 
-                index={index} 
-              />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {howIWork.map((item) => (
+              <div key={item} className="bg-card rounded-xl border border-border/60 p-6 shadow-sm">
+                <p className="text-foreground font-semibold leading-relaxed">{item}</p>
+              </div>
             ))}
-            {/* Always show Return Reminder & Tracking SaaS if not already in the list */}
-            {!orderedProjects.some(p => p.title === "Return Reminder & Tracking SaaS") && (
-              <ProjectCard 
-                key="return-reminder-tracking-saas"
-                project={{
-                  id: "return-reminder-tracking-saas",
-                  title: "Return Reminder & Tracking SaaS",
-                  description: projectCaseStudies["Return Reminder & Tracking SaaS"].problem,
-                  stack: projectCaseStudies["Return Reminder & Tracking SaaS"].stack,
-                }}
-                caseStudy={projectCaseStudies["Return Reminder & Tracking SaaS"]}
-                index={orderedProjects.length}
-              />
-            )}
           </div>
         </div>
       </section>
@@ -714,6 +942,24 @@ export default function Portfolio() {
                       className="text-primary font-medium hover:underline"
                     >
                       View Profile
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="p-4 bg-primary/10 rounded-xl text-primary">
+                    <SquareStack className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold font-display mb-1">Other Projects</h4>
+                    <p className="text-muted-foreground mb-2">View of my other projects.</p>
+                    <a 
+                      href="https://projects.zubairmuwwakil.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary font-medium hover:underline"
+                    >
+                      View Projects
                     </a>
                   </div>
                 </div>

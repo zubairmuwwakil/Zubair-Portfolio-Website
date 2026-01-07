@@ -7,12 +7,13 @@ type CaseStudy = {
   problem: string;
   built: string;
   decisions: string[];
-  impact: string;
+  impact: string | string[];
   links?: {
     demo?: string;
     github?: string;
     caseStudy?: string;
   };
+  photo?: string;
 };
 
 interface ProjectCardProps {
@@ -29,7 +30,12 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
     caseStudy: caseStudy?.links?.caseStudy ?? project.githubLink ?? project.link,
   };
 
-  const decisions = caseStudy?.decisions || [];
+  const decisions = (caseStudy?.decisions || []).slice(0, 3);
+  const impactItems = Array.isArray(caseStudy?.impact)
+    ? caseStudy?.impact
+    : caseStudy?.impact
+      ? [caseStudy.impact]
+      : [];
 
   return (
     <motion.div
@@ -53,12 +59,12 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
           <div className="flex flex-wrap gap-2">
             {/* Stack badges: prefer project.stack, fallback to project.tags */}
             {Array.isArray(project.stack) && project.stack.length > 0
-              ? project.stack.map((tech) => (
+              ? project.stack.slice(0, 3).map((tech) => (
                   <div key={tech} className="inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs text-xs break-words">
                     {tech}
                   </div>
                 ))
-              : project.tags?.map((tag) => (
+              : project.tags?.slice(0, 3).map((tag) => (
                   <div key={tag} className="inline-flex items-center rounded-md px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover-elevate border [border-color:var(--badge-outline)] shadow-xs text-xs break-words">
                     {tag}
                   </div>
@@ -168,10 +174,16 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
           </div>
         )}
 
-        {caseStudy?.impact && (
+        {impactItems.length > 0 && (
           <div className="bg-primary/5 border border-primary/10 rounded-xl p-3">
             <p className="text-xs uppercase tracking-wide text-primary mb-1">Result</p>
-            <p className="text-sm text-foreground leading-relaxed">{caseStudy.impact}</p>
+            <ul className="space-y-1 text-sm text-foreground">
+              {impactItems.map((item) => (
+                <li key={item} className="leading-relaxed">
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
         {/* Stack badges removed from bottom as requested */}

@@ -13,6 +13,7 @@ export type Experience = {
   id: number | string;
   company: string;
   role: string;
+  subtitle?: string;
   startDate: string;
   endDate?: string | null;
   description: string;
@@ -62,24 +63,26 @@ export const experiences: Experience[] = [
     id: 1,
     company: "G2i Inc.",
     role: "Software Engineer (Part-time)",
-    startDate: "Aug 2025",
-    endDate: "Present",
+    subtitle: "Python · SQL · GitHub · CI/CD",
+    startDate: "Jun 2023",
+    endDate: "May 2025",
     description: [
-      "Tech: Python, SQL, Git/GitHub, CI/CD; delivered scoped software tasks with correctness, maintainability, and clean handoff in mind.",
-      "Worked in a GitHub PR workflow with CI checks (branching, reviews, verification) to keep changes safe and releasable.",
-      "Built and validated SQL queries/transformations to support features, debugging, and data correctness checks.",
-      "Collaborated asynchronously in a remote setup, shipping incremental improvements with clear updates and documentation."
+      "Delivered scoped production features with emphasis on correctness, maintainability, and clean handoff.",
+      "Worked in a GitHub PR + CI workflow (branching, reviews, automated checks) to keep changes releasable.",
+      "Built and validated SQL queries/transformations supporting feature logic, debugging, and data integrity checks.",
+      "Collaborated asynchronously in a remote team, shipping incremental improvements with clear documentation."
     ].join("\n"),
   },
   {
     id: 2,
     company: "The Senac Group",
     role: "Financial Software Analyst",
-    startDate: "Jun 2023",
-    endDate: "May 2025",
+    subtitle: "Automation · SQL · Finance tooling",
+    startDate: "Mar 2023",
+    endDate: "Present",
     description: [
       "Tech: Excel, VBA, SQL, reporting pipelines, budgeting/forecast models, documentation/runbooks.",
-      "Built automated reporting pipelines (SQL → Excel/VBA output) removing 10+ hours/week of manual work and standardizing weekly deliverables.",
+      "Built automated reporting pipelines (SQL → automated outputs) removing 10+ hours/week of manual work and standardizing weekly deliverables.",
       "Created budgeting/variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.",
       "Produced scenario + cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks."
     ].join("\n"),
@@ -88,6 +91,7 @@ export const experiences: Experience[] = [
     id: 3,
     company: "Elevation Athletics",
     role: "Regional Program Coordinator",
+    subtitle: "Ops automation · APIs · Support workflows",
     startDate: "Mar 2023",
     endDate: "Present",
     description: [
@@ -101,6 +105,7 @@ export const experiences: Experience[] = [
     id: 4,
     company: "NDCTrades",
     role: "Finance Solutions Architect",
+    subtitle: "Revenue ops · Automation · Dashboards",
     startDate: "Sep 2023",
     endDate: "Sep 2024",
     description: [
