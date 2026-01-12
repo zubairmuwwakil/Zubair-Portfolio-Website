@@ -272,7 +272,7 @@ export default function Portfolio() {
       links: {
         demo: "https://mindsky.zubairmuwwakil.com",
         github: profileData.githubUrl,
-        caseStudy: profileData.resumeUrl,
+        caseStudy: "https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing",
       },
     },
     "Return Reminder & Tracking SaaS": {
