@@ -170,9 +170,9 @@ export default function Portfolio() {
   const heroFocusLine = "I build reliable APIs, data pipelines, and production web apps.";
   const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · US Remote (US Citizen)";
   const featuredProjectTitles = [
+    "Looply",
     "Market Data Pipeline",
     "Pickleball Session Manager",
-    "Return Reminder & Tracking SaaS",
     "MindSky Website",
   ];
 
@@ -181,6 +181,8 @@ export default function Portfolio() {
     { label: "GitHub", href: profileData.githubUrl, icon: Github },
     { label: "LinkedIn", href: profileData.linkedinUrl, icon: Linkedin },
   ];
+
+  const primaryCtaHref = `mailto:${profileData.email}?subject=Intro%20call%20with%20Zubair&body=Hi%20Zubair%2C%20I%27d%20like%20to%20book%20a%2015-30%20min%20intro%20call.`;
 
   type CaseStudy = {
     problem: string;
@@ -197,6 +199,30 @@ export default function Portfolio() {
   };
 
   const projectCaseStudies: Record<string, CaseStudy> = {
+    "Looply": {
+      photo: "https://i.imgur.com/nwmswhT.jpeg",
+      problem: "People miss trial endings, renewals, return windows, and overdue refunds because data is scattered across inboxes and receipts—and manual tracking never sticks.",
+      built: "Personal finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from your inbox and receipts so you stop losing money to forgotten renewals and missed returns.",
+      decisions: [
+        "Incremental inbox ingestion and receipt parsing that normalizes purchases into a single timeline (proof, order numbers, tracking, deadlines).",
+        "Idempotent upserts with merchant/order/date/amount dedupe keys so retries never double-create purchases, subscriptions, or events.",
+        "Return shipment and refund SLA timelines to bridge the gap between \"sent it back\" and \"money actually returned.\"",
+        "Multi-channel notifications (digest + instant alerts) with quiet hours, snoozes, and job-run tracking to prevent duplicate emails.",
+        "Privacy & Control Center with scan modes (receipts/shipping/subscriptions), disconnect + delete/export, and least-privilege OAuth handling.",
+        "Pro+ guided flows: cancellation concierge-style checklists, confirmation detection, and structured claim tracking (refund overdue / price drop).",
+      ],
+      impact: [
+        "Fewer missed deadlines via proactive reminders across email, push, and calendar.",
+        "Clear \"money saved / money at risk\" visibility that keeps users engaged.",
+        "Predictable processing costs through incremental, idempotent scans without inbox hammering.",
+      ],
+      stack: ["Next.js", "TypeScript", "Prisma", "Neon Postgres"],
+      links: {
+        demo: "https://looply.zubairmuwwakil.com",
+        github: "https://github.com/ZthEchelon/return-saas",
+        caseStudy: "https://drive.google.com/file/d/1PPKatAvsSpp5oTtotDeMg7-0nRwLCxCZ/view?usp=sharing"
+      },
+    },
     "Pickleball Session Manager": {
       problem: "Pickleball clubs needed fair ladders and rating updates without spreadsheets.",
       built: "Full-stack app with Prisma/Postgres and a React front end to schedule sessions, balance pairings, and keep ratings honest.",
@@ -210,7 +236,7 @@ export default function Portfolio() {
       links: {
         demo: "https://pickleball.zubairmuwwakil.com",
         github: "https://github.com/ZthEchelon/pickleball-session-manager",
-        caseStudy: profileData.resumeUrl,
+        caseStudy: "https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing",
       },
       photo: "https://i.imgur.com/c60r2XZ.jpeg",
     },
@@ -230,7 +256,7 @@ export default function Portfolio() {
       links: {
         demo: "https://marketdata.zubairmuwwakil.com",
         github: "https://github.com/ZthEchelon/market-data-pipeline",
-        caseStudy: profileData.resumeUrl,
+        caseStudy: "https://drive.google.com/file/d/10SKFD0k5hVxm7qH6rpWVVNmZubGuktZO/view?usp=sharing",
       },
     },
     "MindSky Website": {
@@ -543,6 +569,15 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Floating quick-access CTA */}
+      <a
+        href={primaryCtaHref}
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground font-semibold shadow-xl shadow-primary/30 hover:bg-primary/90 transition-colors"
+      >
+        <Sparkles className="w-4 h-4" />
+        Book intro
+      </a>
+
       <section className="py-12 border-y border-border/60 bg-muted/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-5">
@@ -693,6 +728,7 @@ export default function Portfolio() {
                           <div className="relative overflow-hidden rounded-3xl border border-border/60 shadow-2xl bg-muted/60 flex items-center justify-center h-[380px] md:h-[460px] lg:h-[520px]">
                             <img
                               src={featuredCase.photo || "https://i.imgur.com/vJnpwps.png"}
+                              loading="lazy"
                               alt={title}
                               className="w-full h-full object-cover object-center cursor-zoom-in"
                               style={{ objectPosition: "center" }}
@@ -711,8 +747,8 @@ export default function Portfolio() {
                 );
               })}
             </CarouselContent>
-            <CarouselPrevious className="bg-background/80 backdrop-blur" />
-            <CarouselNext className="bg-background/80 backdrop-blur" />
+            <CarouselPrevious className="bg-background/80 backdrop-blur" aria-label="Previous featured project" />
+            <CarouselNext className="bg-background/80 backdrop-blur" aria-label="Next featured project" />
           </Carousel>
         </div>
       </section>
@@ -735,6 +771,7 @@ export default function Portfolio() {
             </button>
             <img
               src={featuredModal.src}
+              loading="lazy"
               alt={featuredModal.title}
               className="w-full h-auto max-h-[80vh] rounded-xl object-contain bg-white"
             />

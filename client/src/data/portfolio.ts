@@ -154,6 +154,14 @@ export const education: Education[] = [
 
 export const projects: Project[] = [
   {
+    id: 4,
+    title: "Looply",
+    description: "Finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from inbox data.",
+    link: "https://looply.zubairmuwwakil.com",
+    githubLink: "https://github.com/ZthEchelon/return-saas",
+    tags: ["Next.js", "TypeScript", "Prisma", "Neon Postgres"],
+  },
+  {
     id: 1,
     title: "Pickleball Session Manager",
     description: "Full-stack ladder manager with scheduling, pairing, and rating updates to keep club play fair.",
