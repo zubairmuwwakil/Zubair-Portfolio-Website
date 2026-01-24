@@ -171,7 +171,7 @@ export default function Portfolio() {
   const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · US Remote (US Citizen)";
   const featuredProjectTitles = [
     "Looply",
-    "Market Data Pipeline",
+    "MarketLens",
     "Pickleball Session Manager",
     "MindSky Website",
   ];
@@ -240,7 +240,7 @@ export default function Portfolio() {
       },
       photo: "https://i.imgur.com/c60r2XZ.jpeg",
     },
-    "Market Data Pipeline": {
+    "MarketLens": {
         photo: "https://i.imgur.com/vJnpwps.png",
       problem: "Needed reliable, de-duplicated market indicators for dashboards without hammering upstream APIs.",
       built: "Backend pipeline that ingests price/indicator feeds, normalizes them into Postgres, and serves typed REST endpoints.",
