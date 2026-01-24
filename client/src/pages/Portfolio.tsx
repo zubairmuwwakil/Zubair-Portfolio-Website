@@ -172,7 +172,7 @@ export default function Portfolio() {
   const featuredProjectTitles = [
     "Looply",
     "MarketLens",
-    "Pickleball Session Manager",
+    "PickleOps",
     "MindSky Website",
   ];
 
@@ -223,8 +223,8 @@ export default function Portfolio() {
         caseStudy: "https://drive.google.com/file/d/1PPKatAvsSpp5oTtotDeMg7-0nRwLCxCZ/view?usp=sharing"
       },
     },
-    "Pickleball Session Manager": {
-      problem: "Pickleball clubs needed fair ladders and rating updates without spreadsheets.",
+    "PickleOps": {
+      problem: "PickleOpsir ladders and rating updates without spreadsheets.",
       built: "Full-stack app with Prisma/Postgres and a React front end to schedule sessions, balance pairings, and keep ratings honest.",
       decisions: [
         "Prisma migrations and seed data for players, ladders, and sessions to keep environments reproducible.",
