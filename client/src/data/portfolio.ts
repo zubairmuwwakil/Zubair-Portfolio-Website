@@ -171,7 +171,7 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Market Data Pipeline",
+    title: "MarketLens",
     description: "Backend pipeline that ingests, normalizes, and serves financial indicators via REST APIs.",
     link: "https://github.com/ZthEchelon/market-data-pipeline",
     githubLink: "https://github.com/ZthEchelon/market-data-pipeline",
