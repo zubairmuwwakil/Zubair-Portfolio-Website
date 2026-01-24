@@ -62,10 +62,10 @@ export const experiences: Experience[] = [
   {
     id: 1,
     company: "G2i Inc.",
-    role: "Software Engineer (Part-time)",
+    role: "Software Engineer (Contract)",
     subtitle: "Python · SQL · GitHub · CI/CD",
-    startDate: "Jun 2023",
-    endDate: "May 2025",
+    startDate: "Aug 2025",
+    endDate: "Present",
     description: [
       "Delivered scoped production features with emphasis on correctness, maintainability, and clean handoff.",
       "Worked in a GitHub PR + CI workflow (branching, reviews, automated checks) to keep changes releasable.",
@@ -78,8 +78,8 @@ export const experiences: Experience[] = [
     company: "The Senac Group",
     role: "Financial Software Analyst",
     subtitle: "Automation · SQL · Finance tooling",
-    startDate: "Mar 2023",
-    endDate: "Present",
+    startDate: "Jun 2023",
+    endDate: "May 2025",
     description: [
       "Tech: Excel, VBA, SQL, reporting pipelines, budgeting/forecast models, documentation/runbooks.",
       "Built automated reporting pipelines (SQL → automated outputs) removing 10+ hours/week of manual work and standardizing weekly deliverables.",
@@ -136,6 +136,14 @@ export const education: Education[] = [
   },
   {
     id: 3,
+    school: "Ontario Tech University",
+    degree: "Master of Computer Science",
+    field: "Computer Science",
+    startDate: "2024",
+    endDate: "Postponed",
+  },
+  {
+    id: 4,
     school: "University of Calgary",
     degree: "Microsoft Certified: Azure Fundamentals",
     field: "Cloud Computing",
@@ -143,13 +151,14 @@ export const education: Education[] = [
     endDate: "2024",
   },
   {
-    id: 4,
+    id: 5,
     school: "University of Toronto",
     degree: "Bachelor of Computer Science",
     field: "Computer Science",
     startDate: "2019",
     endDate: "2023",
   },
+  
 ];
 
 export const projects: Project[] = [
