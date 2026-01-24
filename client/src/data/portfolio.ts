@@ -163,7 +163,7 @@ export const projects: Project[] = [
   },
   {
     id: 1,
-    title: "Pickleball Session Manager",
+    title: "PickleOps",
     description: "Full-stack ladder manager with scheduling, pairing, and rating updates to keep club play fair.",
     link: "https://pickleball.zubairmuwwakil.com",
     githubLink: "https://github.com/ZthEchelon/pickleball-session-manager",
