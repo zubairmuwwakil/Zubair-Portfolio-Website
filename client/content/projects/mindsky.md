@@ -5,6 +5,7 @@ date: 2026-08-05
 tags: [React, TypeScript, React Flow, Node.js, PostgreSQL]
 stack: [React, TypeScript, React Flow, Node.js, PostgreSQL (JSONB)]
 liveUrl: https://mindsky.zubairmuwwakil.com
+repoUrl: https://github.com/zubairmuwwakil/mindmap
 ---
 
 MindSky is a visual thought-mapping application that helps users externalize complex ideas into an interactive, persistent graph of connected concepts. Users create, link, reorganize, and evolve ideas on a free-form canvas that mirrors how real thinking unfolds — non-linear, visual, and iterative.
