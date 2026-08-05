@@ -8,6 +8,7 @@ import Portfolio from "@/pages/Portfolio";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Projects from "@/pages/Projects";
+import CaseStudy from "@/pages/CaseStudy";
 import NotFound from "@/pages/not-found";
 
 // "" for a root deploy, "/Zubair-Portfolio-Website" for the Pages subpath build.
@@ -36,6 +37,7 @@ function AppRouter() {
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogPost} />
         <Route path="/projects" component={Projects} />
+        <Route path="/projects/:slug" component={CaseStudy} />
         <Route component={NotFound} />
       </Switch>
     </Router>

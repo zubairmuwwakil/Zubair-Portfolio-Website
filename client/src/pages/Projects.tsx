@@ -1,7 +1,9 @@
-import { Apple, Github, ExternalLink, FileText } from "lucide-react";
+import { Link } from "wouter";
+import { Apple, Github, ExternalLink, FileText, ArrowRight } from "lucide-react";
 import { BlogLayout } from "@/components/BlogLayout";
 import { useDocumentHead } from "@/hooks/use-document-head";
 import { useProjects } from "@/hooks/use-portfolio";
+import { getCaseStudy } from "@/lib/case-studies";
 import { SITE_ORIGIN } from "@/lib/posts";
 
 export const PROJECTS_URL = `${SITE_ORIGIN}/projects/`;
@@ -50,6 +52,9 @@ export default function Projects() {
 
       <ul className="space-y-6">
         {list.map((project) => {
+          // Prefer the on-domain case study over the Google Drive PDF: the PDF
+          // is unindexable and breaks if sharing settings change.
+          const onDomainStudy = getCaseStudy(project.slug);
           const links = [
             project.appStoreLink && {
               href: project.appStoreLink,
@@ -59,9 +64,9 @@ export default function Projects() {
             },
             project.link && { href: project.link, label: "Live", icon: ExternalLink },
             project.githubLink && { href: project.githubLink, label: "Source", icon: Github },
-            project.caseStudyUrl && {
+            !onDomainStudy && project.caseStudyUrl && {
               href: project.caseStudyUrl,
-              label: "Case study",
+              label: "Case study (PDF)",
               icon: FileText,
             },
           ].filter(Boolean) as {
@@ -78,9 +83,28 @@ export default function Projects() {
             >
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
               <h2 className="text-2xl font-extrabold font-display leading-tight">
-                {project.title}
+                {onDomainStudy ? (
+                  <Link
+                    href={`/projects/${project.slug}/`}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {project.title}
+                  </Link>
+                ) : (
+                  project.title
+                )}
               </h2>
               <p className="mt-2 text-foreground/80 leading-relaxed">{project.description}</p>
+
+              {onDomainStudy && (
+                <Link
+                  href={`/projects/${project.slug}/`}
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all"
+                >
+                  Read the case study
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              )}
 
               {(project.tags?.length ?? 0) > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">

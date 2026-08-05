@@ -119,6 +119,10 @@
     "include": [
       "/",
       "/projects/",
+      "/projects/pickleops/",
+      "/projects/looply/",
+      "/projects/marketlens/",
+      "/projects/mindsky/",
       "/blog/",
       "/blog/offline-first-sync-on-a-pickleball-court/"
     ],

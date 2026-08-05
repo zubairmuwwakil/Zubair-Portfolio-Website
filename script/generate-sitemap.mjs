@@ -5,6 +5,7 @@ import url from "url";
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, "..", "dist");
 const blogDir = path.resolve(__dirname, "..", "client", "content", "blog");
+const projectsDir = path.resolve(__dirname, "..", "client", "content", "projects");
 
 export const SITE_ORIGIN = "https://zubairmuwwakil.com";
 
@@ -19,26 +20,31 @@ function frontmatterDate(raw) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : null;
 }
 
-async function collectBlogUrls() {
-  const isDir = await stat(blogDir).then((s) => s.isDirectory()).catch(() => false);
+/**
+ * Trailing slash throughout: pre-rendered routes are served from directories, so
+ * the unslashed form 301s. A sitemap full of redirects is reported in Search
+ * Console as "Page with redirect" and the submitted URL is not indexed.
+ */
+async function collectMarkdownUrls(dir, prefix, priority) {
+  const isDir = await stat(dir).then((s) => s.isDirectory()).catch(() => false);
   if (!isDir) return [];
 
-  const files = (await readdir(blogDir)).filter((f) => f.endsWith(".md"));
-  const posts = [];
+  const files = (await readdir(dir)).filter((f) => f.endsWith(".md"));
+  const entries = [];
   for (const file of files) {
-    const raw = await readFile(path.join(blogDir, file), "utf8");
+    const raw = await readFile(path.join(dir, file), "utf8");
     if (/^draft:\s*true$/m.test(raw)) continue;
-    posts.push({
-      // Trailing slash: pre-rendered routes are served from directories, so the
-      // unslashed form 301s. A sitemap full of redirects is reported in Search
-      // Console as "Page with redirect" and the submitted URL is not indexed.
-      loc: `${SITE_ORIGIN}/blog/${file.replace(/\.md$/, "")}/`,
+    entries.push({
+      loc: `${SITE_ORIGIN}/${prefix}/${file.replace(/\.md$/, "")}/`,
       lastmod: frontmatterDate(raw),
-      priority: "0.6",
+      priority,
     });
   }
-  return posts;
+  return entries;
 }
+
+const collectBlogUrls = () => collectMarkdownUrls(blogDir, "blog", "0.6");
+const collectCaseStudyUrls = () => collectMarkdownUrls(projectsDir, "projects", "0.8");
 
 function renderSitemap(entries) {
   const urls = entries
@@ -91,8 +97,9 @@ async function warnOnUnprerenderedPosts(posts) {
 
 async function main() {
   const posts = await collectBlogUrls();
-  await warnOnUnprerenderedPosts(posts);
-  const newest = posts
+  const caseStudies = await collectCaseStudyUrls();
+  await warnOnUnprerenderedPosts([...posts, ...caseStudies]);
+  const newest = [...posts, ...caseStudies]
     .map((p) => p.lastmod)
     .filter(Boolean)
     .sort()
@@ -103,6 +110,7 @@ async function main() {
     // Trailing slashes throughout: pre-rendered routes are served from
     // directories, so the unslashed form 301s.
     { loc: `${SITE_ORIGIN}/projects/`, priority: "0.8" },
+    ...caseStudies,
     ...(posts.length
       ? [{ loc: `${SITE_ORIGIN}/blog/`, lastmod: newest, priority: "0.7" }]
       : []),
