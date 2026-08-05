@@ -24,11 +24,19 @@ export default function Projects() {
       name: "Projects — Zubair Muwwakil",
       url: PROJECTS_URL,
       author: { "@id": `${SITE_ORIGIN}/#person` },
+      // author on each app, not just on the page. Without it the graph only
+      // says "Zubair wrote this page about the app" — the edge that connects an
+      // off-domain App Store listing back to #person is authorship of the app.
       hasPart: list.map((project) => ({
         "@type": "SoftwareApplication",
         name: project.title,
         description: project.description,
-        applicationCategory: "WebApplication",
+        // An App Store URL on a node typed WebApplication contradicts itself,
+        // and a contradicted node is a node Google can discount.
+        ...(project.appStoreLink
+          ? { applicationCategory: "MobileApplication", operatingSystem: "iOS" }
+          : { applicationCategory: "WebApplication" }),
+        author: { "@id": `${SITE_ORIGIN}/#person` },
         ...(project.appStoreLink || project.link
           ? { url: project.appStoreLink || project.link }
           : {}),

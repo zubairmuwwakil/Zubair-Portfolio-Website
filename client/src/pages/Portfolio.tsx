@@ -559,8 +559,22 @@ export default function Portfolio() {
         <div className="container-padding relative z-10 w-full flex justify-center">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center max-w-screen-xl w-full mx-auto">
             <div className="space-y-5 md:space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0 -mt-8 md:-mt-12">
-              <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.2] text-gradient">
-                {heroRoleLine}
+              {/* The name lives inside the <h1> so the page's top-level heading
+                  asserts the entity Google is trying to resolve. The role line
+                  keeps the visual weight; the name reads as an eyebrow. */}
+              <h1 className="font-serif">
+                <span className="block text-sm md:text-base font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-2 md:mb-3">
+                  {profileData.name}
+                </span>
+                {/* Leading is bound to each size via the slash shorthand rather
+                    than set once with leading-[1.2]. Every text-Nxl ships its own
+                    line-height and the responsive variants are emitted after the
+                    base utilities, so a standalone leading-[1.2] loses to
+                    lg:text-6xl's line-height:1 — and bg-clip:text then shears the
+                    descender off the "g" in "Engineer". */}
+                <span className="block text-3xl/[1.2] md:text-5xl/[1.2] lg:text-6xl/[1.2] font-extrabold text-gradient">
+                  {heroRoleLine}
+                </span>
               </h1>
               <p className="text-lg md:text-xl text-foreground leading-snug">
                 {heroFocusLine}
