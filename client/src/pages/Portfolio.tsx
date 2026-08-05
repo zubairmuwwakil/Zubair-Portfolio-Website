@@ -31,7 +31,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { SectionHeader } from "@/components/SectionHeader";
-import { ProjectCard } from "@/components/ProjectCard";
 import { ExperienceItem } from "@/components/ExperienceItem";
 // removed ContactForm per request
 import {
@@ -202,7 +201,7 @@ export default function Portfolio() {
 
   const projectCaseStudies: Record<string, CaseStudy> = {
     "Looply": {
-      photo: "https://i.imgur.com/nwmswhT.jpeg",
+      photo: "/assets/looply-cover.jpg",
       problem: "People miss trial endings, renewals, return windows, and overdue refunds because data is scattered across inboxes and receipts—and manual tracking never sticks.",
       built: "Personal finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from your inbox and receipts so you stop losing money to forgotten renewals and missed returns.",
       decisions: [
@@ -240,10 +239,10 @@ export default function Portfolio() {
         github: "https://github.com/zubairmuwwakil/pickleball-session-manager",
         caseStudy: "https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing",
       },
-      photo: "https://i.imgur.com/c60r2XZ.jpeg",
+      photo: "/assets/pickleops-cover.jpg",
     },
     "MarketLens": {
-        photo: "https://i.imgur.com/vJnpwps.png",
+        photo: "/assets/marketlens-cover.jpg",
       problem: "Needed reliable, de-duplicated market indicators for dashboards without hammering upstream APIs.",
       built: "Backend pipeline that ingests price/indicator feeds, normalizes them into Postgres, and serves typed REST endpoints.",
       decisions: [
@@ -262,7 +261,7 @@ export default function Portfolio() {
       },
     },
     "MindSky Website": {
-        photo: "https://i.imgur.com/3Sz7oXy.png",
+        photo: "/assets/mindsky-cover.jpg",
       problem: "MindSky needed a fast, clear landing page that converts curious users without looking like a template.",
       built: "Responsive marketing site with modular sections, analytics hooks, and lightweight animations.",
       decisions: [
@@ -279,7 +278,7 @@ export default function Portfolio() {
       },
     },
     "Return Reminder & Tracking SaaS": {
-        photo: "https://i.imgur.com/3mFeClS.png",
+        photo: "/assets/return-reminder-cover.jpg",
       problem: "Consumers frequently miss return deadlines or forget to follow up on refunds because purchase information is fragmented across emails and receipts. Most finance tools track spending passively but don’t manage return lifecycles or enforce deadlines.",
       built: "SaaS platform for tracking return deadlines, refund status, and money at risk—email ingestion, reminders, and Stripe subscriptions included.",
       decisions: [
@@ -362,7 +361,13 @@ export default function Portfolio() {
           <div className="flex justify-between items-center h-16 md:h-20">
             <a href="/" className="flex items-center space-x-2 group cursor-pointer">
               <div className="p-0 group-hover:scale-110 transition-transform">
-                <img src="https://i.imgur.com/hu5ZtjL.jpeg" alt="Logo" className="w-9 h-9 object-cover rounded-lg shadow" />
+                <img
+                  src="/assets/zubair-muwwakil-mark.jpg"
+                  alt="Zubair Muwwakil monogram"
+                  width={1024}
+                  height={1024}
+                  className="w-9 h-9 object-cover rounded-lg shadow"
+                />
               </div>
               <span className="font-serif font-bold text-xl tracking-tight">Zubair Muwwakil</span>
             </a>
@@ -541,8 +546,10 @@ export default function Portfolio() {
               <div className="relative w-full max-w-xs mx-auto lg:hidden pt-6">
                 <div className="relative z-10 w-full aspect-square rounded-full overflow-hidden border-4 border-background shadow-2xl">
                   <img
-                    src="https://i.imgur.com/7BAT0Wz.jpeg"
-                    alt="Zubair Muwwakil Logo"
+                    src="/assets/zubair-muwwakil.jpg"
+                    alt="Portrait of Zubair Muwwakil, backend and full-stack software engineer"
+                    width={1298}
+                    height={1198}
                     className="w-full h-full object-cover object-[center_60%]"
                   />
                 </div>
@@ -551,8 +558,11 @@ export default function Portfolio() {
             <div className="relative hidden lg:block lg:pt-6">
               <div className="relative z-10 w-full aspect-square rounded-full overflow-hidden border-8 border-background shadow-2xl">
                 <img
-                  src="https://i.imgur.com/7BAT0Wz.jpeg"
-                  alt="Zubair Muwwakil Logo"
+                  src="/assets/zubair-muwwakil.jpg"
+                  alt="Portrait of Zubair Muwwakil, backend and full-stack software engineer"
+                  width={1298}
+                  height={1198}
+                  fetchPriority="high"
                   className="w-full h-full object-cover object-[center_60%]"
                 />
               </div>
@@ -730,14 +740,16 @@ export default function Portfolio() {
                           <div className="absolute -inset-6 lg:-inset-8 bg-gradient-to-br from-primary/15 via-accent/10 to-primary/10 blur-3xl opacity-70" />
                           <div className="relative overflow-hidden rounded-3xl border border-border/60 shadow-2xl bg-muted/60 flex items-center justify-center h-[380px] md:h-[460px] lg:h-[520px]">
                             <img
-                              src={featuredCase.photo || "https://i.imgur.com/vJnpwps.png"}
+                              src={featuredCase.photo || "/assets/marketlens-cover.jpg"}
                               loading="lazy"
-                              alt={title}
+                              alt={`${title} — project screenshot`}
+                              width={1024}
+                              height={1024}
                               className="w-full h-full object-cover object-center cursor-zoom-in"
                               style={{ objectPosition: "center" }}
                               onClick={() =>
                                 setFeaturedModal({
-                                  src: featuredCase.photo || "https://i.imgur.com/vJnpwps.png",
+                                  src: featuredCase.photo || "/assets/marketlens-cover.jpg",
                                   title,
                                 })
                               }
@@ -775,7 +787,9 @@ export default function Portfolio() {
             <img
               src={featuredModal.src}
               loading="lazy"
-              alt={featuredModal.title}
+              alt={`${featuredModal.title} — expanded project screenshot`}
+              width={1024}
+              height={1024}
               className="w-full h-auto max-h-[80vh] rounded-xl object-contain bg-white"
             />
           </div>
