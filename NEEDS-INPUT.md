@@ -111,17 +111,23 @@ as you supply a working URL.
 | PickleOps repo | `github.com/zubairmuwwakil/pickleball-session-manager` | **404** — renamed, private, or deleted. The App Store link now carries this card. |
 | MindSky repo | pointed at `github.com/zubairmuwwakil` (bare profile) | Not a repository. Supply the repo URL or leave it off. |
 
-### Still rendered but broken — I could not fix these from the repo
+### Still rendered — one broken, two slow to wake
 
 | What | URL | Result |
 |---|---|---|
-| MarketLens "Live Demo" | `marketdata.zubairmuwwakil.com` | **Connection timeout.** DNS resolves to Cloudflare; no origin responding. |
-| MindSky "Live Demo" | `mindsky.zubairmuwwakil.com` | **Connection timeout.** Points at `mindmap-0ztk.onrender.com` — a sleeping or deleted Render service. |
-| Contact "Projects" button | `projects.zubairmuwwakil.com` | **SSL error** — certificate has no matching subject name. See item 7. |
+| Contact "Projects" button | `projects.zubairmuwwakil.com` | **SSL error** — certificate has no matching subject name. Genuinely broken. See item 7. |
+| MarketLens "Live Demo" | `marketdata.zubairmuwwakil.com` | **200.** Working. |
+| MindSky "Live Demo" | `mindsky.zubairmuwwakil.com` | **200.** Working. Served from `mindmap-0ztk.onrender.com`. |
 
-These are still live on the page because removing them would gut the MarketLens
-and MindSky cards entirely. Either restore the hosts or tell me to drop the
-buttons, and note that a "Live Demo" button that hangs is worse than none.
+Both demo hosts timed out on my first pass at a 20-second limit, then returned
+200 in under 200ms on five consecutive retries. That pattern is a **cold start**,
+not an outage: Render's free tier spins a service down after inactivity and the
+first request afterwards waits roughly 30–60 seconds while it wakes.
+
+So the links work, and no code change was needed — but the first recruiter to
+click "Live Demo" after a quiet period gets a blank tab for up to a minute, and
+will read that as broken. Worth a paid instance or a keep-warm ping on whichever
+of these you most want people to actually open.
 
 ### Referenced in code but not currently rendered
 
