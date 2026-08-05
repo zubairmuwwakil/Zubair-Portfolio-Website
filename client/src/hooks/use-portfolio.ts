@@ -3,6 +3,7 @@ import {
   profile as staticProfile,
   experiences as staticExperiences,
   education as staticEducation,
+  certifications as staticCertifications,
   projects as staticProjects,
   skills as staticSkills,
 } from "@/data/portfolio";
@@ -41,6 +42,16 @@ export function useEducation() {
     queryKey: ["education"],
     queryFn: async () => staticEducation,
     initialData: staticEducation,
+    ...staticQueryOptions,
+  });
+}
+
+// Static certifications
+export function useCertifications() {
+  return useQuery({
+    queryKey: ["certifications"],
+    queryFn: async () => staticCertifications,
+    initialData: staticCertifications,
     ...staticQueryOptions,
   });
 }

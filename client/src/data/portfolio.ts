@@ -9,16 +9,25 @@ export type Profile = {
   resumeUrl?: string | null;
 };
 
+export type EmploymentType = "Full-time" | "Part-time" | "Contract" | "Internship";
+
 export type Experience = {
   id: number | string;
   company: string;
   role: string;
+  /**
+   * Rendered as a badge beside the role. Several of these roles overlap in time,
+   * so the type is what makes the timeline read honestly. Leave undefined rather
+   * than guessing — the badge is simply omitted. See NEEDS-INPUT.md.
+   */
+  employmentType?: EmploymentType;
   subtitle?: string;
   startDate: string;
   endDate?: string | null;
   description: string;
 };
 
+/** Degrees only. Certificates and short programs belong in `certifications`. */
 export type Education = {
   id: number | string;
   school: string;
@@ -26,6 +35,18 @@ export type Education = {
   field: string;
   startDate?: string | null;
   endDate?: string | null;
+};
+
+/**
+ * Credentials awarded by a body other than a degree-granting program. Kept
+ * separate from `education` so a vendor certification is never rendered as
+ * though a university conferred it.
+ */
+export type Certification = {
+  id: number | string;
+  name: string;
+  issuer: string;
+  year: string;
 };
 
 export type Project = {
@@ -62,7 +83,8 @@ export const experiences: Experience[] = [
   {
     id: 1,
     company: "G2i Inc.",
-    role: "Software Engineer (Contract)",
+    role: "Software Engineer",
+    employmentType: "Contract",
     subtitle: "Python · SQL · GitHub · CI/CD",
     startDate: "Aug 2025",
     endDate: "Present",
@@ -77,6 +99,7 @@ export const experiences: Experience[] = [
     id: 2,
     company: "The Senac Group",
     role: "Financial Software Analyst",
+    // employmentType: pending — see NEEDS-INPUT.md
     subtitle: "Automation · SQL · Finance tooling",
     startDate: "Jun 2023",
     endDate: "May 2025",
@@ -91,6 +114,7 @@ export const experiences: Experience[] = [
     id: 3,
     company: "Elevation Athletics",
     role: "Regional Program Coordinator",
+    // employmentType: pending — see NEEDS-INPUT.md
     subtitle: "Ops automation · APIs · Support workflows",
     startDate: "Mar 2023",
     endDate: "Present",
@@ -105,6 +129,7 @@ export const experiences: Experience[] = [
     id: 4,
     company: "NDCTrades",
     role: "Finance Solutions Architect",
+    // employmentType: pending — see NEEDS-INPUT.md
     subtitle: "Revenue ops · Automation · Dashboards",
     startDate: "Sep 2023",
     endDate: "Sep 2024",
@@ -127,28 +152,12 @@ export const education: Education[] = [
     endDate: "2025",
   },
   {
-    id: 2,
-    school: "Ted Rogers School of Management - Toronto Metropolitan University",
-    degree: "Advanced Digital and Professional Training",
-    field: "Professional Development",
-    startDate: "2025",
-    endDate: "2025",
-  },
-  {
     id: 3,
     school: "Ontario Tech University",
     degree: "Master of Computer Science",
     field: "Computer Science",
     startDate: "2024",
     endDate: "Postponed",
-  },
-  {
-    id: 4,
-    school: "University of Calgary",
-    degree: "Microsoft Certified: Azure Fundamentals",
-    field: "Cloud Computing",
-    startDate: "2024",
-    endDate: "2024",
   },
   {
     id: 5,
@@ -158,7 +167,21 @@ export const education: Education[] = [
     startDate: "2019",
     endDate: "2023",
   },
-  
+];
+
+export const certifications: Certification[] = [
+  {
+    id: 1,
+    name: "Microsoft Certified: Azure Fundamentals",
+    issuer: "Microsoft",
+    year: "2024",
+  },
+  {
+    id: 2,
+    name: "Advanced Digital and Professional Training",
+    issuer: "Ted Rogers School of Management — Toronto Metropolitan University",
+    year: "2025",
+  },
 ];
 
 export const projects: Project[] = [

@@ -34,12 +34,13 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ExperienceItem } from "@/components/ExperienceItem";
 // removed ContactForm per request
-import { 
-  useProfile, 
-  useProjects, 
-  useExperiences, 
-  useEducation, 
-  useSkills 
+import {
+  useProfile,
+  useProjects,
+  useExperiences,
+  useEducation,
+  useCertifications,
+  useSkills
 } from "@/hooks/use-portfolio";
 
 export default function Portfolio() {
@@ -82,6 +83,7 @@ export default function Portfolio() {
   const { data: projects } = useProjects();
   const { data: experiences } = useExperiences();
   const { data: education } = useEducation();
+  const { data: certifications } = useCertifications();
   const { data: skills } = useSkills();
 
   const profileDefaults = {
@@ -850,6 +852,38 @@ export default function Portfolio() {
               })}
             </div>
           </div>
+
+          {(certifications?.length || 0) > 0 && (
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold font-display mb-8">Certifications</h3>
+              <div className="grid gap-6">
+                {certifications?.map((cert, index) => (
+                  <motion.div
+                    key={cert.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/12 via-background to-accent/10 p-6 shadow-lg shadow-primary/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
+                    <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+                    <div className="flex items-start gap-3">
+                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/70 dark:bg-black/20 text-primary shadow">
+                        <ShieldCheck className="w-5 h-5" />
+                      </span>
+                      <div>
+                        <h4 className="text-lg font-bold font-display leading-tight">{cert.name}</h4>
+                        <p className="text-primary font-semibold">{cert.issuer}</p>
+                      </div>
+                    </div>
+                    <div className="text-xs uppercase tracking-wide text-foreground bg-secondary px-3 py-2 rounded-full w-fit font-semibold shadow-sm">
+                      {cert.year}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
