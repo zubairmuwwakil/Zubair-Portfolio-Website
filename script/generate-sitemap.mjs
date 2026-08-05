@@ -100,6 +100,9 @@ async function main() {
 
   const entries = [
     { loc: `${SITE_ORIGIN}/`, lastmod: newest, priority: "1.0" },
+    // Trailing slashes throughout: pre-rendered routes are served from
+    // directories, so the unslashed form 301s.
+    { loc: `${SITE_ORIGIN}/projects/`, priority: "0.8" },
     ...(posts.length
       ? [{ loc: `${SITE_ORIGIN}/blog/`, lastmod: newest, priority: "0.7" }]
       : []),
