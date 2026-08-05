@@ -40,7 +40,7 @@ export function useDocumentHead({
   description,
   canonical,
   ogType = "website",
-  image = "https://zubairmuwwakil.com/assets/zubair-muwwakil.jpg",
+  image = "https://zubairmuwwakil.com/assets/og-card.png",
   jsonLd = null,
 }: DocumentHead) {
   useEffect(() => {

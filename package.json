@@ -10,6 +10,7 @@
     "build:domain": "npm run build -- --base=/",
     "build:ssg": "npm run check && npm run build:domain && npm run ssg && node script/copy-404.js && npm run verify:seo",
     "verify:seo": "node script/verify-seo.mjs",
+    "og": "node script/generate-og-image.mjs",
     "ssg": "node script/run-ssg.mjs",
     "postbuild": "node script/copy-404.js && node script/generate-sitemap.mjs",
     "start": "vite preview --config vite.config.ts",
