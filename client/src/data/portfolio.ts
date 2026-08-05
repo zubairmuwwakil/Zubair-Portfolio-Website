@@ -94,44 +94,43 @@ export const experiences: Experience[] = [
     company: "G2i Inc.",
     role: "Software Engineer",
     employmentType: "Contract",
-    subtitle: "Python · SQL · GitHub · CI/CD",
+    subtitle: "Django · PostgreSQL · SQL Server · Docker · CI/CD",
     startDate: "Aug 2025",
     endDate: "Present",
     description: [
-      "Delivered scoped production features with emphasis on correctness, maintainability, and clean handoff.",
-      "Worked in a GitHub PR + CI workflow (branching, reviews, automated checks) to keep changes releasable.",
-      "Built and validated SQL queries/transformations supporting feature logic, debugging, and data integrity checks.",
-      "Collaborated asynchronously in a remote team, shipping incremental improvements with clear documentation."
+      "Build and maintain Django backend services (REST APIs, background jobs, data processing) in a PR-driven code review environment.",
+      "Own PostgreSQL/SQL Server changes — schema updates, indexing and query tuning, integrity checks — and ship them through Dockerized CI gates.",
+      "Deliver releases safely with unit and integration tests plus data integrity validation, preventing regressions and keeping deployments repeatable."
     ].join("\n"),
   },
   {
     id: 2,
     company: "The Senac Group",
-    role: "Financial Software Analyst",
+    role: "Financial Software Analyst — Automation & Analytics",
     // employmentType: pending — see NEEDS-INPUT.md
-    subtitle: "Automation · SQL · Finance tooling",
+    subtitle: "C# · .NET · SQL Server (T-SQL) · Excel VBA",
     startDate: "Jun 2023",
     endDate: "May 2025",
     description: [
-      "Tech: Excel, VBA, SQL, reporting pipelines, budgeting/forecast models, documentation/runbooks.",
-      "Built automated reporting pipelines (SQL → automated outputs) removing 10+ hours/week of manual work and standardizing weekly deliverables.",
-      "Created budgeting/variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.",
-      "Produced scenario + cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks."
+      "Built internal automation and reporting logic in C#/.NET and SQL Server (T-SQL) to improve FP&A data accuracy, repeatability, and close-cycle reliability.",
+      "Automated recurring reporting workflows with SQL and Excel VBA, saving 10+ hours/week across weekly and monthly deliverables.",
+      "Built pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, and shipped validation dashboards that surfaced discrepancies earlier — reducing rework during close.",
+      "Promoted Intern → Assistant Financial Analyst → Software Developer."
     ].join("\n"),
   },
   {
     id: 3,
     company: "Elevation Athletics",
-    role: "Regional Program Coordinator",
+    role: "Regional Program Coordinator (Tech & Ops)",
     // employmentType: pending — see NEEDS-INPUT.md
-    subtitle: "Ops automation · APIs · Support workflows",
+    subtitle: "Next.js · TypeScript · PostgreSQL · Glicko-2 ratings",
     startDate: "Mar 2023",
     endDate: "Present",
     description: [
-      "Tech: TeamSnap API, Excel automation, operational tooling, support workflows, process training.",
-      "Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.",
-      "Ran a structured support + triage workflow for 1,000+ users across 8 cities, keeping stakeholders unblocked with clear updates.",
-      "Developed Excel automation utilities that reduced game-day data entry/reporting time by ~60%; led tooling/process enablement for staff/coaches."
+      "Built and deployed pbsocial.ca, a multi-tenant Next.js/TypeScript/PostgreSQL platform for session scheduling, registrations, attendance, and reporting; scaled from ~50 to 1,000+ participants.",
+      "Engineered the core match systems: automatic group and match generation, atomic match finalization, and Glicko-2 rating with standings history for reliable competitive play.",
+      "Implemented role-based ops workflows and retention analytics — roster/waitlist automation, check-in tooling — contributing to repeat sign-ups rising from ~20% to ~89% in a tracked cohort (16/18).",
+      "Promoted Coach → Lead Coach → District Lead."
     ].join("\n"),
   },
   {
@@ -229,14 +228,14 @@ export const projects: Project[] = [
   {
     id: 3,
     slug: "mindsky",
-    title: "MindSky Website",
-    description: "Fast marketing site with modular sections, analytics hooks, and responsive design.",
+    title: "MindSky",
+    description: "Visual thought-mapping app: an infinite canvas of linked ideas with snapshot-based undo/redo and debounced autosave, persisted as a graph in Postgres.",
     link: "https://mindsky.zubairmuwwakil.com",
     // No repo link: this previously pointed at the bare GitHub profile, not a
     // repository. See NEEDS-INPUT.md for the correct URL.
     githubLink: null,
     caseStudyUrl: "https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing",
-    tags: ["React", "TypeScript", "Design Systems"],
+    tags: ["React", "TypeScript", "React Flow", "Node.js", "PostgreSQL (JSONB)"],
   },
 ];
 

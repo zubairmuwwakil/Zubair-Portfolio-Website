@@ -191,7 +191,7 @@ export default function Portfolio() {
     "PickleOps — The Pickleball Social",
     "Looply",
     "MarketLens",
-    "MindSky Website",
+    "MindSky",
   ];
 
   const proofLinks = [
@@ -284,16 +284,21 @@ export default function Portfolio() {
         caseStudy: "https://drive.google.com/file/d/10SKFD0k5hVxm7qH6rpWVVNmZubGuktZO/view?usp=sharing",
       },
     },
-    "MindSky Website": {
+    "MindSky": {
         photo: "/assets/mindsky-cover.jpg",
-      problem: "MindSky needed a fast, clear landing page that converts curious users without looking like a template.",
-      built: "Responsive marketing site with modular sections, analytics hooks, and lightweight animations.",
+      problem: "Note-taking tools force ideas into linear lists and documents, which breaks down the moment thinking turns exploratory. Ideas are spatial, not sequential — and experimenting is only safe if nothing can be lost.",
+      built: "Visual thought-mapping app: an infinite canvas where ideas are nodes and relationships are edges, persisted as a versioned graph.",
       decisions: [
-        "Static-first build for instant page loads and SEO wins.",
-        "Composable content blocks so non-engineers can swap copy without breaking layout.",
-        "Accessibility checks and mobile-first spacing to keep bounce rate low.",
+        "Stored each map as a whole-graph snapshot in Postgres JSONB rather than normalized tables, which makes saves atomic and lets the exact UI state be replayed.",
+        "Built true undo/redo on a history-stack abstraction decoupled from the UI: meaningful actions commit a snapshot, transient ones like dragging and selection do not, so history never fills with noise.",
+        "Debounced autosave that pauses during undo/redo and initial restore, so the backend always reflects the last stable snapshot without hammering the network.",
+        "Kept the canvas as the single owner of state and behaviour, with nodes purely presentational — the separation that makes the graph logic testable.",
       ],
-      impact: "Sharper storytelling with a site that loads fast and looks intentional on every device.",
+      impact: [
+        "Users can reorganize freely without fear of losing work.",
+        "The snapshot model extends cleanly to version history, sharing, and multi-user collaboration.",
+      ],
+      stack: ["React", "TypeScript", "React Flow", "Node.js", "PostgreSQL (JSONB)"],
       links: {
         demo: "https://mindsky.zubairmuwwakil.com",
         // No repo link: this card previously pointed at the bare GitHub profile,
