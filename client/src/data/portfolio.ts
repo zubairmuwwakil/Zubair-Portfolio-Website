@@ -96,6 +96,19 @@ export const profile: Profile = {
   resumeUrl: "/resume/",
 };
 
+/**
+ * "https://github.com/zubairmuwwakil" -> "github.com/zubairmuwwakil"
+ *
+ * Printed next to the profile links so the handle exists as *text*, not only
+ * as an href. Google parses href attributes, but the retrieval pipelines
+ * behind AI answer engines index rendered text and drop attributes — a link
+ * labelled only "GitHub" leaves no record of which account it points at, so
+ * assistants asked for the handle report that the site never states it.
+ * Derived from the URL rather than typed out so the two cannot drift apart.
+ */
+export const profileHandle = (url?: string | null): string =>
+  url ? url.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/+$/, "") : "";
+
 export const experiences: Experience[] = [
   {
     id: 1,

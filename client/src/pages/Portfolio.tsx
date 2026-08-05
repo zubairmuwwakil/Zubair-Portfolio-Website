@@ -42,6 +42,7 @@ import {
   useCertifications,
   useSkills
 } from "@/hooks/use-portfolio";
+import { profileHandle } from "@/data/portfolio";
 
 export default function Portfolio() {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
@@ -194,10 +195,34 @@ export default function Portfolio() {
     "MindSky",
   ];
 
-  const proofLinks = [
+  // `handle` prints the URL as visible text; `identity` marks the links that
+  // point at Zubair himself rather than at a document, which is what rel="me"
+  // asserts. Both exist so a crawler can tell that the site, the GitHub
+  // account, and the LinkedIn profile are one person and not three sources.
+  type ProofLink = {
+    label: string;
+    href: string;
+    icon: typeof Github;
+    handle?: string;
+    identity?: boolean;
+  };
+
+  const proofLinks: ProofLink[] = [
     { label: "Résumé", href: profileData.resumeUrl, icon: FileText },
-    { label: "GitHub", href: profileData.githubUrl, icon: Github },
-    { label: "LinkedIn", href: profileData.linkedinUrl, icon: Linkedin },
+    {
+      label: "GitHub",
+      href: profileData.githubUrl,
+      icon: Github,
+      handle: profileHandle(profileData.githubUrl),
+      identity: true,
+    },
+    {
+      label: "LinkedIn",
+      href: profileData.linkedinUrl,
+      icon: Linkedin,
+      handle: profileHandle(profileData.linkedinUrl),
+      identity: true,
+    },
   ];
 
   const primaryCtaHref = `mailto:${profileData.email}?subject=Intro%20call%20with%20Zubair&body=Hi%20Zubair%2C%20I%27d%20like%20to%20book%20a%2015-30%20min%20intro%20call.`;
@@ -592,11 +617,17 @@ export default function Portfolio() {
                 </a>
               </div>
               <div className="flex gap-6 pt-2 text-muted-foreground justify-center lg:justify-start">
-                <a href={profileData.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="hover:text-primary transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github w-6 h-6"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                {/* The accessible name is real sr-only text rather than an
+                    aria-label so the handle lands in the document's text, not
+                    only in an attribute. Screen readers and text-extracting
+                    crawlers then read the same thing. */}
+                <a href={profileData.githubUrl} target="_blank" rel="me noopener noreferrer" className="hover:text-primary transition-colors">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github w-6 h-6"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                  <span className="sr-only">GitHub profile: {profileHandle(profileData.githubUrl)}</span>
                 </a>
-                <a href={profileData.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="hover:text-primary transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                <a href={profileData.linkedinUrl} target="_blank" rel="me noopener noreferrer" className="hover:text-primary transition-colors">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  <span className="sr-only">LinkedIn profile: {profileHandle(profileData.linkedinUrl)}</span>
                 </a>
                 <a href={`mailto:${profileData.email}`} aria-label="Email Zubair" className="hover:text-primary transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail w-6 h-6"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
@@ -1100,17 +1131,24 @@ export default function Portfolio() {
                   {proofLinks.map((link) => {
                     const Icon = link.icon;
                     return (
-                      <a 
+                      <a
                         key={link.label}
                         href={link.href}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel={link.identity ? "me noopener noreferrer" : "noopener noreferrer"}
                         className="flex items-center gap-3 text-foreground hover:text-primary transition-colors"
                       >
-                        <span className="p-2 rounded-lg bg-secondary text-secondary-foreground">
+                        <span className="p-2 rounded-lg bg-secondary text-secondary-foreground shrink-0">
                           <Icon className="w-4 h-4" />
                         </span>
-                        <span className="font-medium">{link.label}</span>
+                        <span className="min-w-0">
+                          <span className="block font-medium leading-tight">{link.label}</span>
+                          {link.handle && (
+                            <span className="block truncate font-mono text-xs text-muted-foreground">
+                              {link.handle}
+                            </span>
+                          )}
+                        </span>
                       </a>
                     );
                   })}
@@ -1192,18 +1230,18 @@ export default function Portfolio() {
                     >
                       <Mail className="w-5 h-5" /> Email
                     </a>
-                    <a 
-                      href={profileData.linkedinUrl || "#"} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                    <a
+                      href={profileData.linkedinUrl || "#"}
+                      target="_blank"
+                      rel="me noopener noreferrer"
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-secondary text-secondary-foreground font-semibold shadow-lg hover:bg-secondary/90 transition-colors"
                     >
                       <Linkedin className="w-5 h-5" /> LinkedIn
                     </a>
-                    <a 
-                      href={profileData.githubUrl || "#"} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                    <a
+                      href={profileData.githubUrl || "#"}
+                      target="_blank"
+                      rel="me noopener noreferrer"
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-background font-semibold shadow-lg shadow-black/20 hover:brightness-95 transition-colors"
                     >
                       <Github className="w-5 h-5" /> GitHub
@@ -1216,6 +1254,16 @@ export default function Portfolio() {
                     </Link>
                   </div>
                   <p className="text-sm text-muted-foreground">Prefer email for detailed notes or links. Quick pings on LinkedIn are welcome.</p>
+                  {/* Written out as a sentence rather than left inside the
+                      buttons' hrefs. This is the one place on the site where
+                      the name and both handles sit in the same line of text,
+                      which is the form an answer engine can actually quote. */}
+                  <p className="text-sm text-muted-foreground">
+                    {profileData.name} on GitHub:{" "}
+                    <span className="font-mono text-foreground">{profileHandle(profileData.githubUrl)}</span>
+                    {" · "}on LinkedIn:{" "}
+                    <span className="font-mono text-foreground">{profileHandle(profileData.linkedinUrl)}</span>
+                  </p>
                 </div>
                 <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-white/70 dark:bg-black/20 p-5 shadow-lg shadow-primary/10 -mt-6 md:-mt-8 lg:-mt-10">
                   <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
