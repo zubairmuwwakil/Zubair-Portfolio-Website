@@ -114,8 +114,11 @@
   },
   "reactSnap": {
     "source": "dist",
+    "comment": "Every route listed here gets a pre-rendered .html file. A blog post missing from this list ships with no crawlable HTML — script/generate-sitemap.mjs warns when that happens.",
     "include": [
-      "/"
+      "/",
+      "/blog",
+      "/blog/offline-first-sync-on-a-pickleball-court"
     ],
     "skipThirdPartyRequests": true,
     "puppeteerArgs": [
