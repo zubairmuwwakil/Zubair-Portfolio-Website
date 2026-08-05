@@ -1,20 +1,20 @@
 import { Link } from "wouter";
 import { BlogLayout } from "@/components/BlogLayout";
 import { useDocumentHead } from "@/hooks/use-document-head";
-import { posts, formatPostDate, SITE_ORIGIN } from "@/lib/posts";
+import { posts, formatPostDate, SITE_ORIGIN, BLOG_INDEX_URL } from "@/lib/posts";
 
 export default function Blog() {
   useDocumentHead({
     title: "Blog — Zubair Muwwakil",
     description:
       "Notes on backend engineering, offline-first sync, and shipping production software, by Zubair Muwwakil.",
-    canonical: `${SITE_ORIGIN}/blog`,
+    canonical: BLOG_INDEX_URL,
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "Blog",
-      "@id": `${SITE_ORIGIN}/blog#blog`,
+      "@id": `${BLOG_INDEX_URL}#blog`,
       name: "Zubair Muwwakil — Blog",
-      url: `${SITE_ORIGIN}/blog`,
+      url: BLOG_INDEX_URL,
       author: { "@id": `${SITE_ORIGIN}/#person` },
     },
   });
@@ -40,7 +40,7 @@ export default function Blog() {
           {posts.map((post) => (
             <li key={post.slug}>
               <Link
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.slug}/`}
                 className="group block relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-6 shadow-lg shadow-primary/10 hover:-translate-y-1 hover:shadow-primary/25 transition-all duration-300"
               >
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />

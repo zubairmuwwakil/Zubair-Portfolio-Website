@@ -37,9 +37,17 @@ export function getPost(slug: string): Post | undefined {
   return posts.find((post) => post.slug === slug);
 }
 
+/**
+ * Trailing slash is deliberate. Pre-rendered routes are served from directories,
+ * so GitHub Pages 301s /blog/<slug> to /blog/<slug>/ — the slashed form is the
+ * URL that actually returns 200, and canonical, og:url and the sitemap must all
+ * name it or they point at a redirect.
+ */
 export function postUrl(slug: string): string {
-  return `${SITE_ORIGIN}/blog/${slug}`;
+  return `${SITE_ORIGIN}/blog/${slug}/`;
 }
+
+export const BLOG_INDEX_URL = `${SITE_ORIGIN}/blog/`;
 
 export function formatPostDate(date: string): string {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
