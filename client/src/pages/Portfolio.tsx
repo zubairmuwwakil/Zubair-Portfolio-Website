@@ -21,6 +21,7 @@ import {
   Menu,
   X,
   SquareStack,
+  Apple,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -171,9 +172,9 @@ export default function Portfolio() {
   const heroFocusLine = "I build reliable APIs, data pipelines, and production web apps.";
   const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · Brooklyn, NY · US Citizen";
   const featuredProjectTitles = [
+    "PickleOps — The Pickleball Social",
     "Looply",
     "MarketLens",
-    "PickleOps",
     "MindSky Website",
   ];
 
@@ -194,6 +195,7 @@ export default function Portfolio() {
       demo?: string;
       github?: string;
       caseStudy?: string;
+      appStore?: string;
     };
     photo?: string;
     stack?: string[];
@@ -224,19 +226,25 @@ export default function Portfolio() {
         caseStudy: "https://drive.google.com/file/d/1PPKatAvsSpp5oTtotDeMg7-0nRwLCxCZ/view?usp=sharing"
       },
     },
-    "PickleOps": {
-      problem: "PickleOpsir ladders and rating updates without spreadsheets.",
-      built: "Full-stack app with Prisma/Postgres and a React front end to schedule sessions, balance pairings, and keep ratings honest.",
+    "PickleOps — The Pickleball Social": {
+      problem: "Clubs run sessions, ladders, and player ratings on spreadsheets and group chats. Organizers lose evenings to admin, and ratings drift out of date.",
+      built: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
       decisions: [
-        "Prisma migrations and seed data for players, ladders, and sessions to keep environments reproducible.",
-        "Balancing algorithm that pairs players by rating tiers and recent matchups to avoid repeats.",
-        "Rating updates applied per match with guardrails for defaults/forfeits and audit-friendly history.",
-        "Role-based admin surface so captains can open sessions, lock courts, and override scores safely.",
+        "Offline-first sync with version conflict resolution so scoring works on courts with no signal and reconciles cleanly on reconnect.",
+        "DUPR single sign-on via WebView with opt-in match write-back, keeping external ratings in sync without manual entry.",
+        "Bluetooth proximity discovery for inviting nearby players, with explicit consent gates before a player joins a match.",
+        "Competitive rating model that weights wins against stronger opponents, with guardrails for forfeits and an audit-friendly history.",
       ],
-      impact: "Sessions stay balanced and schedulers stopped spending nights in spreadsheets.",
+      impact: [
+        "Shipped to the App Store and maintained through 21 releases in five months.",
+        "Sessions, ratings, and payments handled in one place; organizers stopped running the club from spreadsheets.",
+      ],
+      stack: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
       links: {
         demo: "https://pickleball.zubairmuwwakil.com",
-        github: "https://github.com/zubairmuwwakil/pickleball-session-manager",
+        appStore: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
+        // No repo link: github.com/zubairmuwwakil/pickleball-session-manager
+        // returns 404 under the new handle. See NEEDS-INPUT.md.
         caseStudy: "https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing",
       },
       photo: "/assets/pickleops-cover.jpg",
@@ -643,7 +651,7 @@ export default function Portfolio() {
                 const featuredCase = projectCaseStudies[title];
                 if (!featuredCase) return null;
                 const project = projectByTitle.get(title);
-                const stack = (featuredCase.stack || project?.stack || project?.tags || []).slice(0, 3);
+                const stack = (featuredCase.stack || project?.stack || project?.tags || []).slice(0, 5);
                 const outcomes = (Array.isArray(featuredCase.impact)
                   ? featuredCase.impact
                   : featuredCase.impact
@@ -695,7 +703,7 @@ export default function Portfolio() {
                           <div>
                             <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold mb-2">Technical decisions</p>
                             <ul className="space-y-2 text-sm text-foreground font-semibold">
-                              {(featuredCase.decisions || []).slice(0, 3).map((decision) => (
+                              {(featuredCase.decisions || []).slice(0, 4).map((decision) => (
                                 <li key={decision} className="flex gap-2 leading-relaxed">
                                   <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
                                   <span>{decision}</span>
@@ -704,12 +712,27 @@ export default function Portfolio() {
                             </ul>
                           </div>
                           <div className="flex flex-wrap gap-3">
+                            {featuredCase.links?.appStore && (
+                              <a
+                                href={featuredCase.links.appStore}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors"
+                              >
+                                <Apple className="w-4 h-4" />
+                                App Store
+                              </a>
+                            )}
                             {featuredCase.links?.demo && (
                               <a
                                 href={featuredCase.links.demo}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors"
+                                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition-colors ${
+                                  featuredCase.links?.appStore
+                                    ? "bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                                    : "bg-primary text-primary-foreground shadow-primary/25 hover:bg-primary/90"
+                                }`}
                               >
                                 Live Demo
                               </a>

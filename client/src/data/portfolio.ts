@@ -195,11 +195,13 @@ export const projects: Project[] = [
   },
   {
     id: 1,
-    title: "PickleOps",
-    description: "Full-stack ladder manager with scheduling, pairing, and rating updates to keep club play fair.",
-    link: "https://pickleball.zubairmuwwakil.com",
-    githubLink: "https://github.com/zubairmuwwakil/pickleball-session-manager",
-    tags: ["React", "Prisma", "Postgres", "TypeScript", "Auth"],
+    title: "PickleOps — The Pickleball Social",
+    description: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
+    link: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
+    // No repo link: .../pickleball-session-manager returns 404 under the new
+    // handle. See NEEDS-INPUT.md.
+    githubLink: null,
+    tags: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
   },
   {
     id: 2,
