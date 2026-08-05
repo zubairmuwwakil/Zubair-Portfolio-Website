@@ -106,14 +106,8 @@ role at a time plus part-time work, which is an ordinary shape.
 
 Experience is reordered current-first: G2i, Elevation, Senac, NDCTrades.
 
----|---|---|---|---|
-| 1 | G2i Inc. | Software Engineer | Aug 2025 – Present | **`"Contract"`** — already set, taken from the old role string "Software Engineer (Contract)" |
-| 2 | The Senac Group | Financial Software Analyst | Jun 2023 – May 2025 | **needed** |
-| 3 | Elevation Athletics | Regional Program Coordinator | Mar 2023 – Present | **needed** |
-| 4 | NDCTrades | Finance Solutions Architect | Sep 2023 – Sep 2024 | **needed** |
-
-Note #3 is still marked `Present` alongside #1. If Elevation Athletics has
-ended, set its `endDate` — two concurrent "Present" roles invites the question.
+**Still open from this item:** `/resume.pdf` and the Drive original predate these
+corrections — see item 14.
 
 ---
 
@@ -314,3 +308,34 @@ in three files.
 
 Either delete the seed block, or have it import from `client/src/data/portfolio.ts`.
 Not touched here — it is outside the content/metadata/links scope you set.
+
+---
+
+## 14. The résumé PDF is now out of date relative to the site
+
+Added 2026-08-05, after the employment-type and date corrections.
+
+`/resume/` (the HTML page) reflects the corrected data. **`/resume.pdf` does
+not** — it is a copy of the Drive original, taken before those corrections, so it
+still says:
+
+| Field | PDF says | Correct |
+|---|---|---|
+| NDCTrades | absent entirely | Sep 2022 – Jun 2023, Internship |
+| U of T BSc | 2019 – 2023 | 2020 – 2025 |
+| Employment types | none | Contract / Part-time / Part-time → Full-time / Internship |
+| Azure cert issuer | University of Calgary | Microsoft |
+| GitHub link | `github.com/ZthEchelon` (404) — unverified, see below | `github.com/zubairmuwwakil` |
+
+This matters because a recruiter can read the page and download the PDF in the
+same visit, and the two disagree on dates. That is worse than either being
+imperfect on its own.
+
+**To fix:** update the Drive document, export a fresh PDF, and drop it at
+`client/public/resume.pdf`. I'll wire nothing further — the path is already
+served and linked from `/resume/` and the hero button.
+
+On the GitHub link specifically: the markdown export you supplied contained
+`ZthEchelon`. I could not verify the PDF itself — PDF text lives in compressed
+streams and the tooling here cannot read it. Check it directly when you open the
+document.
