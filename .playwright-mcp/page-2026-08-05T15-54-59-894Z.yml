@@ -1,0 +1,423 @@
+- generic [ref=f3e2]:
+  - generic [ref=f3e3]:
+    - navigation [ref=f3e4]:
+      - generic [ref=f3e6]:
+        - link "Zubair Muwwakil monogram Zubair Muwwakil" [ref=f3e7] [cursor=pointer]:
+          - /url: /
+          - img "Zubair Muwwakil monogram" [ref=f3e9]
+          - generic [ref=f3e10]: Zubair Muwwakil
+        - generic [ref=f3e11]:
+          - link "Featured" [ref=f3e12] [cursor=pointer]:
+            - /url: "#featured"
+          - link "Experience" [ref=f3e13] [cursor=pointer]:
+            - /url: "#experience"
+          - link "Skills" [ref=f3e14] [cursor=pointer]:
+            - /url: "#skills"
+          - link "About" [ref=f3e15] [cursor=pointer]:
+            - /url: "#about"
+          - link "Projects" [ref=f3e16] [cursor=pointer]:
+            - /url: /projects/
+          - link "Blog" [ref=f3e17] [cursor=pointer]:
+            - /url: /blog/
+          - link "Contact" [ref=f3e18] [cursor=pointer]:
+            - /url: "#contact"
+          - button "Toggle color theme" [ref=f3e19] [cursor=pointer]
+          - link "Hire Me" [ref=f3e20] [cursor=pointer]:
+            - /url: "#contact"
+    - generic [ref=f3e21]:
+      - generic [ref=f3e26]:
+        - generic [ref=f3e27]:
+          - heading "Backend / Full-Stack Software Engineer" [level=1] [ref=f3e28]
+          - paragraph [ref=f3e29]: I build reliable APIs, data pipelines, and production web apps.
+          - paragraph [ref=f3e30]: Java · Spring Boot · TypeScript · SQL · Docker · Brooklyn, NY · US Citizen
+          - generic [ref=f3e31]:
+            - link "View Featured Project" [ref=f3e32] [cursor=pointer]:
+              - /url: "#featured"
+            - link "Resume" [ref=f3e33] [cursor=pointer]:
+              - /url: https://drive.google.com/file/d/1Z87uMI6RrrPa9KeIhZChkpzl-YYZYgTr/view?usp=sharing
+          - generic [ref=f3e34]:
+            - link "GitHub profile" [ref=f3e35] [cursor=pointer]:
+              - /url: https://github.com/zubairmuwwakil
+            - link "LinkedIn profile" [ref=f3e39] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/zubairmuwwakil/
+            - link "Email Zubair" [ref=f3e44] [cursor=pointer]:
+              - /url: mailto:zmuwwakil@gmail.com
+        - img "Portrait of Zubair Muwwakil, backend and full-stack software engineer" [ref=f3e50]
+      - link [ref=f3e59] [cursor=pointer]:
+        - /url: "#featured"
+    - link "Book intro" [ref=f3e62] [cursor=pointer]:
+      - /url: mailto:zmuwwakil@gmail.com?subject=Intro%20call%20with%20Zubair&body=Hi%20Zubair%2C%20I%27d%20like%20to%20book%20a%2015-30%20min%20intro%20call.
+    - generic [ref=f3e67]:
+      - paragraph [ref=f3e74]: 3+ yrs building production automation & apps
+      - paragraph [ref=f3e82]: 4 end-to-end systems (auth, DB, APIs, background jobs)
+      - paragraph [ref=f3e90]: $25k+/yr impact from automation & data tooling
+    - generic [ref=f3e92]:
+      - generic [ref=f3e93]:
+        - heading "Featured Projects" [level=2] [ref=f3e94]
+        - paragraph [ref=f3e96]: Flagship builds with clear decisions, outcomes, and proof.
+      - region [ref=f3e97]:
+        - generic [ref=f3e99]:
+          - group [ref=f3e100]:
+            - generic [ref=f3e103]:
+              - generic [ref=f3e104]:
+                - generic [ref=f3e105]:
+                  - generic [ref=f3e106]: Featured Build
+                  - heading "PickleOps — The Pickleball Social" [level=3] [ref=f3e107]
+                  - paragraph [ref=f3e108]: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app."
+                  - generic [ref=f3e109]:
+                    - generic [ref=f3e110]: React Native
+                    - generic [ref=f3e111]: TypeScript
+                    - generic [ref=f3e112]: Prisma
+                    - generic [ref=f3e113]: Postgres
+                    - generic [ref=f3e114]: iOS
+                - generic [ref=f3e115]:
+                  - generic [ref=f3e116]:
+                    - paragraph [ref=f3e117]: Problem
+                    - paragraph [ref=f3e118]: Clubs run sessions, ladders, and player ratings on spreadsheets and group chats. Organizers lose evenings to admin, and ratings drift out of date.
+                  - generic [ref=f3e119]:
+                    - paragraph [ref=f3e120]: Outcomes
+                    - list [ref=f3e121]:
+                      - listitem [ref=f3e122]:
+                        - generic [ref=f3e124]: Shipped to the App Store and maintained through 21 releases in five months.
+                      - listitem [ref=f3e125]:
+                        - generic [ref=f3e127]: Sessions, ratings, and payments handled in one place; organizers stopped running the club from spreadsheets.
+                - generic [ref=f3e128]:
+                  - paragraph [ref=f3e129]: Technical decisions
+                  - list [ref=f3e130]:
+                    - listitem [ref=f3e131]:
+                      - generic [ref=f3e133]: Offline-first sync with version conflict resolution so scoring works on courts with no signal and reconciles cleanly on reconnect.
+                    - listitem [ref=f3e134]:
+                      - generic [ref=f3e136]: DUPR single sign-on via WebView with opt-in match write-back, keeping external ratings in sync without manual entry.
+                    - listitem [ref=f3e137]:
+                      - generic [ref=f3e139]: Bluetooth proximity discovery for inviting nearby players, with explicit consent gates before a player joins a match.
+                    - listitem [ref=f3e140]:
+                      - generic [ref=f3e142]: Competitive rating model that weights wins against stronger opponents, with guardrails for forfeits and an audit-friendly history.
+                - generic [ref=f3e143]:
+                  - link "App Store" [ref=f3e144] [cursor=pointer]:
+                    - /url: https://apps.apple.com/us/app/the-pickleball-social/id6759585852
+                  - link "Live Demo" [ref=f3e148] [cursor=pointer]:
+                    - /url: https://pickleball.zubairmuwwakil.com
+                  - link "Case Study" [ref=f3e149] [cursor=pointer]:
+                    - /url: https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing
+              - img "PickleOps — The Pickleball Social — project screenshot" [ref=f3e153]
+          - group [ref=f3e154]:
+            - generic [ref=f3e157]:
+              - generic [ref=f3e158]:
+                - generic [ref=f3e159]:
+                  - generic [ref=f3e160]: Featured Build
+                  - heading "Looply" [level=3] [ref=f3e161]
+                  - paragraph [ref=f3e162]: Personal finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from your inbox and receipts so you stop losing money to forgotten renewals and missed returns.
+                  - generic [ref=f3e163]:
+                    - generic [ref=f3e164]: Next.js
+                    - generic [ref=f3e165]: TypeScript
+                    - generic [ref=f3e166]: Prisma
+                    - generic [ref=f3e167]: Neon Postgres
+                - generic [ref=f3e168]:
+                  - generic [ref=f3e169]:
+                    - paragraph [ref=f3e170]: Problem
+                    - paragraph [ref=f3e171]: People miss trial endings, renewals, return windows, and overdue refunds because data is scattered across inboxes and receipts—and manual tracking never sticks.
+                  - generic [ref=f3e172]:
+                    - paragraph [ref=f3e173]: Outcomes
+                    - list [ref=f3e174]:
+                      - listitem [ref=f3e175]:
+                        - generic [ref=f3e177]: Fewer missed deadlines via proactive reminders across email, push, and calendar.
+                      - listitem [ref=f3e178]:
+                        - generic [ref=f3e180]: Clear "money saved / money at risk" visibility that keeps users engaged.
+                - generic [ref=f3e181]:
+                  - paragraph [ref=f3e182]: Technical decisions
+                  - list [ref=f3e183]:
+                    - listitem [ref=f3e184]:
+                      - generic [ref=f3e186]: Incremental inbox ingestion and receipt parsing that normalizes purchases into a single timeline (proof, order numbers, tracking, deadlines).
+                    - listitem [ref=f3e187]:
+                      - generic [ref=f3e189]: Idempotent upserts with merchant/order/date/amount dedupe keys so retries never double-create purchases, subscriptions, or events.
+                    - listitem [ref=f3e190]:
+                      - generic [ref=f3e192]: Return shipment and refund SLA timelines to bridge the gap between "sent it back" and "money actually returned."
+                    - listitem [ref=f3e193]:
+                      - generic [ref=f3e195]: Multi-channel notifications (digest + instant alerts) with quiet hours, snoozes, and job-run tracking to prevent duplicate emails.
+                - generic [ref=f3e196]:
+                  - link "Live Demo" [ref=f3e197] [cursor=pointer]:
+                    - /url: https://looply.zubairmuwwakil.com
+                  - link "GitHub" [ref=f3e198] [cursor=pointer]:
+                    - /url: https://github.com/zubairmuwwakil/return-saas
+                  - link "Case Study" [ref=f3e199] [cursor=pointer]:
+                    - /url: https://drive.google.com/file/d/1PPKatAvsSpp5oTtotDeMg7-0nRwLCxCZ/view?usp=sharing
+              - img "Looply — project screenshot" [ref=f3e203]
+          - group [ref=f3e204]:
+            - generic [ref=f3e207]:
+              - generic [ref=f3e208]:
+                - generic [ref=f3e209]:
+                  - generic [ref=f3e210]: Featured Build
+                  - heading "MarketLens" [level=3] [ref=f3e211]
+                  - paragraph [ref=f3e212]: Backend pipeline that ingests price/indicator feeds, normalizes them into Postgres, and serves typed REST endpoints.
+                  - generic [ref=f3e213]:
+                    - generic [ref=f3e214]: Java
+                    - generic [ref=f3e215]: Spring Boot
+                    - generic [ref=f3e216]: SQL
+                    - generic [ref=f3e217]: Caching
+                    - generic [ref=f3e218]: APIs
+                - generic [ref=f3e219]:
+                  - generic [ref=f3e220]:
+                    - paragraph [ref=f3e221]: Problem
+                    - paragraph [ref=f3e222]: Needed reliable, de-duplicated market indicators for dashboards without hammering upstream APIs.
+                  - generic [ref=f3e223]:
+                    - paragraph [ref=f3e224]: Outcomes
+                    - list [ref=f3e225]:
+                      - listitem [ref=f3e226]:
+                        - generic [ref=f3e228]: Consistent indicator data and faster dashboards under rate limits.
+                      - listitem [ref=f3e229]:
+                        - generic [ref=f3e231]: Predictable costs by reducing upstream API churn.
+                - generic [ref=f3e232]:
+                  - paragraph [ref=f3e233]: Technical decisions
+                  - list [ref=f3e234]:
+                    - listitem [ref=f3e235]:
+                      - generic [ref=f3e237]: Idempotent ingest jobs with upserts keyed by symbol/date to stop duplicate rows across retries.
+                    - listitem [ref=f3e238]:
+                      - generic [ref=f3e240]: Cached hot indicator queries to cut upstream calls and keep dashboard latency predictable.
+                    - listitem [ref=f3e241]:
+                      - generic [ref=f3e243]: Normalized indicator tables + contract-tested REST endpoints for fast, typed slices.
+                - generic [ref=f3e244]:
+                  - link "Live Demo" [ref=f3e245] [cursor=pointer]:
+                    - /url: https://marketdata.zubairmuwwakil.com
+                  - link "GitHub" [ref=f3e246] [cursor=pointer]:
+                    - /url: https://github.com/zubairmuwwakil/market-data-pipeline
+                  - link "Case Study" [ref=f3e247] [cursor=pointer]:
+                    - /url: https://drive.google.com/file/d/10SKFD0k5hVxm7qH6rpWVVNmZubGuktZO/view?usp=sharing
+              - img "MarketLens — project screenshot" [ref=f3e251]
+          - group [ref=f3e252]:
+            - generic [ref=f3e255]:
+              - generic [ref=f3e256]:
+                - generic [ref=f3e257]:
+                  - generic [ref=f3e258]: Featured Build
+                  - heading "MindSky Website" [level=3] [ref=f3e259]
+                  - paragraph [ref=f3e260]: Responsive marketing site with modular sections, analytics hooks, and lightweight animations.
+                  - generic [ref=f3e261]:
+                    - generic [ref=f3e262]: React
+                    - generic [ref=f3e263]: TypeScript
+                    - generic [ref=f3e264]: Design Systems
+                - generic [ref=f3e265]:
+                  - generic [ref=f3e266]:
+                    - paragraph [ref=f3e267]: Problem
+                    - paragraph [ref=f3e268]: MindSky needed a fast, clear landing page that converts curious users without looking like a template.
+                  - generic [ref=f3e269]:
+                    - paragraph [ref=f3e270]: Outcomes
+                    - list [ref=f3e271]:
+                      - listitem [ref=f3e272]:
+                        - generic [ref=f3e274]: Sharper storytelling with a site that loads fast and looks intentional on every device.
+                - generic [ref=f3e275]:
+                  - paragraph [ref=f3e276]: Technical decisions
+                  - list [ref=f3e277]:
+                    - listitem [ref=f3e278]:
+                      - generic [ref=f3e280]: Static-first build for instant page loads and SEO wins.
+                    - listitem [ref=f3e281]:
+                      - generic [ref=f3e283]: Composable content blocks so non-engineers can swap copy without breaking layout.
+                    - listitem [ref=f3e284]:
+                      - generic [ref=f3e286]: Accessibility checks and mobile-first spacing to keep bounce rate low.
+                - generic [ref=f3e287]:
+                  - link "Live Demo" [ref=f3e288] [cursor=pointer]:
+                    - /url: https://mindsky.zubairmuwwakil.com
+                  - link "Case Study" [ref=f3e289] [cursor=pointer]:
+                    - /url: https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing
+              - img "MindSky Website — project screenshot" [ref=f3e293]
+        - button "Previous featured project" [ref=f3e294] [cursor=pointer]:
+          - generic [ref=f3e295]: Previous slide
+        - button "Next featured project" [ref=f3e296] [cursor=pointer]:
+          - generic [ref=f3e297]: Next slide
+    - generic [ref=f3e299]:
+      - generic [ref=f3e300]:
+        - heading "Experience" [level=2] [ref=f3e301]
+        - paragraph [ref=f3e303]: Impact snapshots from recent roles.
+      - region [ref=f3e304]:
+        - generic [ref=f3e306]:
+          - group [ref=f3e307]:
+            - generic [ref=f3e309]:
+              - generic [ref=f3e311]:
+                - generic [ref=f3e312]: Aug 2025 - Present
+                - generic [ref=f3e315]: G2i Inc.
+              - generic [ref=f3e319]:
+                - heading "Software Engineer" [level=3] [ref=f3e320]
+                - generic [ref=f3e321]: Contract
+              - paragraph [ref=f3e322]: Python · SQL · GitHub · CI/CD
+              - list [ref=f3e324]:
+                - listitem [ref=f3e325]:
+                  - generic [ref=f3e327]: Delivered scoped production features with emphasis on correctness, maintainability, and clean handoff.
+                - listitem [ref=f3e328]:
+                  - generic [ref=f3e330]: Worked in a GitHub PR + CI workflow (branching, reviews, automated checks) to keep changes releasable.
+                - listitem [ref=f3e331]:
+                  - generic [ref=f3e333]: Built and validated SQL queries/transformations supporting feature logic, debugging, and data integrity checks.
+                - listitem [ref=f3e334]:
+                  - generic [ref=f3e336]: Collaborated asynchronously in a remote team, shipping incremental improvements with clear documentation.
+          - group [ref=f3e337]:
+            - generic [ref=f3e339]:
+              - generic [ref=f3e341]:
+                - generic [ref=f3e342]: Jun 2023 - May 2025
+                - generic [ref=f3e345]: The Senac Group
+              - heading "Financial Software Analyst" [level=3] [ref=f3e350]
+              - paragraph [ref=f3e351]: Automation · SQL · Finance tooling
+              - list [ref=f3e353]:
+                - listitem [ref=f3e354]:
+                  - generic [ref=f3e356]: "Tech: Excel, VBA, SQL, reporting pipelines, budgeting/forecast models, documentation/runbooks."
+                - listitem [ref=f3e357]:
+                  - generic [ref=f3e359]: Built automated reporting pipelines (SQL → automated outputs) removing 10+ hours/week of manual work and standardizing weekly deliverables.
+                - listitem [ref=f3e360]:
+                  - generic [ref=f3e362]: Created budgeting/variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.
+                - listitem [ref=f3e363]:
+                  - generic [ref=f3e365]: Produced scenario + cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks.
+          - group [ref=f3e366]:
+            - generic [ref=f3e368]:
+              - generic [ref=f3e370]:
+                - generic [ref=f3e371]: Mar 2023 - Present
+                - generic [ref=f3e374]: Elevation Athletics
+              - heading "Regional Program Coordinator" [level=3] [ref=f3e379]
+              - paragraph [ref=f3e380]: Ops automation · APIs · Support workflows
+              - list [ref=f3e382]:
+                - listitem [ref=f3e383]:
+                  - generic [ref=f3e385]: "Tech: TeamSnap API, Excel automation, operational tooling, support workflows, process training."
+                - listitem [ref=f3e386]:
+                  - generic [ref=f3e388]: Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.
+                - listitem [ref=f3e389]:
+                  - generic [ref=f3e391]: Ran a structured support + triage workflow for 1,000+ users across 8 cities, keeping stakeholders unblocked with clear updates.
+                - listitem [ref=f3e392]:
+                  - generic [ref=f3e394]: Developed Excel automation utilities that reduced game-day data entry/reporting time by ~60%; led tooling/process enablement for staff/coaches.
+          - group [ref=f3e395]:
+            - generic [ref=f3e397]:
+              - generic [ref=f3e399]:
+                - generic [ref=f3e400]: Sep 2023 - Sep 2024
+                - generic [ref=f3e403]: NDCTrades
+              - heading "Finance Solutions Architect" [level=3] [ref=f3e408]
+              - paragraph [ref=f3e409]: Revenue ops · Automation · Dashboards
+              - list [ref=f3e411]:
+                - listitem [ref=f3e412]:
+                  - generic [ref=f3e414]: "Tech: QuickBooks, Humanity, workflow automation, reporting dashboards, implementation playbooks."
+                - listitem [ref=f3e415]:
+                  - generic [ref=f3e417]: Automated invoicing + pricing workflows across QuickBooks/Humanity, increasing recurring revenue by ~20% while reducing operational errors.
+                - listitem [ref=f3e418]:
+                  - generic [ref=f3e420]: Streamlined payroll via data cleanup and automated checks, cutting processing time by ~35% and improving correctness.
+                - listitem [ref=f3e421]:
+                  - generic [ref=f3e423]: Built compliance/performance dashboards so risks surfaced earlier; wrote reusable implementation templates to standardize customer setups.
+        - button "Previous slide" [disabled]
+        - button "Next slide" [ref=f3e424] [cursor=pointer]
+      - generic [ref=f3e426]:
+        - heading "Education" [level=3] [ref=f3e427]
+        - generic [ref=f3e428]:
+          - generic [ref=f3e429]:
+            - generic [ref=f3e436]:
+              - heading "Ontario Tech University" [level=4] [ref=f3e437]
+              - paragraph [ref=f3e438]: Master of Computer Science, Computer Science
+            - generic [ref=f3e439]: "2024"
+          - generic [ref=f3e440]:
+            - generic [ref=f3e446]:
+              - heading "University of Toronto" [level=4] [ref=f3e447]
+              - paragraph [ref=f3e448]: Bachelor of Computer Science, Computer Science
+            - generic [ref=f3e449]: 2019 - 2023
+      - generic [ref=f3e450]:
+        - heading "Certifications" [level=3] [ref=f3e451]
+        - generic [ref=f3e452]:
+          - generic [ref=f3e453]:
+            - generic [ref=f3e460]:
+              - 'heading "Microsoft Certified: Azure Fundamentals" [level=4] [ref=f3e461]'
+              - paragraph [ref=f3e462]: Microsoft
+            - generic [ref=f3e463]: "2024"
+          - generic [ref=f3e464]:
+            - generic [ref=f3e471]:
+              - heading "Advanced Digital and Professional Training" [level=4] [ref=f3e472]
+              - paragraph [ref=f3e473]: Ted Rogers School of Management — Toronto Metropolitan University
+            - generic [ref=f3e474]: "2025"
+          - generic [ref=f3e475]:
+            - generic [ref=f3e482]:
+              - heading "French Language Studies" [level=4] [ref=f3e483]
+              - paragraph [ref=f3e484]: York University
+            - generic [ref=f3e485]: "2025"
+    - generic [ref=f3e487]:
+      - generic [ref=f3e488]:
+        - heading "Technical Skills" [level=2] [ref=f3e489]
+        - paragraph [ref=f3e491]: "Signals I lean on: foundations, reliability, and systems that hold up."
+      - generic [ref=f3e492]:
+        - generic [ref=f3e493]:
+          - generic [ref=f3e500]:
+            - paragraph [ref=f3e501]: Core stack
+            - heading "core" [level=3] [ref=f3e502]
+          - generic [ref=f3e503]:
+            - generic [ref=f3e504]: Java (Spring Boot)
+            - generic [ref=f3e505]: TypeScript / JavaScript
+            - generic [ref=f3e506]: React
+            - generic [ref=f3e507]: SQL
+        - generic [ref=f3e508]:
+          - generic [ref=f3e514]:
+            - paragraph [ref=f3e515]: Also use
+            - heading "also" [level=3] [ref=f3e516]
+          - generic [ref=f3e517]:
+            - generic [ref=f3e518]: Node.js
+            - generic [ref=f3e519]: Python
+            - generic [ref=f3e520]: Docker
+            - generic [ref=f3e521]: Postgres
+            - generic [ref=f3e522]: Prisma
+            - generic [ref=f3e523]: REST APIs
+            - generic [ref=f3e524]: Testing (JUnit / Jest)
+            - generic [ref=f3e525]: CI/CD
+        - generic [ref=f3e526]:
+          - generic [ref=f3e534]:
+            - paragraph [ref=f3e535]: Practices
+            - heading "practices" [level=3] [ref=f3e536]
+          - generic [ref=f3e537]:
+            - generic [ref=f3e538]: Clean Architecture
+            - generic [ref=f3e539]: API Design
+            - generic [ref=f3e540]: Schema Migrations
+            - generic [ref=f3e541]: Observability Basics
+    - generic [ref=f3e543]:
+      - generic [ref=f3e544]:
+        - heading "About" [level=2] [ref=f3e545]
+        - paragraph [ref=f3e547]: Evidence over hype—what I build and how I approach it.
+      - generic [ref=f3e548]:
+        - list [ref=f3e551]:
+          - listitem [ref=f3e552]:
+            - generic [ref=f3e554]: "Backend-leaning SWE: APIs, data pipelines, internal tools."
+          - listitem [ref=f3e555]:
+            - generic [ref=f3e557]: "Reliability first: schemas, migrations, idempotency, CI/CD."
+          - listitem [ref=f3e558]:
+            - generic [ref=f3e560]: Finance background → correctness and auditability mindset.
+          - listitem [ref=f3e561]:
+            - generic [ref=f3e563]: Shipped multiple real systems (not tutorials).
+          - listitem [ref=f3e564]:
+            - generic [ref=f3e566]: Targeting backend / full-stack SWE roles (Brooklyn, NY — remote, hybrid, or onsite).
+        - generic [ref=f3e568]:
+          - heading "Proof / Links" [level=3] [ref=f3e570]
+          - generic [ref=f3e571]:
+            - link "Resume PDF" [ref=f3e572] [cursor=pointer]:
+              - /url: https://drive.google.com/file/d/1Z87uMI6RrrPa9KeIhZChkpzl-YYZYgTr/view?usp=sharing
+            - link "GitHub" [ref=f3e578] [cursor=pointer]:
+              - /url: https://github.com/zubairmuwwakil
+            - link "LinkedIn" [ref=f3e584] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/zubairmuwwakil/
+    - generic [ref=f3e592]:
+      - generic [ref=f3e593]:
+        - heading "How I Work" [level=2] [ref=f3e594]
+        - paragraph [ref=f3e596]: Signals that I deliver without slowing teams down.
+      - generic [ref=f3e597]:
+        - paragraph [ref=f3e605]: PR-first workflow with small, reviewable changes.
+        - paragraph [ref=f3e615]: Tests where they pay off; fast feedback over brittle suites.
+        - paragraph [ref=f3e624]: Schema migrations over manual DB edits; reversible rollouts.
+        - paragraph [ref=f3e632]: Idempotent jobs and predictable APIs to avoid surprises.
+        - paragraph [ref=f3e639]: Typed contracts and clear handoffs to keep teams unblocked.
+    - generic [ref=f3e643]:
+      - generic [ref=f3e645]:
+        - heading "Let's Work Together" [level=2] [ref=f3e646]
+        - paragraph [ref=f3e648]: Fastest via email or LinkedIn — quick intros welcome.
+      - generic [ref=f3e649]:
+        - generic [ref=f3e650]:
+          - generic [ref=f3e651]:
+            - link "Email" [ref=f3e652] [cursor=pointer]:
+              - /url: mailto:zmuwwakil@gmail.com
+            - link "LinkedIn" [ref=f3e656] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/zubairmuwwakil/
+            - link "GitHub" [ref=f3e661] [cursor=pointer]:
+              - /url: https://github.com/zubairmuwwakil
+            - link "Projects" [ref=f3e665] [cursor=pointer]:
+              - /url: /projects/
+          - paragraph [ref=f3e670]: Prefer email for detailed notes or links. Quick pings on LinkedIn are welcome.
+        - generic [ref=f3e671]:
+          - paragraph [ref=f3e673]: Availability
+          - paragraph [ref=f3e674]: Backend / Full-Stack roles · Brooklyn, NY · Open to remote, hybrid, or onsite · Contract or full-time.
+    - contentinfo [ref=f3e675]:
+      - paragraph [ref=f3e677]: © 2026 Zubair Muwwakil. All rights reserved. Built with React & Tailwind.
+  - region "Notifications (F8)":
+    - list
