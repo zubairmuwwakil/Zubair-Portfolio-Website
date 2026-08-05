@@ -9,7 +9,15 @@ export type Profile = {
   resumeUrl?: string | null;
 };
 
-export type EmploymentType = "Full-time" | "Part-time" | "Contract" | "Internship";
+export type EmploymentType =
+  | "Full-time"
+  | "Part-time"
+  | "Contract"
+  | "Internship"
+  /** A role that started part-time and converted. Shown as a progression so the
+   *  hours are honest for both halves rather than flattened to whichever is
+   *  more flattering. */
+  | "Part-time → Full-time";
 
 export type Experience = {
   id: number | string;
@@ -104,27 +112,10 @@ export const experiences: Experience[] = [
     ].join("\n"),
   },
   {
-    id: 2,
-    company: "The Senac Group",
-    role: "Financial Software Analyst — Automation & Analytics",
-    // employmentType: pending — see NEEDS-INPUT.md
-    subtitle: "C# · .NET · SQL Server (T-SQL) · Excel VBA · Reporting pipelines",
-    startDate: "Jun 2023",
-    endDate: "May 2025",
-    description: [
-      "Built internal automation and reporting logic in C#/.NET and SQL Server (T-SQL) to improve FP&A data accuracy, repeatability, and close-cycle reliability.",
-      "Automated recurring reporting workflows with SQL and Excel VBA, saving 10+ hours/week across weekly and monthly deliverables.",
-      "Built pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, and shipped validation dashboards that surfaced discrepancies earlier — reducing rework during close.",
-      "Created budgeting/variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.",
-      "Produced scenario + cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks.",
-      "Promoted Intern → Assistant Financial Analyst → Software Developer."
-    ].join("\n"),
-  },
-  {
     id: 3,
     company: "Elevation Athletics",
     role: "Regional Program Coordinator (Tech & Ops)",
-    // employmentType: pending — see NEEDS-INPUT.md
+    employmentType: "Part-time",
     subtitle: "Next.js · TypeScript · PostgreSQL · Glicko-2 ratings · TeamSnap API",
     startDate: "Mar 2023",
     endDate: "Present",
@@ -139,13 +130,30 @@ export const experiences: Experience[] = [
     ].join("\n"),
   },
   {
+    id: 2,
+    company: "The Senac Group",
+    role: "Financial Software Analyst — Automation & Analytics",
+    employmentType: "Part-time → Full-time",
+    subtitle: "C# · .NET · SQL Server (T-SQL) · Excel VBA · Reporting pipelines",
+    startDate: "Jun 2023",
+    endDate: "May 2025",
+    description: [
+      "Built internal automation and reporting logic in C#/.NET and SQL Server (T-SQL) to improve FP&A data accuracy, repeatability, and close-cycle reliability.",
+      "Automated recurring reporting workflows with SQL and Excel VBA, saving 10+ hours/week across weekly and monthly deliverables.",
+      "Built pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, and shipped validation dashboards that surfaced discrepancies earlier — reducing rework during close.",
+      "Created budgeting/variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.",
+      "Produced scenario + cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks.",
+      "Promoted Intern → Assistant Financial Analyst → Software Developer."
+    ].join("\n"),
+  },
+  {
     id: 4,
     company: "NDCTrades",
     role: "Finance Solutions Architect",
-    // employmentType: pending — see NEEDS-INPUT.md
+    employmentType: "Internship",
     subtitle: "Revenue ops · Automation · Dashboards",
-    startDate: "Sep 2023",
-    endDate: "Sep 2024",
+    startDate: "Sep 2022",
+    endDate: "Jun 2023",
     description: [
       "Tech: QuickBooks, Humanity, workflow automation, reporting dashboards, implementation playbooks.",
       "Automated invoicing + pricing workflows across QuickBooks/Humanity, increasing recurring revenue by ~20% while reducing operational errors.",
@@ -154,6 +162,7 @@ export const experiences: Experience[] = [
     ].join("\n"),
   },
 ];
+
 
 export const education: Education[] = [
   {
@@ -169,8 +178,8 @@ export const education: Education[] = [
     school: "University of Toronto",
     degree: "BSc, Computer Science & Mathematics",
     field: "Finance/Economics",
-    startDate: "2019",
-    endDate: "2023",
+    startDate: "2020",
+    endDate: "2025",
   },
 ];
 
