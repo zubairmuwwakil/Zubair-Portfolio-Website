@@ -3,7 +3,7 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { useDocumentHead } from "@/hooks/use-document-head";
 import { parseFrontmatter, renderMarkdown } from "@/lib/markdown";
 import { SITE_ORIGIN } from "@/lib/posts";
-import { profile, contactEmail } from "@/data/portfolio";
+import { profile, contactEmail, profileHandle } from "@/data/portfolio";
 import resumeRaw from "../../content/resume.md?raw";
 
 export const RESUME_URL = `${SITE_ORIGIN}/resume/`;
@@ -63,7 +63,7 @@ export default function Resume() {
               <a
                 href={profile.linkedinUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground shadow-lg hover:bg-secondary/90 transition-colors"
               >
                 <Linkedin className="w-4 h-4" />
@@ -74,7 +74,7 @@ export default function Resume() {
               <a
                 href={profile.githubUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground shadow-lg hover:bg-secondary/90 transition-colors"
               >
                 <Github className="w-4 h-4" />
@@ -82,6 +82,16 @@ export default function Resume() {
               </a>
             )}
           </div>
+
+          {/* A paper résumé prints these URLs in the contact line; the web
+              version had them only as hrefs, so anything reading the page as
+              text saw two unlabelled buttons. Unlike the phone number above,
+              public profile URLs are safe to expose — they are already public. */}
+          <p className="mt-3 font-mono text-xs text-muted-foreground">
+            {profileHandle(profile.githubUrl)}
+            {profile.githubUrl && profile.linkedinUrl && " · "}
+            {profileHandle(profile.linkedinUrl)}
+          </p>
         </header>
 
         <div className="border-t border-border/60 pt-2">{renderMarkdown(body)}</div>

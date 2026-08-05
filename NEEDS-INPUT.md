@@ -339,3 +339,50 @@ On the GitHub link specifically: the markdown export you supplied contained
 `ZthEchelon`. I could not verify the PDF itself — PDF text lives in compressed
 streams and the tooling here cannot read it. Check it directly when you open the
 document.
+
+---
+
+## 15. The MarketLens case study describes a build the public repo doesn't contain
+
+Found 2026-08-05 while drafting a README for `zubairmuwwakil/marketdata`.
+
+The case study at `/projects/marketlens/` — written from the résumé — claims
+Bucket4j rate limiting and quota tracking, Prometheus metrics, OTLP tracing,
+correlation IDs, and OpenAPI/Swagger. **None of those appear in the public
+repo's `pom.xml`**, which declares only: actuator, flyway (+ postgres), data-jpa,
+webmvc, postgresql, lombok.
+
+The deployed service is clearly a later build than the public repo:
+
+| | `marketdata` repo | marketdata.zubairmuwwakil.com |
+|---|---|---|
+| `/` | `RootController` returns a `String` | full HTML dashboard, titled "MarketLens — Market Data Pipeline" |
+| `/api/v1/candles` | endpoint does not exist | **401** — API-key auth enforced |
+| Bucket4j / Micrometer / OTel / springdoc | absent from pom.xml | claimed on the résumé |
+
+So the strongest backend evidence in the whole footprint is running somewhere
+that is not public.
+
+**This is why I have not repointed the MarketLens "Source" link** from
+`market-data-pipeline` to `marketdata`. Doing so would send a reviewer to a repo
+that is cleaner but still contradicts the case study — worse than the current
+state, not better.
+
+Options, roughly in order of value:
+
+1. **Push the deployed code to `marketdata`.** Makes the strongest claims
+   checkable and the repo pin-worthy. Check for committed secrets first — the
+   live service has an API-key system, so there is a real chance of a key in
+   config history.
+2. **Qualify the case study** to describe only what is public, and move the
+   rate-limiting/observability material into a "what the deployed service adds"
+   note that does not imply the source is available.
+3. **Drop the Source link entirely**, the way PickleOps does, and let the live
+   demo and case study carry it.
+
+A README draft for the repo as it stands is at
+`repo-readmes/marketdata-README.md`. It deliberately claims none of the
+unbacked features and states plainly that the deployment runs ahead of the repo.
+
+Also in that repo: three `.DS_Store` files are committed, and the description is
+null. Both fixable with the commands in the draft's header comment.
