@@ -75,6 +75,24 @@ export default function Portfolio() {
     };
   }, [isMobileMenuOpen]);
 
+  /**
+   * Escape closes the image lightbox and the mobile menu.
+   *
+   * Both were dismissable only by clicking a specific target, which leaves a
+   * keyboard user with no way out of a full-screen overlay — the standard
+   * dismissal gesture simply did nothing.
+   */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setFeaturedModal((open) => (open ? null : open));
+      setIsMobileMenuOpen((open) => (open ? false : open));
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
@@ -221,7 +239,7 @@ export default function Portfolio() {
       links: {
         demo: "https://looply.zubairmuwwakil.com",
         github: "https://github.com/zubairmuwwakil/return-saas",
-        caseStudy: "https://drive.google.com/file/d/1PPKatAvsSpp5oTtotDeMg7-0nRwLCxCZ/view?usp=sharing"
+        caseStudy: "/projects/looply/"
       },
     },
     "PickleOps — The Pickleball Social": {
@@ -243,7 +261,7 @@ export default function Portfolio() {
         appStore: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
         // No repo link: github.com/zubairmuwwakil/pickleball-session-manager
         // returns 404 under the new handle. See NEEDS-INPUT.md.
-        caseStudy: "https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing",
+        caseStudy: "/projects/pickleops/",
       },
       photo: "/assets/pickleops-cover.jpg",
     },
@@ -263,7 +281,7 @@ export default function Portfolio() {
       links: {
         demo: "https://marketdata.zubairmuwwakil.com",
         github: "https://github.com/zubairmuwwakil/market-data-pipeline",
-        caseStudy: "https://drive.google.com/file/d/10SKFD0k5hVxm7qH6rpWVVNmZubGuktZO/view?usp=sharing",
+        caseStudy: "/projects/marketlens/",
       },
     },
     "MindSky": {
@@ -285,7 +303,7 @@ export default function Portfolio() {
         demo: "https://mindsky.zubairmuwwakil.com",
         // No repo link: this card previously pointed at the bare GitHub profile,
         // not a repository. See NEEDS-INPUT.md for the correct URL.
-        caseStudy: "https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing",
+        caseStudy: "/projects/mindsky/",
       },
     },
     "Return Reminder & Tracking SaaS": {
@@ -784,8 +802,9 @@ export default function Portfolio() {
                             {featuredCase.links?.caseStudy && (
                               <a
                                 href={featuredCase.links.caseStudy}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                {...(featuredCase.links.caseStudy.startsWith("/")
+                                  ? {}
+                                  : { target: "_blank", rel: "noopener noreferrer" })}
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-sm font-semibold shadow-lg shadow-black/20 hover:brightness-95 transition-colors"
                               >
                                 Case Study
@@ -1192,7 +1211,7 @@ export default function Portfolio() {
                     </a>
                     <Link
                       href="/projects/"
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-accent text-white font-semibold shadow-lg hover:bg-accent/90 transition-colors"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-accent text-accent-foreground font-semibold shadow-lg hover:bg-accent/90 transition-colors"
                     >
                       <SquareStack className="w-5 h-5" /> Projects
                     </Link>
