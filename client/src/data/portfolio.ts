@@ -253,21 +253,45 @@ export const projects: Project[] = [
   },
 ];
 
+/**
+ * Nothing here is aspirational — every entry appears on the résumé, in a case
+ * study, or in a verifiably deployed service. `proficiency` is legacy and is not
+ * rendered anywhere; self-rated percentages read as padding, so the UI shows
+ * names only.
+ */
 export const skills: Skill[] = [
   { id: 1, name: "Java (Spring Boot)", category: "core", proficiency: 95 },
   { id: 2, name: "TypeScript / JavaScript", category: "core", proficiency: 95 },
+  { id: 17, name: "Python (Django)", category: "core", proficiency: 85 },
+  { id: 18, name: "C# / .NET", category: "core", proficiency: 82 },
   { id: 3, name: "React", category: "core", proficiency: 92 },
+  { id: 19, name: "Next.js", category: "core", proficiency: 88 },
   { id: 4, name: "SQL", category: "core", proficiency: 90 },
+
   { id: 5, name: "Node.js", category: "also", proficiency: 85 },
-  { id: 6, name: "Python", category: "also", proficiency: 82 },
-  { id: 7, name: "Docker", category: "also", proficiency: 85 },
-  { id: 8, name: "Postgres", category: "also", proficiency: 85 },
+  { id: 8, name: "PostgreSQL", category: "also", proficiency: 85 },
+  { id: 20, name: "SQL Server (T-SQL)", category: "also", proficiency: 82 },
   { id: 9, name: "Prisma", category: "also", proficiency: 82 },
+  { id: 21, name: "Flyway", category: "also", proficiency: 80 },
   { id: 10, name: "REST APIs", category: "also", proficiency: 88 },
+  { id: 22, name: "OpenAPI / Swagger", category: "also", proficiency: 82 },
+  { id: 7, name: "Docker", category: "also", proficiency: 85 },
   { id: 11, name: "Testing (JUnit / Jest)", category: "also", proficiency: 82 },
   { id: 12, name: "CI/CD", category: "also", proficiency: 82 },
+
+  // Verified from the response headers of his own deployments.
+  { id: 23, name: "GitHub Actions", category: "cloud", proficiency: 85 },
+  { id: 24, name: "Vercel", category: "cloud", proficiency: 85 },
+  { id: 25, name: "Render", category: "cloud", proficiency: 82 },
+  { id: 26, name: "Cloudflare", category: "cloud", proficiency: 78 },
+  { id: 27, name: "Azure Fundamentals (AZ-900)", category: "cloud", proficiency: 75 },
+
   { id: 13, name: "Clean Architecture", category: "practices", proficiency: 95 },
   { id: 14, name: "API Design", category: "practices", proficiency: 92 },
   { id: 15, name: "Schema Migrations", category: "practices", proficiency: 85 },
-  { id: 16, name: "Observability Basics", category: "practices", proficiency: 80 },
+  { id: 28, name: "Idempotent Reprocessing", category: "practices", proficiency: 88 },
+  { id: 29, name: "Rate Limiting & Quotas", category: "practices", proficiency: 82 },
+  // Was "Observability Basics". The résumé and the live MarketLens service show
+  // Prometheus metrics, OTLP tracing and correlation IDs — "basics" undersold it.
+  { id: 16, name: "Observability (Prometheus, OTLP)", category: "practices", proficiency: 82 },
 ];

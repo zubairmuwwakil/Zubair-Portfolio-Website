@@ -109,28 +109,10 @@ export default function Portfolio() {
   type SkillLevel = "familiar";
   type SkillDisplay = { name: string; category: string; level?: SkillLevel; proficiency?: number | null };
 
-  const curatedSkills: SkillDisplay[] = [
-    { name: "Java (Spring Boot)", category: "core", proficiency: 95 },
-    { name: "TypeScript / JavaScript", category: "core", proficiency: 95 },
-    { name: "React", category: "core", proficiency: 92 },
-    { name: "SQL", category: "core", proficiency: 90 },
-    { name: "Node.js", category: "also", proficiency: 85 },
-    { name: "Python", category: "also", proficiency: 82 },
-    { name: "Docker", category: "also", proficiency: 85 },
-    { name: "Postgres", category: "also", proficiency: 85 },
-    { name: "Prisma", category: "also", proficiency: 82 },
-    { name: "REST APIs", category: "also", proficiency: 88 },
-    { name: "Testing (JUnit / Jest)", category: "also", proficiency: 82 },
-    { name: "CI/CD", category: "also", proficiency: 82 },
-    { name: "Clean Architecture", category: "practices", proficiency: 95 },
-    { name: "API Design", category: "practices", proficiency: 92 },
-    { name: "Schema Migrations", category: "practices", proficiency: 85 },
-    { name: "Observability Basics", category: "practices", proficiency: 80 },
-  ];
 
   const mapProficiencyToLevel = (_?: number | null): SkillLevel => "familiar";
 
-  const displaySkills = (skills?.length ? skills : curatedSkills).map((skill) => ({
+  const displaySkills = (skills ?? []).map((skill) => ({
     name: skill.name,
     category: skill.category,
     level: "level" in skill ? (skill as SkillDisplay).level : mapProficiencyToLevel(skill.proficiency),
@@ -998,12 +980,14 @@ export default function Portfolio() {
               const icons = {
                 'core': <Server className="w-6 h-6 text-primary" />,
                 'also': <Layout className="w-6 h-6 text-primary" />,
+                'cloud': <Bolt className="w-6 h-6 text-primary" />,
                 'practices': <Database className="w-6 h-6 text-primary" />,
               };
 
               const categoryLabels: Record<string, string> = {
                 core: "Core stack",
                 also: "Also use",
+                cloud: "Deploy & run",
                 practices: "Practices",
               };
 
@@ -1012,6 +996,7 @@ export default function Portfolio() {
               const categorySubtitles: Record<string, string> = {
                 core: "What I build with daily",
                 also: "Comfortable and shipping in production",
+                cloud: "Where my work actually runs",
                 practices: "How I keep systems correct",
               };
               
