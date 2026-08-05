@@ -10,7 +10,7 @@
     "build:domain": "npm run build -- --base=/",
     "build:ssg": "npm run build:domain && npm run ssg && node script/copy-404.js",
     "ssg": "node script/run-ssg.mjs",
-    "postbuild": "node script/copy-404.js",
+    "postbuild": "node script/copy-404.js && node script/generate-sitemap.mjs",
     "start": "vite preview --config vite.config.ts",
     "check": "tsc",
     "db:push": "drizzle-kit push"
