@@ -34,7 +34,6 @@ import {
 } from "@/components/ui/carousel";
 import { SectionHeader } from "@/components/SectionHeader";
 import { ExperienceItem } from "@/components/ExperienceItem";
-// removed ContactForm per request
 import {
   useProfile,
   useProjects,
@@ -169,6 +168,22 @@ export default function Portfolio() {
     "Typed contracts and clear handoffs to keep teams unblocked.",
   ];
 
+  /**
+   * Renders an education date range.
+   *
+   * This previously hardcoded `edu.school === "University of Toronto"` to decide
+   * whether to show a range, which silently swallowed every other entry's
+   * endDate — including Ontario Tech's "Postponed" status, so the page claimed a
+   * Master's with no qualifier. US employers verify degrees; a discrepancy there
+   * ends a process rather than weakening it.
+   */
+  const formatEducationDates = (edu: { startDate?: string | null; endDate?: string | null }) => {
+    const start = edu.startDate?.split("-")[0] || edu.startDate;
+    const end = edu.endDate?.split("-")[0] || edu.endDate;
+    if (!end || end === start) return start;
+    return `${start} — ${end}`;
+  };
+
   const heroRoleLine = "Backend / Full-Stack Software Engineer";
   const heroFocusLine = "I build reliable APIs, data pipelines, and production web apps.";
   const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · Brooklyn, NY · US Citizen";
@@ -257,7 +272,7 @@ export default function Portfolio() {
       decisions: [
         "Idempotent ingest jobs with upserts keyed by symbol/date to stop duplicate rows across retries.",
         "Cached hot indicator queries to cut upstream calls and keep dashboard latency predictable.",
-        "Normalized indicator tables + contract-tested REST endpoints for fast, typed slices.",
+        "Normalized indicator tables behind typed REST endpoints for fast latest-value and date-range slices.",
       ],
       impact: [
         "Consistent indicator data and faster dashboards under rate limits.",
@@ -507,6 +522,9 @@ export default function Portfolio() {
         </div>
       )}
 
+      {/* The homepage was the only route without a <main> landmark, so screen
+          reader users had no way to skip the nav to the content. */}
+      <main id="main">
       {/* Hero Section */}
       <section
         className={`relative min-h-[75vh] flex items-center pt-28 pb-20 md:pt-32 md:pb-24 overflow-hidden ${
@@ -897,9 +915,7 @@ export default function Portfolio() {
                       </div>
                     </div>
                     <div className="text-xs uppercase tracking-wide text-foreground bg-secondary px-3 py-2 rounded-full w-fit font-semibold shadow-sm">
-                      {edu.school === "University of Toronto"
-                        ? `${edu.startDate?.split("-")[0] || edu.startDate} - ${edu.endDate?.split("-")[0] || "Present"}`
-                        : edu.startDate?.split("-")[0] || edu.startDate}
+                      {formatEducationDates(edu)}
                     </div>
                   </motion.div>
                 );
@@ -973,6 +989,14 @@ export default function Portfolio() {
                 also: "Also use",
                 practices: "Practices",
               };
+
+              // The heading used to print the raw data key, rendering
+              // "Core stack / core". Give each group a real subtitle instead.
+              const categorySubtitles: Record<string, string> = {
+                core: "What I build with daily",
+                also: "Comfortable and shipping in production",
+                practices: "How I keep systems correct",
+              };
               
               return (
                 <motion.div 
@@ -992,7 +1016,9 @@ export default function Portfolio() {
                       <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold">
                         {categoryLabels[category] || "Toolkit"}
                       </p>
-                      <h3 className="text-xl font-extrabold font-display capitalize text-foreground leading-tight">{category}</h3>
+                      <h3 className="text-xl font-extrabold font-display text-foreground leading-tight">
+                        {categorySubtitles[category] || "Tools and practices I reach for"}
+                      </h3>
                     </div>
                   </div>
                   
@@ -1181,6 +1207,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="py-8 border-t border-border/50 bg-background text-center">
