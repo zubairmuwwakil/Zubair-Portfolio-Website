@@ -32,9 +32,13 @@ I wanted a system that is fast to use during a live session, but still enforces 
 - **Sessions, ratings, and payments handled in one place** — organizers stopped running the club from spreadsheets.
 - **Session workflow in minutes:** create a session, mark attendance, generate groups, generate matches, enter scores, finalize.
 - **Balanced play:** grouping based on ratings clusters players by similar skill, reducing blowouts.
-- **Ratings you can trust:** updates are applied atomically with an audit trail of before, after, and delta.
+- **Ratings you can trust:** Glicko-2 updates applied atomically, with an audit trail of before, after, and delta.
 
 ## Technical decisions
+
+### Glicko-2 over plain Elo
+
+Glicko-2 extends Elo with a rating deviation — how confident the system is in a rating — and a volatility term for how erratic a player's results are. That matters for drop-in club play, where someone can miss six weeks and come back: plain Elo would treat their stale rating as gospel, while Glicko-2 widens the uncertainty and lets the rating correct faster.
 
 ### Schema designed for auditability
 
@@ -46,7 +50,7 @@ Matches and teams use a join table, `MatchTeamMember(matchId, playerId, team)`, 
 
 ### Pure business logic separated from I/O
 
-Core algorithms live as pure functions — the rating engine, the grouping strategy, and the match-generation formats each in their own module. Easier to test, easier to reason about, and easier to explain in an interview.
+Core algorithms live as pure functions — the Glicko-2 rating engine, the grouping strategy, and the match-generation formats each in their own module. Easier to test, easier to reason about, and easier to explain in an interview.
 
 ### Atomic match finalization to prevent double-apply
 

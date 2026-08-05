@@ -119,6 +119,7 @@
     "include": [
       "/",
       "/projects/",
+      "/resume/",
       "/projects/pickleops/",
       "/projects/looply/",
       "/projects/marketlens/",
