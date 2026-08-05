@@ -5,8 +5,10 @@ at or written into the site. Ordered by how much damage it does while unresolved
 
 Last updated: 2026-08-05 (post-merge, deployed)
 
-**Resolved so far:** item 1 (apex is now canonical), item 10 (contact email
-confirmed correct). Item 2 is half-done. Everything else is still open.
+**Resolved:** item 1 (apex is canonical), item 8 (York moved to Certifications),
+item 10 (contact email confirmed correct).
+**Half-done:** item 2 (redirect works, drops the path).
+Everything else is still open.
 
 ---
 
@@ -221,22 +223,13 @@ fix the certificate on the subdomain. Right now the button is broken either way.
 
 ---
 
-## 8. Is the York University entry a degree?
+## 8. ~~Is the York University entry a degree?~~ — RESOLVED 2026-08-05
 
-`client/src/data/portfolio.ts` lists:
+You confirmed it is coursework, not a conferred degree. Moved to the
+Certifications section as `French Language Studies — York University — 2025`,
+matching how the Azure certification and the TMU training were handled.
 
-```
-York University — "French Language Studies", field "Language Studies", 2025
-```
-
-The Azure certification and the Ted Rogers/TMU training were moved into the new
-Certifications section because neither is a degree. This entry was **left in
-Education** because I can't tell from the repo which it is — the `degree` field
-holds a subject name rather than a credential (`"Bachelor of Computer Science"`,
-`"Master of Computer Science"`), matching the pattern of the two entries I moved.
-
-If it's coursework or a certificate, move it to `certifications`. If it's a
-conferred degree, set `degree` to the actual credential.
+Education now contains degrees only: Ontario Tech and University of Toronto.
 
 ---
 
