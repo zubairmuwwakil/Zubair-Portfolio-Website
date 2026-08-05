@@ -3,44 +3,54 @@
 Items that could not be resolved from the repository. Nothing here was guessed
 at or written into the site. Ordered by how much damage it does while unresolved.
 
-Last updated: 2026-08-05
+Last updated: 2026-08-05 (post-merge, deployed)
+
+**Resolved so far:** item 1 (apex is now canonical), item 10 (contact email
+confirmed correct). Item 2 is half-done. Everything else is still open.
 
 ---
 
-## 1. BLOCKING — Set the GitHub Pages custom domain to the apex
+## 1. ~~Set the GitHub Pages custom domain to the apex~~ — RESOLVED 2026-08-05
 
-**Status: still open.** Re-checked 2026-08-05 after you reported it done:
+The apex is now the Pages custom domain and serves the site directly:
 
 ```
-$ curl -sSI https://zubairmuwwakil.com
-HTTP/2 301
-server: GitHub.com
-location: https://www.zubairmuwwakil.com/
+$ gh api repos/zubairmuwwakil/Zubair-Portfolio-Website/pages
+{ "cname": "zubairmuwwakil.com", "https_enforced": true,
+  "build_type": "workflow", "status": "built" }
 ```
 
-The apex still redirects to `www`, so the Pages custom domain is still
-`www.zubairmuwwakil.com`. Note this is the **Pages setting inside the repo**, not
-a DNS record — DNS is already correct (the apex A-records point at GitHub's
-Pages IPs). Changing anything at your registrar or in Cloudflare will not affect
-it.
+Worth recording how it landed, because it contradicts the usual advice. Setting
+the domain in the Pages UI made GitHub commit `CNAME=www.zubairmuwwakil.com` to
+the repo root. The Actions deploy then shipped `client/public/CNAME` (apex)
+inside the artifact, and **that** is what the Pages config ended up reflecting.
+For `build_type: workflow`, the CNAME file in the uploaded artifact wins.
 
-Everything in this branch declares `https://zubairmuwwakil.com/` as canonical.
+Practical consequence: **`client/public/CNAME` is the file that controls the
+domain.** The root `CNAME` is only the flag `deploy.yml` tests to pick
+`BASE_PATH=/`; its contents are inert. Both now read `zubairmuwwakil.com` so
+they cannot disagree again.
 
-**You must do this — it is a repo setting, not a file:**
+### Residual: `www` served a stale copy
 
-> Settings → Pages → Custom domain → `zubairmuwwakil.com` → Save → wait for the
-> certificate to reissue, then tick "Enforce HTTPS".
+Immediately after the switch, `www.zubairmuwwakil.com` returned **200 with the
+previous build** (`last-modified: Tue, 04 Aug`, no canonical, `x-cache: HIT`)
+rather than redirecting. That is a cached CDN object from the old configuration,
+not a second live site — the apex was already serving the new build.
 
-`client/public/CNAME` already says `zubairmuwwakil.com`, but for
-Actions-deployed Pages sites the UI setting is authoritative — that mismatch is
-exactly why the file said `portfolio.zubairmuwwakil.com` while the site served
-from `www`.
+Expected to age out on its own, after which GitHub 301s `www` → apex. **Confirm
+with:**
 
-Once saved, GitHub flips the redirect so `www` 301s to the apex. Until then the
-canonical URL points at a host that redirects, which is the milder version of
-the bug this branch set out to fix.
+```bash
+curl -sSI https://www.zubairmuwwakil.com | head -3
+```
 
-Expect a few minutes where HTTPS fails while the new certificate is issued.
+Want `HTTP/2 301` and `location: https://zubairmuwwakil.com/`. If it still
+returns 200 with the old build a day later, toggle the custom domain off and
+back on in Settings → Pages to force a reissue.
+
+Low urgency: the apex carries the canonical tag and is the only host in
+`sitemap.xml`, so search engines are being pointed at the right place regardless.
 
 ---
 
@@ -75,8 +85,8 @@ The rule is currently doing a *static* redirect to a fixed URL. Change it to a
 Verify with the command above — `location:` must read
 `https://zubairmuwwakil.com/blog`.
 
-Once item 1 is also done this becomes a single hop. Until then the chain is
-`portfolio./blog → apex/ → www/`, and each extra hop bleeds a little more signal.
+Item 1 is now done, so the chain is already a single hop
+(`portfolio./blog → apex/`). Only the dropped path is left to fix.
 
 ---
 
