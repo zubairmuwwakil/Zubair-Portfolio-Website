@@ -54,7 +54,7 @@ export const profile: Profile = {
   bio: "Finance-informed engineer who builds production APIs, data pipelines, and web apps with reliability, data integrity, and performance top of mind.",
   email: "zmuwwakil@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
-  githubUrl: "https://github.com/ZthEchelon",
+  githubUrl: "https://github.com/zubairmuwwakil",
   resumeUrl: "https://drive.google.com/file/d/1Z87uMI6RrrPa9KeIhZChkpzl-YYZYgTr/view?usp=sharing",
 };
 
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     title: "Looply",
     description: "Finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from inbox data.",
     link: "https://looply.zubairmuwwakil.com",
-    githubLink: "https://github.com/ZthEchelon/return-saas",
+    githubLink: "https://github.com/zubairmuwwakil/return-saas",
     tags: ["Next.js", "TypeScript", "Prisma", "Neon Postgres"],
   },
   {
@@ -175,15 +175,15 @@ export const projects: Project[] = [
     title: "PickleOps",
     description: "Full-stack ladder manager with scheduling, pairing, and rating updates to keep club play fair.",
     link: "https://pickleball.zubairmuwwakil.com",
-    githubLink: "https://github.com/ZthEchelon/pickleball-session-manager",
+    githubLink: "https://github.com/zubairmuwwakil/pickleball-session-manager",
     tags: ["React", "Prisma", "Postgres", "TypeScript", "Auth"],
   },
   {
     id: 2,
     title: "MarketLens",
     description: "Backend pipeline that ingests, normalizes, and serves financial indicators via REST APIs.",
-    link: "https://github.com/ZthEchelon/market-data-pipeline",
-    githubLink: "https://github.com/ZthEchelon/market-data-pipeline",
+    link: "https://github.com/zubairmuwwakil/market-data-pipeline",
+    githubLink: "https://github.com/zubairmuwwakil/market-data-pipeline",
     tags: ["Java", "Spring Boot", "SQL", "Caching", "APIs"],
   },
   {
@@ -191,7 +191,9 @@ export const projects: Project[] = [
     title: "MindSky Website",
     description: "Fast marketing site with modular sections, analytics hooks, and responsive design.",
     link: "https://mindsky.zubairmuwwakil.com",
-    githubLink: "https://github.com/ZthEchelon",
+    // No repo link: this previously pointed at the bare GitHub profile, not a
+    // repository. See NEEDS-INPUT.md for the correct URL.
+    githubLink: null,
     tags: ["React", "TypeScript", "Design Systems"],
   },
 ];
