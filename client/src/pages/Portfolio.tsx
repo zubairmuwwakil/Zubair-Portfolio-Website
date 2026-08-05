@@ -149,7 +149,7 @@ export default function Portfolio() {
     "Reliability first: schemas, migrations, idempotency, CI/CD.",
     "Finance background → correctness and auditability mindset.",
     "Shipped multiple real systems (not tutorials).",
-    "Targeting backend / full-stack SWE roles (remote US).",
+    "Targeting backend / full-stack SWE roles (Brooklyn, NY — remote, hybrid, or onsite).",
   ];
 
   const proofBarItems = [
@@ -168,7 +168,7 @@ export default function Portfolio() {
 
   const heroRoleLine = "Backend / Full-Stack Software Engineer";
   const heroFocusLine = "I build reliable APIs, data pipelines, and production web apps.";
-  const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · US Remote (US Citizen)";
+  const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · Brooklyn, NY · US Citizen";
   const featuredProjectTitles = [
     "Looply",
     "MarketLens",
@@ -1088,7 +1088,7 @@ export default function Portfolio() {
                 <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-white/70 dark:bg-black/20 p-5 shadow-lg shadow-primary/10 -mt-6 md:-mt-8 lg:-mt-10">
                   <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
                   <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-2">Availability</p>
-                  <p className="text-lg font-extrabold text-foreground leading-snug">Backend / Full-Stack roles · US remote · New York City · Toronto, ON · Open to contract or full-time.</p>
+                  <p className="text-lg font-extrabold text-foreground leading-snug">Backend / Full-Stack roles · Brooklyn, NY · Open to remote, hybrid, or onsite · Contract or full-time.</p>
                 </div>
               </div>
             </div>
