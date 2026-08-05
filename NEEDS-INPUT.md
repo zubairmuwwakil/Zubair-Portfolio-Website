@@ -5,7 +5,8 @@ at or written into the site. Ordered by how much damage it does while unresolved
 
 Last updated: 2026-08-05 (post-merge, deployed)
 
-**Resolved:** item 1 (apex is canonical), item 8 (York moved to Certifications),
+**Resolved:** item 1 (apex is canonical), item 7 (/projects on the apex),
+item 8 (York moved to Certifications),
 item 10 (contact email confirmed correct).
 **Half-done:** item 2 (redirect works, drops the path).
 Everything else is still open.
@@ -143,11 +144,10 @@ as you supply a working URL.
 | PickleOps repo | `github.com/zubairmuwwakil/pickleball-session-manager` | **404** — renamed, private, or deleted. The App Store link now carries this card. |
 | MindSky repo | pointed at `github.com/zubairmuwwakil` (bare profile) | Not a repository. Supply the repo URL or leave it off. |
 
-### Still rendered — one broken, two slow to wake
+### Still rendered — both work, but are slow to wake
 
 | What | URL | Result |
 |---|---|---|
-| Contact "Projects" button | `projects.zubairmuwwakil.com` | **SSL error** — certificate has no matching subject name. Genuinely broken. See item 7. |
 | MarketLens "Live Demo" | `marketdata.zubairmuwwakil.com` | **200.** Working. |
 | MindSky "Live Demo" | `mindsky.zubairmuwwakil.com` | **200.** Working. Served from `mindmap-0ztk.onrender.com`. |
 
@@ -206,20 +206,17 @@ that search engines cannot see.
 
 ---
 
-## 7. `projects.zubairmuwwakil.com` — consolidate into the apex?
+## 7. ~~`projects.zubairmuwwakil.com` — consolidate into the apex?~~ — RESOLVED 2026-08-05
 
-The Contact section links to `projects.zubairmuwwakil.com`, which currently
-fails TLS (certificate has no matching subject name). DNS points it at
-`zubairmuwwakil.github.io`, so it is another Pages site that has lost its
-certificate.
+Consolidated, as you decided. There is now a `/projects` page on the apex listing
+every project with its live/App Store/source/case-study links, and the Contact
+section's "Projects" button points at it. The dead subdomain is no longer
+referenced anywhere in the source.
 
-Recommendation: **fold it into the apex as `/projects`.** A separate subdomain
-splits ranking signal across two hosts and doubles the certificate and DNS
-surface — which is what just broke. One host accumulating authority is the
-entire point of the canonical work in this branch.
-
-Decide, then either: repoint the link at `/projects` and build that route, or
-fix the certificate on the subdomain. Right now the button is broken either way.
+**Optional DNS cleanup:** point `projects.zubairmuwwakil.com` at a 301 to
+`https://zubairmuwwakil.com/projects/` (same Cloudflare rule pattern as item 2),
+or retire the record. Not urgent — nothing links to it now — but a subdomain that
+fails TLS is worth not leaving lying around if it was ever shared.
 
 ---
 

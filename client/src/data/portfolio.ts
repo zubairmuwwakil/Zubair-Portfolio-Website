@@ -51,11 +51,20 @@ export type Certification = {
 
 export type Project = {
   id: number | string;
+  /** URL segment for the eventual /projects/<slug> case-study page. */
+  slug: string;
   title: string;
   description: string;
   imageUrl?: string | null;
   link?: string | null;
   githubLink?: string | null;
+  appStoreLink?: string | null;
+  /**
+   * Currently a Google Drive PDF, which search engines cannot index and which
+   * breaks if sharing settings change. Slated to become an on-domain
+   * /projects/<slug> page — see NEEDS-INPUT.md item 6.
+   */
+  caseStudyUrl?: string | null;
   tags?: string[] | null;
   stack?: string[];
 };
@@ -182,41 +191,51 @@ export const certifications: Certification[] = [
   },
 ];
 
+// Order here is the order they appear on /projects: strongest evidence first.
 export const projects: Project[] = [
   {
+    id: 1,
+    slug: "pickleops",
+    title: "PickleOps — The Pickleball Social",
+    description: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
+    link: "https://pickleball.zubairmuwwakil.com",
+    appStoreLink: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
+    // No repo link: .../pickleball-session-manager returns 404 under the new
+    // handle. See NEEDS-INPUT.md.
+    githubLink: null,
+    caseStudyUrl: "https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing",
+    tags: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
+  },
+  {
     id: 4,
+    slug: "looply",
     title: "Looply",
     description: "Finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from inbox data.",
     link: "https://looply.zubairmuwwakil.com",
     githubLink: "https://github.com/zubairmuwwakil/return-saas",
+    caseStudyUrl: "https://drive.google.com/file/d/1PPKatAvsSpp5oTtotDeMg7-0nRwLCxCZ/view?usp=sharing",
     tags: ["Next.js", "TypeScript", "Prisma", "Neon Postgres"],
   },
   {
-    id: 1,
-    title: "PickleOps — The Pickleball Social",
-    description: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
-    link: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
-    // No repo link: .../pickleball-session-manager returns 404 under the new
-    // handle. See NEEDS-INPUT.md.
-    githubLink: null,
-    tags: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
-  },
-  {
     id: 2,
+    slug: "marketlens",
     title: "MarketLens",
     description: "Backend pipeline that ingests, normalizes, and serves financial indicators via REST APIs.",
-    link: "https://github.com/zubairmuwwakil/market-data-pipeline",
+    link: "https://marketdata.zubairmuwwakil.com",
     githubLink: "https://github.com/zubairmuwwakil/market-data-pipeline",
+    caseStudyUrl: "https://drive.google.com/file/d/10SKFD0k5hVxm7qH6rpWVVNmZubGuktZO/view?usp=sharing",
     tags: ["Java", "Spring Boot", "SQL", "Caching", "APIs"],
   },
   {
     id: 3,
+    slug: "mindsky",
     title: "MindSky Website",
     description: "Fast marketing site with modular sections, analytics hooks, and responsive design.",
     link: "https://mindsky.zubairmuwwakil.com",
     // No repo link: this previously pointed at the bare GitHub profile, not a
     // repository. See NEEDS-INPUT.md for the correct URL.
     githubLink: null,
+    caseStudyUrl: "https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing",
     tags: ["React", "TypeScript", "Design Systems"],
   },
 ];

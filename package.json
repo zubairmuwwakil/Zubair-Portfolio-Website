@@ -118,6 +118,7 @@
     "comment": "Every route listed here gets a pre-rendered .html file. A blog post missing from this list ships with no crawlable HTML — script/generate-sitemap.mjs warns when that happens. Keep the trailing slashes: they match the canonical URLs and the in-page links, so react-snap crawls each route once instead of once per spelling.",
     "include": [
       "/",
+      "/projects/",
       "/blog/",
       "/blog/offline-first-sync-on-a-pickleball-court/"
     ],

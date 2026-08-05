@@ -385,6 +385,7 @@ export default function Portfolio() {
               <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Experience</a>
               <a href="#skills" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Skills</a>
               <a href="#about" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">About</a>
+              <Link href="/projects/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Projects</Link>
               <Link href="/blog/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Blog</Link>
               <a href="#contact" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
               <button
@@ -462,6 +463,13 @@ export default function Portfolio() {
                 >
                   About
                 </button>
+                <Link
+                  href="/projects/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
+                >
+                  Projects
+                </Link>
                 <Link
                   href="/blog/"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -1154,14 +1162,12 @@ export default function Portfolio() {
                     >
                       <Github className="w-5 h-5" /> GitHub
                     </a>
-                    <a 
-                      href="https://projects.zubairmuwwakil.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/projects/"
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-accent text-white font-semibold shadow-lg hover:bg-accent/90 transition-colors"
                     >
                       <SquareStack className="w-5 h-5" /> Projects
-                    </a>
+                    </Link>
                   </div>
                   <p className="text-sm text-muted-foreground">Prefer email for detailed notes or links. Quick pings on LinkedIn are welcome.</p>
                 </div>
