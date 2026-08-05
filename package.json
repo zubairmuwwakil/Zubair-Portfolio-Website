@@ -8,7 +8,7 @@
     "build": "vite build --config vite.config.ts",
     "build:gh": "npm run build -- --base=/Zubair-Portfolio-Website/",
     "build:domain": "npm run build -- --base=/",
-    "build:ssg": "npm run build:domain && npm run ssg && node script/copy-404.js && npm run verify:seo",
+    "build:ssg": "npm run check && npm run build:domain && npm run ssg && node script/copy-404.js && npm run verify:seo",
     "verify:seo": "node script/verify-seo.mjs",
     "ssg": "node script/run-ssg.mjs",
     "postbuild": "node script/copy-404.js && node script/generate-sitemap.mjs",
