@@ -33,7 +33,10 @@ export default function CaseStudy() {
           about: {
             "@type": "SoftwareApplication",
             name: study.title,
-            applicationCategory: "WebApplication",
+            ...(study.appStoreUrl
+              ? { applicationCategory: "MobileApplication", operatingSystem: "iOS" }
+              : { applicationCategory: "WebApplication" }),
+            author: { "@id": `${SITE_ORIGIN}/#person` },
             ...(study.stack.length ? { runtimePlatform: study.stack.join(", ") } : {}),
             ...(study.appStoreUrl || study.liveUrl
               ? { url: study.appStoreUrl || study.liveUrl }
