@@ -9,9 +9,22 @@ Last updated: 2026-08-05
 
 ## 1. BLOCKING — Set the GitHub Pages custom domain to the apex
 
+**Status: still open.** Re-checked 2026-08-05 after you reported it done:
+
+```
+$ curl -sSI https://zubairmuwwakil.com
+HTTP/2 301
+server: GitHub.com
+location: https://www.zubairmuwwakil.com/
+```
+
+The apex still redirects to `www`, so the Pages custom domain is still
+`www.zubairmuwwakil.com`. Note this is the **Pages setting inside the repo**, not
+a DNS record — DNS is already correct (the apex A-records point at GitHub's
+Pages IPs). Changing anything at your registrar or in Cloudflare will not affect
+it.
+
 Everything in this branch declares `https://zubairmuwwakil.com/` as canonical.
-The Pages custom domain is currently `www.zubairmuwwakil.com`, which is why the
-apex 301-redirects to `www` today.
 
 **You must do this — it is a repo setting, not a file:**
 
@@ -31,27 +44,39 @@ Expect a few minutes where HTTPS fails while the new certificate is issued.
 
 ---
 
-## 2. BLOCKING — `portfolio.zubairmuwwakil.com` returns 404, not a 301
+## 2. PARTIALLY DONE — `portfolio.*` redirects, but discards the path
 
-The old host currently resolves to Cloudflare (`172.64.80.1`) and returns a
-GitHub 404. Every crawled URL and inbound link on that host is a dead end, so
-none of its accumulated ranking signal transfers to the apex.
+**Progress:** the host no longer 404s. A redirect rule is in place and returns a
+proper 301. That was the important half.
 
-**This cannot be fixed from this repo.** GitHub Pages serves exactly one custom
-domain per site; it cannot 301 a second hostname you also control. There is no
-`vercel.json`, `netlify.toml` or `_redirects` here to add a rule to — the
-deployment is `.github/workflows/deploy.yml` → GitHub Pages.
+**Still wrong:** it sends every URL to the site root instead of the matching
+path. Re-checked 2026-08-05:
 
-Fix it at the DNS/CDN layer. Since the host already points at Cloudflare, the
-cheapest option is a Cloudflare **Redirect Rule** (free tier):
+```
+$ curl -sSI https://portfolio.zubairmuwwakil.com/blog
+HTTP/2 301
+location: https://zubairmuwwakil.com/       <-- should be .../blog
+```
 
-- Match: hostname equals `portfolio.zubairmuwwakil.com`
-- Action: dynamic redirect, **301**, to
+Any inbound link to a deep page on the old host lands on the homepage. Google
+treats a redirect to an unrelated page as a **soft 404** and passes little or no
+ranking signal through it, which is the specific thing this redirect exists to
+recover.
+
+The rule is currently doing a *static* redirect to a fixed URL. Change it to a
+**dynamic** one so the path comes along:
+
+- Match: `http.host eq "portfolio.zubairmuwwakil.com"`
+- Action: **Dynamic** redirect (not Static), status **301**
+- Expression:
   `concat("https://zubairmuwwakil.com", http.request.uri.path)`
-- Preserve query string: on
+- Preserve query string: **on**
 
-Path preservation matters: `portfolio.zubairmuwwakil.com/x` should land on
-`zubairmuwwakil.com/x`, not the homepage.
+Verify with the command above — `location:` must read
+`https://zubairmuwwakil.com/blog`.
+
+Once item 1 is also done this becomes a single hop. Until then the chain is
+`portfolio./blog → apex/ → www/`, and each extra hop bleeds a little more signal.
 
 ---
 
@@ -225,15 +250,11 @@ Left on the page unchanged, as you decided. Two follow-ups:
 
 ---
 
-## 10. Confirm the contact email
+## 10. ~~Confirm the contact email~~ — RESOLVED 2026-08-05
 
-The site uses **`zmuwwakil@gmail.com`** (`client/src/data/portfolio.ts`,
-`server/routes.ts`, and the mailto CTAs). The account this work was done from is
-`zmuwwakil1@gmail.com`.
-
-If the site address is wrong, it is the single most expensive error on the page —
-every inbound recruiter reply goes nowhere and you would never know. Please
-confirm. One value in `contactEmail` / `profile.email` drives every mailto.
+**`zmuwwakil@gmail.com` is correct**; it is the work address. The
+`zmuwwakil1@gmail.com` seen on the authoring account is a separate personal
+address. No change needed — the site was already right.
 
 ---
 
