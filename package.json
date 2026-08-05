@@ -10,7 +10,7 @@
     "build:domain": "npm run build -- --base=/",
     "build:ssg": "npm run build:domain && npm run ssg && node script/copy-404.js",
     "ssg": "node script/run-ssg.mjs",
-    "postbuild": "node script/copy-404.js",
+    "postbuild": "node script/copy-404.js && node script/generate-sitemap.mjs",
     "start": "vite preview --config vite.config.ts",
     "check": "tsc",
     "db:push": "drizzle-kit push"
@@ -114,8 +114,11 @@
   },
   "reactSnap": {
     "source": "dist",
+    "comment": "Every route listed here gets a pre-rendered .html file. A blog post missing from this list ships with no crawlable HTML — script/generate-sitemap.mjs warns when that happens.",
     "include": [
-      "/"
+      "/",
+      "/blog",
+      "/blog/offline-first-sync-on-a-pickleball-court"
     ],
     "skipThirdPartyRequests": true,
     "puppeteerArgs": [

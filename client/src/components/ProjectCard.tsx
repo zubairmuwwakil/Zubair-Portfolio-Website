@@ -80,7 +80,10 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
         {caseStudy?.photo ? (
           <img
             src={caseStudy.photo}
-            alt={project.title}
+            alt={`${project.title} — project screenshot`}
+            width={1024}
+            height={1024}
+            loading="lazy"
             className="w-full h-full object-cover object-center rounded-lg transition-transform duration-500 group-hover:scale-105 cursor-zoom-in"
             style={{ aspectRatio: '16/7', background: '#f3f4f6' }}
             onClick={() => setShowModal(true)}
@@ -88,7 +91,10 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
         ) : project.imageUrl ? (
           <img
             src={project.imageUrl}
-            alt={project.title}
+            alt={`${project.title} — project screenshot`}
+            width={1024}
+            height={1024}
+            loading="lazy"
             className="w-full h-full object-cover object-center rounded-lg transition-transform duration-500 group-hover:scale-105 cursor-zoom-in"
             style={{ aspectRatio: '16/7', background: '#f3f4f6' }}
             onClick={() => setShowModal(true)}
@@ -116,8 +122,10 @@ export function ProjectCard({ project, caseStudy, index }: ProjectCardProps) {
                       <X className="w-6 h-6 text-black" />
                     </button>
                     <img
-                      src={caseStudy?.photo || project.imageUrl}
-                      alt={project.title}
+                      src={caseStudy?.photo || project.imageUrl || undefined}
+                      alt={`${project.title} — expanded project screenshot`}
+                      width={1024}
+                      height={1024}
                       className="w-full h-auto max-h-[80vh] rounded-xl object-contain bg-white"
                     />
                   </div>

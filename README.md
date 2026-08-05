@@ -2,7 +2,7 @@
 
 Personal portfolio site built with React, Vite, and Tailwind, featuring animated sections, featured projects, experience highlights, and a responsive layout optimized for fast loads and link previews.
 
-**Live:** https://portfolio.zubairmuwwakil.com
+**Live:** https://zubairmuwwakil.com
 
 ## Features
 - Responsive, animated portfolio layout (Framer Motion + Tailwind UI components)
@@ -66,6 +66,21 @@ Update profile info, experience, education, projects, and skills there.
 - `npm run build:ssg` — root build + SSG prerender + `404.html` refresh for link previews.
 
 The Pages workflow auto-selects the correct base: it uses `/` when a `CNAME` or `*.github.io` repo is present; otherwise it builds with the repo subpath so assets load correctly from GitHub Pages.
+
+> The root `CNAME` file is **not** deployed — it exists solely as the flag that
+> `.github/workflows/deploy.yml` tests to pick `BASE_PATH=/`. The file that actually
+> sets the GitHub Pages custom domain is `client/public/CNAME`, which Vite copies
+> into `dist/`. Both must name the same host (`zubairmuwwakil.com`).
+
+## Domain & SEO
+The canonical host is `https://zubairmuwwakil.com`. Everything that names a URL must
+agree with it: `<link rel="canonical">` and `og:url` in `client/index.html`, the
+`Person` JSON-LD, `client/public/robots.txt`, and `SITE_ORIGIN` in
+`script/generate-sitemap.mjs`.
+
+`dist/sitemap.xml` is generated on every build by `script/generate-sitemap.mjs`, which
+scans `client/content/blog/*.md` and skips any post marked `draft: true`. It is not
+checked in — do not hand-edit it.
 
 ## Optional API + Database (Advanced)
 The repository includes an Express + Drizzle backend and Postgres schema for serving portfolio data and contact submissions.

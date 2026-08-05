@@ -9,16 +9,25 @@ export type Profile = {
   resumeUrl?: string | null;
 };
 
+export type EmploymentType = "Full-time" | "Part-time" | "Contract" | "Internship";
+
 export type Experience = {
   id: number | string;
   company: string;
   role: string;
+  /**
+   * Rendered as a badge beside the role. Several of these roles overlap in time,
+   * so the type is what makes the timeline read honestly. Leave undefined rather
+   * than guessing — the badge is simply omitted. See NEEDS-INPUT.md.
+   */
+  employmentType?: EmploymentType;
   subtitle?: string;
   startDate: string;
   endDate?: string | null;
   description: string;
 };
 
+/** Degrees only. Certificates and short programs belong in `certifications`. */
 export type Education = {
   id: number | string;
   school: string;
@@ -26,6 +35,18 @@ export type Education = {
   field: string;
   startDate?: string | null;
   endDate?: string | null;
+};
+
+/**
+ * Credentials awarded by a body other than a degree-granting program. Kept
+ * separate from `education` so a vendor certification is never rendered as
+ * though a university conferred it.
+ */
+export type Certification = {
+  id: number | string;
+  name: string;
+  issuer: string;
+  year: string;
 };
 
 export type Project = {
@@ -54,7 +75,7 @@ export const profile: Profile = {
   bio: "Finance-informed engineer who builds production APIs, data pipelines, and web apps with reliability, data integrity, and performance top of mind.",
   email: "zmuwwakil@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
-  githubUrl: "https://github.com/ZthEchelon",
+  githubUrl: "https://github.com/zubairmuwwakil",
   resumeUrl: "https://drive.google.com/file/d/1Z87uMI6RrrPa9KeIhZChkpzl-YYZYgTr/view?usp=sharing",
 };
 
@@ -62,7 +83,8 @@ export const experiences: Experience[] = [
   {
     id: 1,
     company: "G2i Inc.",
-    role: "Software Engineer (Contract)",
+    role: "Software Engineer",
+    employmentType: "Contract",
     subtitle: "Python · SQL · GitHub · CI/CD",
     startDate: "Aug 2025",
     endDate: "Present",
@@ -77,6 +99,7 @@ export const experiences: Experience[] = [
     id: 2,
     company: "The Senac Group",
     role: "Financial Software Analyst",
+    // employmentType: pending — see NEEDS-INPUT.md
     subtitle: "Automation · SQL · Finance tooling",
     startDate: "Jun 2023",
     endDate: "May 2025",
@@ -91,6 +114,7 @@ export const experiences: Experience[] = [
     id: 3,
     company: "Elevation Athletics",
     role: "Regional Program Coordinator",
+    // employmentType: pending — see NEEDS-INPUT.md
     subtitle: "Ops automation · APIs · Support workflows",
     startDate: "Mar 2023",
     endDate: "Present",
@@ -105,6 +129,7 @@ export const experiences: Experience[] = [
     id: 4,
     company: "NDCTrades",
     role: "Finance Solutions Architect",
+    // employmentType: pending — see NEEDS-INPUT.md
     subtitle: "Revenue ops · Automation · Dashboards",
     startDate: "Sep 2023",
     endDate: "Sep 2024",
@@ -127,28 +152,12 @@ export const education: Education[] = [
     endDate: "2025",
   },
   {
-    id: 2,
-    school: "Ted Rogers School of Management - Toronto Metropolitan University",
-    degree: "Advanced Digital and Professional Training",
-    field: "Professional Development",
-    startDate: "2025",
-    endDate: "2025",
-  },
-  {
     id: 3,
     school: "Ontario Tech University",
     degree: "Master of Computer Science",
     field: "Computer Science",
     startDate: "2024",
     endDate: "Postponed",
-  },
-  {
-    id: 4,
-    school: "University of Calgary",
-    degree: "Microsoft Certified: Azure Fundamentals",
-    field: "Cloud Computing",
-    startDate: "2024",
-    endDate: "2024",
   },
   {
     id: 5,
@@ -158,7 +167,21 @@ export const education: Education[] = [
     startDate: "2019",
     endDate: "2023",
   },
-  
+];
+
+export const certifications: Certification[] = [
+  {
+    id: 1,
+    name: "Microsoft Certified: Azure Fundamentals",
+    issuer: "Microsoft",
+    year: "2024",
+  },
+  {
+    id: 2,
+    name: "Advanced Digital and Professional Training",
+    issuer: "Ted Rogers School of Management — Toronto Metropolitan University",
+    year: "2025",
+  },
 ];
 
 export const projects: Project[] = [
@@ -167,23 +190,25 @@ export const projects: Project[] = [
     title: "Looply",
     description: "Finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from inbox data.",
     link: "https://looply.zubairmuwwakil.com",
-    githubLink: "https://github.com/ZthEchelon/return-saas",
+    githubLink: "https://github.com/zubairmuwwakil/return-saas",
     tags: ["Next.js", "TypeScript", "Prisma", "Neon Postgres"],
   },
   {
     id: 1,
-    title: "PickleOps",
-    description: "Full-stack ladder manager with scheduling, pairing, and rating updates to keep club play fair.",
-    link: "https://pickleball.zubairmuwwakil.com",
-    githubLink: "https://github.com/ZthEchelon/pickleball-session-manager",
-    tags: ["React", "Prisma", "Postgres", "TypeScript", "Auth"],
+    title: "PickleOps — The Pickleball Social",
+    description: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
+    link: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
+    // No repo link: .../pickleball-session-manager returns 404 under the new
+    // handle. See NEEDS-INPUT.md.
+    githubLink: null,
+    tags: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
   },
   {
     id: 2,
     title: "MarketLens",
     description: "Backend pipeline that ingests, normalizes, and serves financial indicators via REST APIs.",
-    link: "https://github.com/ZthEchelon/market-data-pipeline",
-    githubLink: "https://github.com/ZthEchelon/market-data-pipeline",
+    link: "https://github.com/zubairmuwwakil/market-data-pipeline",
+    githubLink: "https://github.com/zubairmuwwakil/market-data-pipeline",
     tags: ["Java", "Spring Boot", "SQL", "Caching", "APIs"],
   },
   {
@@ -191,7 +216,9 @@ export const projects: Project[] = [
     title: "MindSky Website",
     description: "Fast marketing site with modular sections, analytics hooks, and responsive design.",
     link: "https://mindsky.zubairmuwwakil.com",
-    githubLink: "https://github.com/ZthEchelon",
+    // No repo link: this previously pointed at the bare GitHub profile, not a
+    // repository. See NEEDS-INPUT.md for the correct URL.
+    githubLink: null,
     tags: ["React", "TypeScript", "Design Systems"],
   },
 ];

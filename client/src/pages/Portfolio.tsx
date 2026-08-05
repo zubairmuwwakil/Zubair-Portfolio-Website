@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "wouter";
 import { 
   Github, 
   Linkedin, 
@@ -21,6 +22,7 @@ import {
   Menu,
   X,
   SquareStack,
+  Apple,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,15 +33,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { SectionHeader } from "@/components/SectionHeader";
-import { ProjectCard } from "@/components/ProjectCard";
 import { ExperienceItem } from "@/components/ExperienceItem";
 // removed ContactForm per request
-import { 
-  useProfile, 
-  useProjects, 
-  useExperiences, 
-  useEducation, 
-  useSkills 
+import {
+  useProfile,
+  useProjects,
+  useExperiences,
+  useEducation,
+  useCertifications,
+  useSkills
 } from "@/hooks/use-portfolio";
 
 export default function Portfolio() {
@@ -82,6 +84,7 @@ export default function Portfolio() {
   const { data: projects } = useProjects();
   const { data: experiences } = useExperiences();
   const { data: education } = useEducation();
+  const { data: certifications } = useCertifications();
   const { data: skills } = useSkills();
 
   const profileDefaults = {
@@ -90,7 +93,7 @@ export default function Portfolio() {
     bio: "Finance-informed engineer who builds production APIs, data pipelines, and web apps with reliability, data integrity, and performance top of mind.",
     email: "zmuwwakil@gmail.com",
     linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
-    githubUrl: "https://github.com/ZthEchelon",
+    githubUrl: "https://github.com/zubairmuwwakil",
     resumeUrl: "https://drive.google.com/file/d/1Z87uMI6RrrPa9KeIhZChkpzl-YYZYgTr/view?usp=sharing",
   };
 
@@ -149,7 +152,7 @@ export default function Portfolio() {
     "Reliability first: schemas, migrations, idempotency, CI/CD.",
     "Finance background → correctness and auditability mindset.",
     "Shipped multiple real systems (not tutorials).",
-    "Targeting backend / full-stack SWE roles (remote US).",
+    "Targeting backend / full-stack SWE roles (Brooklyn, NY — remote, hybrid, or onsite).",
   ];
 
   const proofBarItems = [
@@ -168,11 +171,11 @@ export default function Portfolio() {
 
   const heroRoleLine = "Backend / Full-Stack Software Engineer";
   const heroFocusLine = "I build reliable APIs, data pipelines, and production web apps.";
-  const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · US Remote (US Citizen)";
+  const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · Brooklyn, NY · US Citizen";
   const featuredProjectTitles = [
+    "PickleOps — The Pickleball Social",
     "Looply",
     "MarketLens",
-    "PickleOps",
     "MindSky Website",
   ];
 
@@ -193,6 +196,7 @@ export default function Portfolio() {
       demo?: string;
       github?: string;
       caseStudy?: string;
+      appStore?: string;
     };
     photo?: string;
     stack?: string[];
@@ -200,7 +204,7 @@ export default function Portfolio() {
 
   const projectCaseStudies: Record<string, CaseStudy> = {
     "Looply": {
-      photo: "https://i.imgur.com/nwmswhT.jpeg",
+      photo: "/assets/looply-cover.jpg",
       problem: "People miss trial endings, renewals, return windows, and overdue refunds because data is scattered across inboxes and receipts—and manual tracking never sticks.",
       built: "Personal finance assistant that auto-tracks subscriptions, bills, purchases, and return/refund deadlines from your inbox and receipts so you stop losing money to forgotten renewals and missed returns.",
       decisions: [
@@ -219,29 +223,35 @@ export default function Portfolio() {
       stack: ["Next.js", "TypeScript", "Prisma", "Neon Postgres"],
       links: {
         demo: "https://looply.zubairmuwwakil.com",
-        github: "https://github.com/ZthEchelon/return-saas",
+        github: "https://github.com/zubairmuwwakil/return-saas",
         caseStudy: "https://drive.google.com/file/d/1PPKatAvsSpp5oTtotDeMg7-0nRwLCxCZ/view?usp=sharing"
       },
     },
-    "PickleOps": {
-      problem: "PickleOpsir ladders and rating updates without spreadsheets.",
-      built: "Full-stack app with Prisma/Postgres and a React front end to schedule sessions, balance pairings, and keep ratings honest.",
+    "PickleOps — The Pickleball Social": {
+      problem: "Clubs run sessions, ladders, and player ratings on spreadsheets and group chats. Organizers lose evenings to admin, and ratings drift out of date.",
+      built: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
       decisions: [
-        "Prisma migrations and seed data for players, ladders, and sessions to keep environments reproducible.",
-        "Balancing algorithm that pairs players by rating tiers and recent matchups to avoid repeats.",
-        "Rating updates applied per match with guardrails for defaults/forfeits and audit-friendly history.",
-        "Role-based admin surface so captains can open sessions, lock courts, and override scores safely.",
+        "Offline-first sync with version conflict resolution so scoring works on courts with no signal and reconciles cleanly on reconnect.",
+        "DUPR single sign-on via WebView with opt-in match write-back, keeping external ratings in sync without manual entry.",
+        "Bluetooth proximity discovery for inviting nearby players, with explicit consent gates before a player joins a match.",
+        "Competitive rating model that weights wins against stronger opponents, with guardrails for forfeits and an audit-friendly history.",
       ],
-      impact: "Sessions stay balanced and schedulers stopped spending nights in spreadsheets.",
+      impact: [
+        "Shipped to the App Store and maintained through 21 releases in five months.",
+        "Sessions, ratings, and payments handled in one place; organizers stopped running the club from spreadsheets.",
+      ],
+      stack: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
       links: {
         demo: "https://pickleball.zubairmuwwakil.com",
-        github: "https://github.com/ZthEchelon/pickleball-session-manager",
+        appStore: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
+        // No repo link: github.com/zubairmuwwakil/pickleball-session-manager
+        // returns 404 under the new handle. See NEEDS-INPUT.md.
         caseStudy: "https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing",
       },
-      photo: "https://i.imgur.com/c60r2XZ.jpeg",
+      photo: "/assets/pickleops-cover.jpg",
     },
     "MarketLens": {
-        photo: "https://i.imgur.com/vJnpwps.png",
+        photo: "/assets/marketlens-cover.jpg",
       problem: "Needed reliable, de-duplicated market indicators for dashboards without hammering upstream APIs.",
       built: "Backend pipeline that ingests price/indicator feeds, normalizes them into Postgres, and serves typed REST endpoints.",
       decisions: [
@@ -255,12 +265,12 @@ export default function Portfolio() {
       ],
       links: {
         demo: "https://marketdata.zubairmuwwakil.com",
-        github: "https://github.com/ZthEchelon/market-data-pipeline",
+        github: "https://github.com/zubairmuwwakil/market-data-pipeline",
         caseStudy: "https://drive.google.com/file/d/10SKFD0k5hVxm7qH6rpWVVNmZubGuktZO/view?usp=sharing",
       },
     },
     "MindSky Website": {
-        photo: "https://i.imgur.com/3Sz7oXy.png",
+        photo: "/assets/mindsky-cover.jpg",
       problem: "MindSky needed a fast, clear landing page that converts curious users without looking like a template.",
       built: "Responsive marketing site with modular sections, analytics hooks, and lightweight animations.",
       decisions: [
@@ -271,12 +281,13 @@ export default function Portfolio() {
       impact: "Sharper storytelling with a site that loads fast and looks intentional on every device.",
       links: {
         demo: "https://mindsky.zubairmuwwakil.com",
-        github: profileData.githubUrl,
+        // No repo link: this card previously pointed at the bare GitHub profile,
+        // not a repository. See NEEDS-INPUT.md for the correct URL.
         caseStudy: "https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing",
       },
     },
     "Return Reminder & Tracking SaaS": {
-        photo: "https://i.imgur.com/3mFeClS.png",
+        photo: "/assets/return-reminder-cover.jpg",
       problem: "Consumers frequently miss return deadlines or forget to follow up on refunds because purchase information is fragmented across emails and receipts. Most finance tools track spending passively but don’t manage return lifecycles or enforce deadlines.",
       built: "SaaS platform for tracking return deadlines, refund status, and money at risk—email ingestion, reminders, and Stripe subscriptions included.",
       decisions: [
@@ -295,7 +306,7 @@ export default function Portfolio() {
       ].join("\n"),
       links: {
         demo: "https://returnreminder.zubairmuwwakil.com",
-        github: "https://github.com/ZthEchelon/return-reminder-saas",
+        github: "https://github.com/zubairmuwwakil/return-reminder-saas",
         caseStudy: "https://returnreminder.zubairmuwwakil.com/case-study",
       },
       stack: [
@@ -359,7 +370,13 @@ export default function Portfolio() {
           <div className="flex justify-between items-center h-16 md:h-20">
             <a href="/" className="flex items-center space-x-2 group cursor-pointer">
               <div className="p-0 group-hover:scale-110 transition-transform">
-                <img src="https://i.imgur.com/hu5ZtjL.jpeg" alt="Logo" className="w-9 h-9 object-cover rounded-lg shadow" />
+                <img
+                  src="/assets/zubair-muwwakil-mark.jpg"
+                  alt="Zubair Muwwakil monogram"
+                  width={1024}
+                  height={1024}
+                  className="w-9 h-9 object-cover rounded-lg shadow"
+                />
               </div>
               <span className="font-serif font-bold text-xl tracking-tight">Zubair Muwwakil</span>
             </a>
@@ -368,6 +385,7 @@ export default function Portfolio() {
               <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Experience</a>
               <a href="#skills" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Skills</a>
               <a href="#about" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">About</a>
+              <Link href="/blog" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Blog</Link>
               <a href="#contact" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
               <button
                 onClick={toggleTheme}
@@ -444,6 +462,13 @@ export default function Portfolio() {
                 >
                   About
                 </button>
+                <Link
+                  href="/blog"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
+                >
+                  Blog
+                </Link>
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
@@ -525,21 +550,23 @@ export default function Portfolio() {
                 </a>
               </div>
               <div className="flex gap-6 pt-2 text-muted-foreground justify-center lg:justify-start">
-                <a href="https://github.com/ZthEchelon" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                <a href={profileData.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="hover:text-primary transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github w-6 h-6"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                 </a>
-                <a href="https://linkedin.com/in/zubairmuwwakil" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                <a href={profileData.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="hover:text-primary transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
-                <a href="mailto:zmuwwakil@gmail.com" className="hover:text-primary transition-colors">
+                <a href={`mailto:${profileData.email}`} aria-label="Email Zubair" className="hover:text-primary transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail w-6 h-6"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                 </a>
               </div>
               <div className="relative w-full max-w-xs mx-auto lg:hidden pt-6">
                 <div className="relative z-10 w-full aspect-square rounded-full overflow-hidden border-4 border-background shadow-2xl">
                   <img
-                    src="https://i.imgur.com/7BAT0Wz.jpeg"
-                    alt="Zubair Muwwakil Logo"
+                    src="/assets/zubair-muwwakil.jpg"
+                    alt="Portrait of Zubair Muwwakil, backend and full-stack software engineer"
+                    width={1298}
+                    height={1198}
                     className="w-full h-full object-cover object-[center_60%]"
                   />
                 </div>
@@ -548,8 +575,11 @@ export default function Portfolio() {
             <div className="relative hidden lg:block lg:pt-6">
               <div className="relative z-10 w-full aspect-square rounded-full overflow-hidden border-8 border-background shadow-2xl">
                 <img
-                  src="https://i.imgur.com/7BAT0Wz.jpeg"
-                  alt="Zubair Muwwakil Logo"
+                  src="/assets/zubair-muwwakil.jpg"
+                  alt="Portrait of Zubair Muwwakil, backend and full-stack software engineer"
+                  width={1298}
+                  height={1198}
+                  fetchPriority="high"
                   className="w-full h-full object-cover object-[center_60%]"
                 />
               </div>
@@ -630,7 +660,7 @@ export default function Portfolio() {
                 const featuredCase = projectCaseStudies[title];
                 if (!featuredCase) return null;
                 const project = projectByTitle.get(title);
-                const stack = (featuredCase.stack || project?.stack || project?.tags || []).slice(0, 3);
+                const stack = (featuredCase.stack || project?.stack || project?.tags || []).slice(0, 5);
                 const outcomes = (Array.isArray(featuredCase.impact)
                   ? featuredCase.impact
                   : featuredCase.impact
@@ -682,7 +712,7 @@ export default function Portfolio() {
                           <div>
                             <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold mb-2">Technical decisions</p>
                             <ul className="space-y-2 text-sm text-foreground font-semibold">
-                              {(featuredCase.decisions || []).slice(0, 3).map((decision) => (
+                              {(featuredCase.decisions || []).slice(0, 4).map((decision) => (
                                 <li key={decision} className="flex gap-2 leading-relaxed">
                                   <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
                                   <span>{decision}</span>
@@ -691,12 +721,27 @@ export default function Portfolio() {
                             </ul>
                           </div>
                           <div className="flex flex-wrap gap-3">
+                            {featuredCase.links?.appStore && (
+                              <a
+                                href={featuredCase.links.appStore}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors"
+                              >
+                                <Apple className="w-4 h-4" />
+                                App Store
+                              </a>
+                            )}
                             {featuredCase.links?.demo && (
                               <a
                                 href={featuredCase.links.demo}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors"
+                                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition-colors ${
+                                  featuredCase.links?.appStore
+                                    ? "bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                                    : "bg-primary text-primary-foreground shadow-primary/25 hover:bg-primary/90"
+                                }`}
                               >
                                 Live Demo
                               </a>
@@ -727,14 +772,16 @@ export default function Portfolio() {
                           <div className="absolute -inset-6 lg:-inset-8 bg-gradient-to-br from-primary/15 via-accent/10 to-primary/10 blur-3xl opacity-70" />
                           <div className="relative overflow-hidden rounded-3xl border border-border/60 shadow-2xl bg-muted/60 flex items-center justify-center h-[380px] md:h-[460px] lg:h-[520px]">
                             <img
-                              src={featuredCase.photo || "https://i.imgur.com/vJnpwps.png"}
+                              src={featuredCase.photo || "/assets/marketlens-cover.jpg"}
                               loading="lazy"
-                              alt={title}
+                              alt={`${title} — project screenshot`}
+                              width={1024}
+                              height={1024}
                               className="w-full h-full object-cover object-center cursor-zoom-in"
                               style={{ objectPosition: "center" }}
                               onClick={() =>
                                 setFeaturedModal({
-                                  src: featuredCase.photo || "https://i.imgur.com/vJnpwps.png",
+                                  src: featuredCase.photo || "/assets/marketlens-cover.jpg",
                                   title,
                                 })
                               }
@@ -772,7 +819,9 @@ export default function Portfolio() {
             <img
               src={featuredModal.src}
               loading="lazy"
-              alt={featuredModal.title}
+              alt={`${featuredModal.title} — expanded project screenshot`}
+              width={1024}
+              height={1024}
               className="w-full h-auto max-h-[80vh] rounded-xl object-contain bg-white"
             />
           </div>
@@ -849,6 +898,38 @@ export default function Portfolio() {
               })}
             </div>
           </div>
+
+          {(certifications?.length || 0) > 0 && (
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold font-display mb-8">Certifications</h3>
+              <div className="grid gap-6">
+                {certifications?.map((cert, index) => (
+                  <motion.div
+                    key={cert.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br from-primary/12 via-background to-accent/10 p-6 shadow-lg shadow-primary/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
+                    <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+                    <div className="flex items-start gap-3">
+                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/70 dark:bg-black/20 text-primary shadow">
+                        <ShieldCheck className="w-5 h-5" />
+                      </span>
+                      <div>
+                        <h4 className="text-lg font-bold font-display leading-tight">{cert.name}</h4>
+                        <p className="text-primary font-semibold">{cert.issuer}</p>
+                      </div>
+                    </div>
+                    <div className="text-xs uppercase tracking-wide text-foreground bg-secondary px-3 py-2 rounded-full w-fit font-semibold shadow-sm">
+                      {cert.year}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -1087,7 +1168,7 @@ export default function Portfolio() {
                 <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-white/70 dark:bg-black/20 p-5 shadow-lg shadow-primary/10 -mt-6 md:-mt-8 lg:-mt-10">
                   <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
                   <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-2">Availability</p>
-                  <p className="text-lg font-extrabold text-foreground leading-snug">Backend / Full-Stack roles · US remote · New York City · Toronto, ON · Open to contract or full-time.</p>
+                  <p className="text-lg font-extrabold text-foreground leading-snug">Backend / Full-Stack roles · Brooklyn, NY · Open to remote, hybrid, or onsite · Contract or full-time.</p>
                 </div>
               </div>
             </div>
