@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { BlogLayout } from "@/components/BlogLayout";
 import { useDocumentHead } from "@/hooks/use-document-head";
 import { renderMarkdown } from "@/lib/markdown";
-import { getPost, formatPostDate, postUrl, SITE_ORIGIN } from "@/lib/posts";
+import { getPost, formatPostDate, postUrl, SITE_ORIGIN, BLOG_INDEX_URL } from "@/lib/posts";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -12,7 +12,7 @@ export default function BlogPost() {
   useDocumentHead({
     title: post ? `${post.title} — Zubair Muwwakil` : "Post not found — Zubair Muwwakil",
     description: post?.description ?? "This post could not be found.",
-    canonical: post ? postUrl(post.slug) : `${SITE_ORIGIN}/blog`,
+    canonical: post ? postUrl(post.slug) : BLOG_INDEX_URL,
     ogType: post ? "article" : "website",
     jsonLd: post
       ? {
@@ -39,7 +39,7 @@ export default function BlogPost() {
         <p className="text-muted-foreground mb-8">
           That post doesn't exist, or it hasn't been published yet.
         </p>
-        <Link href="/blog" className="text-primary font-semibold underline underline-offset-4">
+        <Link href="/blog/" className="text-primary font-semibold underline underline-offset-4">
           Back to all posts
         </Link>
       </BlogLayout>
@@ -51,7 +51,7 @@ export default function BlogPost() {
       <article>
         <header className="mb-10">
           <Link
-            href="/blog"
+            href="/blog/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />

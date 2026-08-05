@@ -77,6 +77,14 @@ export function useDocumentHead({
       upsertMeta('meta[name="twitter:image"]', "name", "twitter:image", image),
     );
 
+    // Drop any route JSON-LD already in the document before adding ours. On a
+    // pre-rendered page the previous build's block is baked into the HTML, and
+    // react-snap can re-crawl its own output — without this the blocks compound
+    // and the page ships two conflicting copies of the same entity.
+    document.head
+      .querySelectorAll(`script[${JSON_LD_MARKER}]`)
+      .forEach((stale) => stale.remove());
+
     if (jsonLd) {
       const script = document.createElement("script");
       script.type = "application/ld+json";

@@ -45,7 +45,7 @@ export function BlogLayout({ children }: { children: ReactNode }) {
             </Link>
             <div className="flex items-center gap-4 sm:gap-8">
               <Link
-                href="/blog"
+                href="/blog/"
                 className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide"
               >
                 Blog

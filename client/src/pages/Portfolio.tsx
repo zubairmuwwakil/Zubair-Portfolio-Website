@@ -385,7 +385,7 @@ export default function Portfolio() {
               <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Experience</a>
               <a href="#skills" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Skills</a>
               <a href="#about" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">About</a>
-              <Link href="/blog" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Blog</Link>
+              <Link href="/blog/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Blog</Link>
               <a href="#contact" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
               <button
                 onClick={toggleTheme}
@@ -463,7 +463,7 @@ export default function Portfolio() {
                   About
                 </button>
                 <Link
-                  href="/blog"
+                  href="/blog/"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
                 >

@@ -29,7 +29,10 @@ async function collectBlogUrls() {
     const raw = await readFile(path.join(blogDir, file), "utf8");
     if (/^draft:\s*true$/m.test(raw)) continue;
     posts.push({
-      loc: `${SITE_ORIGIN}/blog/${file.replace(/\.md$/, "")}`,
+      // Trailing slash: pre-rendered routes are served from directories, so the
+      // unslashed form 301s. A sitemap full of redirects is reported in Search
+      // Console as "Page with redirect" and the submitted URL is not indexed.
+      loc: `${SITE_ORIGIN}/blog/${file.replace(/\.md$/, "")}/`,
       lastmod: frontmatterDate(raw),
       priority: "0.6",
     });
@@ -68,10 +71,13 @@ ${urls}
 async function warnOnUnprerenderedPosts(posts) {
   const pkgPath = path.resolve(__dirname, "..", "package.json");
   const pkg = JSON.parse(await readFile(pkgPath, "utf8"));
-  const include = pkg.reactSnap?.include ?? [];
+  // Compare slash-insensitively: sitemap entries carry a trailing slash (that is
+  // the URL that returns 200), while reactSnap.include lists bare route paths.
+  const stripSlash = (route) => route.replace(/\/+$/, "") || "/";
+  const include = (pkg.reactSnap?.include ?? []).map(stripSlash);
   const missing = posts
     .map((p) => p.loc.replace(SITE_ORIGIN, ""))
-    .filter((route) => !include.includes(route));
+    .filter((route) => !include.includes(stripSlash(route)));
 
   if (missing.length) {
     console.warn(
@@ -95,7 +101,7 @@ async function main() {
   const entries = [
     { loc: `${SITE_ORIGIN}/`, lastmod: newest, priority: "1.0" },
     ...(posts.length
-      ? [{ loc: `${SITE_ORIGIN}/blog`, lastmod: newest, priority: "0.7" }]
+      ? [{ loc: `${SITE_ORIGIN}/blog/`, lastmod: newest, priority: "0.7" }]
       : []),
     ...posts,
   ];
