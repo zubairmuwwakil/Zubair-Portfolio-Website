@@ -262,7 +262,22 @@ actually built. Adjust freely — it is plain markdown.
 
 ---
 
-## 12. Minor — `server/` duplicates the site content and has drifted
+## 12. Minor — `client/public/logo.png` is a 2.4 MB file nothing references
+
+`favicon.png` was a **2.4 MB, 1024×1024 PNG** requested on every page view — the
+heaviest asset on the site, working directly against the ranking goal. It is now
+32×32 (4 KB) with a 180×180 `apple-touch-icon.png` (56 KB) alongside.
+
+`logo.png` is byte-identical to the original and is **not referenced anywhere in
+the source**, so it now serves as the archived 1024px master. It still ships in
+the Pages artifact and accounts for 2.4 MB of a 5.9 MB deploy. It costs visitors
+nothing (no page requests it), so I left it rather than delete it — but if you
+have the original elsewhere, removing it or moving it out of `public/` would cut
+the deploy roughly in half.
+
+---
+
+## 13. Minor — `server/` duplicates the site content and has drifted
 
 `server/routes.ts` carries a full second copy of the profile, experience,
 education, project and skills data as DB seed values. Nothing renders from it:
