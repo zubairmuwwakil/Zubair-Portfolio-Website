@@ -31,26 +31,21 @@ domain.** The root `CNAME` is only the flag `deploy.yml` tests to pick
 `BASE_PATH=/`; its contents are inert. Both now read `zubairmuwwakil.com` so
 they cannot disagree again.
 
-### Residual: `www` served a stale copy
+### Residual: `www` served a stale copy — cleared itself after ~13 minutes
 
-Immediately after the switch, `www.zubairmuwwakil.com` returned **200 with the
-previous build** (`last-modified: Tue, 04 Aug`, no canonical, `x-cache: HIT`)
-rather than redirecting. That is a cached CDN object from the old configuration,
-not a second live site — the apex was already serving the new build.
+Immediately after the switch, `www.zubairmuwwakil.com` returned 200 with the
+previous build (`last-modified: Tue, 04 Aug`, no canonical, `x-cache: HIT`)
+rather than redirecting — a cached CDN object from the old configuration, not a
+second live site. It aged out on its own:
 
-Expected to age out on its own, after which GitHub 301s `www` → apex. **Confirm
-with:**
-
-```bash
-curl -sSI https://www.zubairmuwwakil.com | head -3
+```
+$ curl -sSI https://www.zubairmuwwakil.com/blog
+HTTP/2 301
+location: https://zubairmuwwakil.com/blog
 ```
 
-Want `HTTP/2 301` and `location: https://zubairmuwwakil.com/`. If it still
-returns 200 with the old build a day later, toggle the custom domain off and
-back on in Settings → Pages to force a reissue.
-
-Low urgency: the apex carries the canonical tag and is the only host in
-`sitemap.xml`, so search engines are being pointed at the right place regardless.
+`www` now 301s to the apex **and preserves the path**, which is the correct end
+state. Nothing further to do here.
 
 ---
 
