@@ -25,23 +25,14 @@ Brooklyn, NY · USA & Canadian Citizen
 ## Experience
 
 ### G2i Inc. — Software Engineer (Contract)
-Remote · Aug 2025 – Present
+Remote · Aug 2025 – Present · Contract
 
 - Build and maintain Django backend services — REST APIs, background jobs, data processing — in a PR-driven code review environment.
 - Own PostgreSQL/SQL Server changes: schema updates, indexing and query tuning, integrity checks, shipped through Dockerized CI gates.
 - Deliver releases safely with unit and integration tests plus data integrity validation, preventing regressions and keeping deployments repeatable.
 
-### The Senac Group — Financial Software Analyst (FP&A), Automation & Analytics
-Toronto, ON · Jun 2023 – May 2025 · *Promoted: Intern → Assistant Financial Analyst → Software Developer*
-
-- Built internal automation and reporting logic in C#/.NET and SQL Server (T-SQL) to improve FP&A data accuracy, repeatability, and close-cycle reliability.
-- Automated recurring reporting workflows with SQL and Excel VBA, saving 10+ hours/week across weekly and monthly deliverables.
-- Built pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, and shipped validation dashboards that surfaced discrepancies earlier — reducing rework during close.
-- Created budgeting and variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.
-- Produced scenario and cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks.
-
 ### Elevation Athletics — Regional Program Coordinator (Tech & Ops)
-Toronto, ON · Mar 2023 – Present · *Promoted: Coach → Lead Coach → District Lead*
+Toronto, ON · Mar 2023 – Present · Part-time · *Promoted: Coach → Lead Coach → District Lead*
 
 - Built and deployed pbsocial.ca, a multi-tenant Next.js/TypeScript/PostgreSQL platform for session scheduling, registrations, attendance, and reporting; scaled from ~50 to 1,000+ participants.
 - Engineered the core match systems: automatic group and match generation, atomic match finalization, and Glicko-2 rating with standings history for reliable competitive play.
@@ -49,8 +40,17 @@ Toronto, ON · Mar 2023 – Present · *Promoted: Coach → Lead Coach → Distr
 - Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.
 - Ran a structured support and triage workflow for 1,000+ users across 8 cities, keeping stakeholders unblocked with clear updates.
 
+### The Senac Group — Financial Software Analyst (FP&A), Automation & Analytics
+Toronto, ON · Jun 2023 – May 2025 · Part-time → Full-time · *Promoted: Intern → Assistant Financial Analyst → Software Developer*
+
+- Built internal automation and reporting logic in C#/.NET and SQL Server (T-SQL) to improve FP&A data accuracy, repeatability, and close-cycle reliability.
+- Automated recurring reporting workflows with SQL and Excel VBA, saving 10+ hours/week across weekly and monthly deliverables.
+- Built pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, and shipped validation dashboards that surfaced discrepancies earlier — reducing rework during close.
+- Created budgeting and variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.
+- Produced scenario and cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks.
+
 ### NDCTrades — Finance Solutions Architect
-Sep 2023 – Sep 2024
+Sep 2022 – Jun 2023 · Internship
 
 - Automated invoicing and pricing workflows across QuickBooks and Humanity, increasing recurring revenue by ~20% while reducing operational errors.
 - Streamlined payroll via data cleanup and automated checks, cutting processing time by ~35% and improving correctness.
@@ -88,7 +88,7 @@ Infinite-canvas thought mapping with snapshot-based undo/redo and debounced auto
 
 ## Education & certifications
 
-**University of Toronto** — BSc, Computer Science & Mathematics (Finance/Economics) · 2019 – 2023
+**University of Toronto** — BSc, Computer Science & Mathematics (Finance/Economics) · 2020 – 2025
 
 **Ontario Tech University** — MSc, Computer Science · 2024 – 2025 (postponed)
 

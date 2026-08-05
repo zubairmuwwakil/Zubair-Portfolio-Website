@@ -88,18 +88,25 @@ Item 1 is now done, so the chain is already a single hop
 
 ---
 
-## 3. Which of the four overlapping roles are contract / part-time / full-time
+## 3. ~~Which of the roles are contract / part-time / full-time~~ — RESOLVED 2026-08-05
 
-Four roles overlap; at one point in 2023–2024 three run concurrently. Without
-employment types a reader's most likely reading is that the dates are inflated.
+All four labelled, and NDCTrades re-dated:
 
-`employmentType` has been added to the `Experience` type and renders as a badge
-beside the role. Fill these in at `client/src/data/portfolio.ts` — the commented
-`// employmentType: pending` lines mark each spot. Valid values: `"Full-time"`,
-`"Part-time"`, `"Contract"`, `"Internship"`.
+| Company | Role | Dates | Type |
+|---|---|---|---|
+| G2i Inc. | Software Engineer | Aug 2025 – Present | Contract |
+| Elevation Athletics | Regional Program Coordinator (Tech & Ops) | Mar 2023 – Present | Part-time |
+| The Senac Group | Financial Software Analyst | Jun 2023 – May 2025 | Part-time → Full-time |
+| NDCTrades | Finance Solutions Architect | **Sep 2022 – Jun 2023** | Internship |
 
-| # | Company | Role | Dates | employmentType |
-|---|---|---|---|---|
+NDCTrades was previously listed as Sep 2023 – Sep 2024. Correcting it collapses
+the three-way overlap from **13 months to 1** (June 2023 only, an internship
+ending as a new role begins). The timeline now reads as one full-time-equivalent
+role at a time plus part-time work, which is an ordinary shape.
+
+Experience is reordered current-first: G2i, Elevation, Senac, NDCTrades.
+
+---|---|---|---|---|
 | 1 | G2i Inc. | Software Engineer | Aug 2025 – Present | **`"Contract"`** — already set, taken from the old role string "Software Engineer (Contract)" |
 | 2 | The Senac Group | Financial Software Analyst | Jun 2023 – May 2025 | **needed** |
 | 3 | Elevation Athletics | Regional Program Coordinator | Mar 2023 – Present | **needed** |
