@@ -85,7 +85,7 @@ export const profile: Profile = {
   email: "zmuwwakil@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
   githubUrl: "https://github.com/zubairmuwwakil",
-  resumeUrl: "https://drive.google.com/file/d/1Z87uMI6RrrPa9KeIhZChkpzl-YYZYgTr/view?usp=sharing",
+  resumeUrl: "/resume/",
 };
 
 export const experiences: Experience[] = [
@@ -167,8 +167,8 @@ export const education: Education[] = [
   {
     id: 5,
     school: "University of Toronto",
-    degree: "Bachelor of Computer Science",
-    field: "Computer Science",
+    degree: "BSc, Computer Science & Mathematics",
+    field: "Finance/Economics",
     startDate: "2019",
     endDate: "2023",
   },
