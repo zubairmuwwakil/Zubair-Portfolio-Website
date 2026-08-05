@@ -59,8 +59,33 @@ ${urls}
 `;
 }
 
+/**
+ * react-snap only pre-renders routes named in package.json's reactSnap.include.
+ * A post that is in the sitemap but not in that list is served as the SPA
+ * fallback with no crawlable HTML — the exact silent failure this whole change
+ * set exists to fix — so warn loudly rather than shipping it.
+ */
+async function warnOnUnprerenderedPosts(posts) {
+  const pkgPath = path.resolve(__dirname, "..", "package.json");
+  const pkg = JSON.parse(await readFile(pkgPath, "utf8"));
+  const include = pkg.reactSnap?.include ?? [];
+  const missing = posts
+    .map((p) => p.loc.replace(SITE_ORIGIN, ""))
+    .filter((route) => !include.includes(route));
+
+  if (missing.length) {
+    console.warn(
+      `\n  WARNING: ${missing.length} blog route(s) are in the sitemap but absent from\n` +
+        `  reactSnap.include in package.json, so they will NOT be pre-rendered:\n` +
+        missing.map((m) => `    ${m}`).join("\n") +
+        `\n  Add them to package.json > reactSnap.include and rebuild.\n`,
+    );
+  }
+}
+
 async function main() {
   const posts = await collectBlogUrls();
+  await warnOnUnprerenderedPosts(posts);
   const newest = posts
     .map((p) => p.lastmod)
     .filter(Boolean)
