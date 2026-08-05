@@ -144,14 +144,6 @@ export const experiences: Experience[] = [
 
 export const education: Education[] = [
   {
-    id: 1,
-    school: "York University",
-    degree: "French Language Studies",
-    field: "Language Studies",
-    startDate: "2025",
-    endDate: "2025",
-  },
-  {
     id: 3,
     school: "Ontario Tech University",
     degree: "Master of Computer Science",
@@ -180,6 +172,12 @@ export const certifications: Certification[] = [
     id: 2,
     name: "Advanced Digital and Professional Training",
     issuer: "Ted Rogers School of Management — Toronto Metropolitan University",
+    year: "2025",
+  },
+  {
+    id: 3,
+    name: "French Language Studies",
+    issuer: "York University",
     year: "2025",
   },
 ];
