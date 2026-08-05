@@ -301,8 +301,7 @@ export default function Portfolio() {
       stack: ["React", "TypeScript", "React Flow", "Node.js", "PostgreSQL (JSONB)"],
       links: {
         demo: "https://mindsky.zubairmuwwakil.com",
-        // No repo link: this card previously pointed at the bare GitHub profile,
-        // not a repository. See NEEDS-INPUT.md for the correct URL.
+        github: "https://github.com/zubairmuwwakil/mindmap",
         caseStudy: "/projects/mindsky/",
       },
     },

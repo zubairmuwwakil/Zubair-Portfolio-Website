@@ -245,9 +245,7 @@ export const projects: Project[] = [
     title: "MindSky",
     description: "Visual thought-mapping app: an infinite canvas of linked ideas with snapshot-based undo/redo and debounced autosave, persisted as a graph in Postgres.",
     link: "https://mindsky.zubairmuwwakil.com",
-    // No repo link: this previously pointed at the bare GitHub profile, not a
-    // repository. See NEEDS-INPUT.md for the correct URL.
-    githubLink: null,
+    githubLink: "https://github.com/zubairmuwwakil/mindmap",
     caseStudyUrl: "https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing",
     tags: ["React", "TypeScript", "React Flow", "Node.js", "PostgreSQL (JSONB)"],
   },

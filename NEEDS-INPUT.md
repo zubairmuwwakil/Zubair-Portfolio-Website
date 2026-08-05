@@ -143,7 +143,7 @@ as you supply a working URL.
 | What | URL | Result |
 |---|---|---|
 | PickleOps repo | `github.com/zubairmuwwakil/pickleball-session-manager` | **404** — renamed, private, or deleted. The App Store link now carries this card. |
-| MindSky repo | pointed at `github.com/zubairmuwwakil` (bare profile) | Not a repository. Supply the repo URL or leave it off. |
+| ~~MindSky repo~~ | `github.com/zubairmuwwakil/mindmap` | **RESOLVED 2026-08-05** — verified 200. Now linked from the homepage card, /projects/ and the case study. The repo has **no README and no description**; a draft is at `repo-readmes/mindmap-README.md`. |
 
 ### Still rendered — both work, but are slow to wake
 
