@@ -108,13 +108,15 @@ export const experiences: Experience[] = [
     company: "The Senac Group",
     role: "Financial Software Analyst — Automation & Analytics",
     // employmentType: pending — see NEEDS-INPUT.md
-    subtitle: "C# · .NET · SQL Server (T-SQL) · Excel VBA",
+    subtitle: "C# · .NET · SQL Server (T-SQL) · Excel VBA · Reporting pipelines",
     startDate: "Jun 2023",
     endDate: "May 2025",
     description: [
       "Built internal automation and reporting logic in C#/.NET and SQL Server (T-SQL) to improve FP&A data accuracy, repeatability, and close-cycle reliability.",
       "Automated recurring reporting workflows with SQL and Excel VBA, saving 10+ hours/week across weekly and monthly deliverables.",
       "Built pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, and shipped validation dashboards that surfaced discrepancies earlier — reducing rework during close.",
+      "Created budgeting/variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.",
+      "Produced scenario + cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks.",
       "Promoted Intern → Assistant Financial Analyst → Software Developer."
     ].join("\n"),
   },
@@ -123,13 +125,16 @@ export const experiences: Experience[] = [
     company: "Elevation Athletics",
     role: "Regional Program Coordinator (Tech & Ops)",
     // employmentType: pending — see NEEDS-INPUT.md
-    subtitle: "Next.js · TypeScript · PostgreSQL · Glicko-2 ratings",
+    subtitle: "Next.js · TypeScript · PostgreSQL · Glicko-2 ratings · TeamSnap API",
     startDate: "Mar 2023",
     endDate: "Present",
     description: [
       "Built and deployed pbsocial.ca, a multi-tenant Next.js/TypeScript/PostgreSQL platform for session scheduling, registrations, attendance, and reporting; scaled from ~50 to 1,000+ participants.",
       "Engineered the core match systems: automatic group and match generation, atomic match finalization, and Glicko-2 rating with standings history for reliable competitive play.",
       "Implemented role-based ops workflows and retention analytics — roster/waitlist automation, check-in tooling — contributing to repeat sign-ups rising from ~20% to ~89% in a tracked cohort (16/18).",
+      "Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.",
+      "Ran a structured support + triage workflow for 1,000+ users across 8 cities, keeping stakeholders unblocked with clear updates.",
+      "Developed Excel automation utilities that reduced game-day data entry/reporting time by ~60%; led tooling/process enablement for staff/coaches.",
       "Promoted Coach → Lead Coach → District Lead."
     ].join("\n"),
   },
