@@ -34,9 +34,16 @@ export function ExperienceItem({ experience, index }: ExperienceItemProps) {
         </span>
       </div>
 
-      <h3 className="text-2xl font-extrabold text-foreground font-display leading-tight">
-        {experience.role}
-      </h3>
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+        <h3 className="text-2xl font-extrabold text-foreground font-display leading-tight">
+          {experience.role}
+        </h3>
+        {experience.employmentType && (
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-semibold uppercase tracking-wide shadow-sm">
+            {experience.employmentType}
+          </span>
+        )}
+      </div>
       {experience.subtitle && (
         <p className="text-sm text-muted-foreground mt-2 font-semibold">{experience.subtitle}</p>
       )}
