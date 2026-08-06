@@ -10,9 +10,17 @@ permissions:
   pages: write
   id-token: write
 
+# cancel-in-progress is false deliberately, and differs from most workflows for a
+# reason specific to Pages: a deployment is keyed by its commit SHA, so cancelling
+# one mid-flight consumes that SHA's deployment record and the commit can never
+# publish again — no retry, dispatch or re-run will recover it. That is how
+# 1a0af23 got stranded: a manual dispatch cancelled its push-triggered run 28
+# seconds in, and all three later attempts on that SHA failed, two of them only
+# after waiting out the full 10-minute deploy timeout. Queueing a deploy behind
+# another one is cheap. Burning a commit's only chance to publish is not.
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
