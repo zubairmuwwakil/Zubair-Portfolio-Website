@@ -363,10 +363,11 @@ The deployed service is clearly a later build than the public repo:
 So the strongest backend evidence in the whole footprint is running somewhere
 that is not public.
 
-**This is why I have not repointed the MarketLens "Source" link** from
-`market-data-pipeline` to `marketdata`. Doing so would send a reviewer to a repo
-that is cleaner but still contradicts the case study — worse than the current
-state, not better.
+**Update (2026-08-06): the "Source" link is now repointed to `marketdata`** at
+your request. The mismatch above is unchanged by that — a reviewer who clicks
+Source still lands on a repo that does not contain the rate limiting,
+observability, or `/api/v1/candles` the case study describes. Worth closing with
+one of the options below.
 
 Options, roughly in order of value:
 

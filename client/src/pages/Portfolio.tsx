@@ -305,7 +305,7 @@ export default function Portfolio() {
       ],
       links: {
         demo: "https://marketdata.zubairmuwwakil.com",
-        github: "https://github.com/zubairmuwwakil/market-data-pipeline",
+        github: "https://github.com/zubairmuwwakil/marketdata",
         caseStudy: "/projects/marketlens/",
       },
     },

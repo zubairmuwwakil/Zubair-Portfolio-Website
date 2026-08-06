@@ -248,7 +248,7 @@ export const projects: Project[] = [
     title: "MarketLens",
     description: "Backend pipeline that ingests, normalizes, and serves financial indicators via REST APIs.",
     link: "https://marketdata.zubairmuwwakil.com",
-    githubLink: "https://github.com/zubairmuwwakil/market-data-pipeline",
+    githubLink: "https://github.com/zubairmuwwakil/marketdata",
     caseStudyUrl: "https://drive.google.com/file/d/10SKFD0k5hVxm7qH6rpWVVNmZubGuktZO/view?usp=sharing",
     tags: ["Java", "Spring Boot", "SQL", "Caching", "APIs"],
   },
