@@ -154,8 +154,8 @@ export async function registerRoutes(
     {
       title: "Market Data Pipeline",
       description: "Backend pipeline that ingests, normalizes, and serves financial indicators via REST APIs.",
-      link: "https://github.com/zubairmuwwakil/market-data-pipeline",
-      githubLink: "https://github.com/zubairmuwwakil/market-data-pipeline",
+      link: "https://github.com/zubairmuwwakil/marketdata",
+      githubLink: "https://github.com/zubairmuwwakil/marketdata",
       tags: ["Java", "Spring Boot", "SQL", "Caching", "APIs"]
     },
     {

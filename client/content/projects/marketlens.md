@@ -5,7 +5,7 @@ date: 2026-08-05
 tags: [Java, Spring Boot, PostgreSQL, Flyway, Observability]
 stack: [Java 21, Spring Boot 4, PostgreSQL, Flyway, Bucket4j, Prometheus, OpenTelemetry]
 liveUrl: https://marketdata.zubairmuwwakil.com
-repoUrl: https://github.com/zubairmuwwakil/market-data-pipeline
+repoUrl: https://github.com/zubairmuwwakil/marketdata
 ---
 
 Backend pipeline that ingests price and indicator feeds, normalizes them into Postgres, and serves typed REST endpoints for dashboards and analytics.
