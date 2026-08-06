@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { DEFAULT_SHARE_IMAGE } from "@/lib/schema";
+
+type JsonLdNode = Record<string, unknown>;
 
 export type DocumentHead = {
   title: string;
@@ -6,7 +9,8 @@ export type DocumentHead = {
   canonical: string;
   ogType?: string;
   image?: string;
-  jsonLd?: Record<string, unknown> | null;
+  /** One node, or several to emit as separate blocks (e.g. Article + BreadcrumbList). */
+  jsonLd?: JsonLdNode | JsonLdNode[] | null;
 };
 
 const JSON_LD_MARKER = "data-route-jsonld";
@@ -40,7 +44,7 @@ export function useDocumentHead({
   description,
   canonical,
   ogType = "website",
-  image = "https://zubairmuwwakil.com/assets/og-card.png",
+  image = DEFAULT_SHARE_IMAGE,
   jsonLd = null,
 }: DocumentHead) {
   useEffect(() => {
@@ -85,11 +89,14 @@ export function useDocumentHead({
       .querySelectorAll(`script[${JSON_LD_MARKER}]`)
       .forEach((stale) => stale.remove());
 
-    if (jsonLd) {
+    // Separate <script> blocks rather than one @graph, so every block keeps a
+    // top-level @type. That is what the duplicate-entity check in verify-seo
+    // reads, and what the Rich Results Test reports each feature against.
+    for (const node of jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []) {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.setAttribute(JSON_LD_MARKER, "true");
-      script.textContent = JSON.stringify(jsonLd, null, 2);
+      script.textContent = JSON.stringify(node, null, 2);
       document.head.appendChild(script);
       restores.push(() => script.remove());
     }

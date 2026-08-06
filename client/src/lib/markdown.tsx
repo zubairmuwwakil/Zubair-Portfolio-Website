@@ -15,6 +15,8 @@ export type Frontmatter = {
   date: string;
   tags: string[];
   draft: boolean;
+  /** Site-absolute path to the share/schema image, e.g. "/assets/looply-cover.jpg". */
+  cover?: string;
 };
 
 const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
@@ -44,6 +46,7 @@ export function parseFrontmatter(raw: string): { data: Frontmatter; body: string
       description: stripQuotes(fields.description ?? ""),
       date: stripQuotes(fields.date ?? ""),
       draft: fields.draft === "true",
+      cover: fields.cover ? stripQuotes(fields.cover) : undefined,
       tags: rawTags
         .replace(/^\[|\]$/g, "")
         .split(",")

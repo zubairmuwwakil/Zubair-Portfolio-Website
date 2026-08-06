@@ -2,6 +2,7 @@
 title: PickleOps — The Pickleball Social
 description: A shipped club-pickleball product — Next.js web app plus a React Native iOS client for sessions, ladders, ratings, and payments.
 date: 2026-08-05
+cover: /assets/pickleops-cover.jpg
 tags: [Next.js, React Native, TypeScript, Prisma, PostgreSQL, iOS]
 stack: [Next.js (App Router), React, React Native, TypeScript, Tailwind, PostgreSQL, Prisma, Zod, iOS]
 liveUrl: https://pickleball.zubairmuwwakil.com
