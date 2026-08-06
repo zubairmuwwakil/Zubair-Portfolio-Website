@@ -22,6 +22,9 @@ const APEX = "https://zubairmuwwakil.com";
 // intentionally carry the homepage's canonical, so page-level checks don't apply.
 const FALLBACKS = new Set(["200.html", "404.html"]);
 const MAX_DESCRIPTION = 155;
+const ARTICLE_TYPES = new Set(["Article", "BlogPosting"]);
+/** Leaf content pages — the ones that sit under an index and need a trail back. */
+const LEAF_PAGE = /^(projects|blog)[/\\][^/\\]+[/\\]index\.html$/;
 
 let failures = 0;
 const fail = (where, msg) => {
@@ -43,6 +46,12 @@ async function htmlFiles(dir = distDir) {
 }
 
 const exists = (p) => stat(p).then(() => true).catch(() => false);
+
+/** True when an absolute apex URL names something actually present in dist. */
+async function resolvesOnApex(value) {
+  if (typeof value !== "string" || !value.startsWith(APEX)) return false;
+  return Boolean(await resolveRoute(value.slice(APEX.length) || "/"));
+}
 
 /** Map a site-absolute URL path to the file GitHub Pages would serve for it. */
 async function resolveRoute(routePath) {
@@ -114,13 +123,16 @@ async function checkPage(file) {
 
   const blocks = [...head.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)];
   const types = [];
+  const nodes = [];
   for (const [, body] of blocks) {
     if ([...body].some((c) => "‘’“”".includes(c)))
       fail(rel, "JSON-LD contains smart quotes");
     else if (/,\s*[}\]]/.test(body)) fail(rel, "JSON-LD contains a trailing comma");
     else {
       try {
-        types.push(JSON.parse(body)["@type"]);
+        const node = JSON.parse(body);
+        types.push(node["@type"]);
+        nodes.push(node);
       } catch (err) {
         fail(rel, `JSON-LD does not parse: ${err.message}`);
       }
@@ -130,6 +142,40 @@ async function checkPage(file) {
   // re-processing its own output will do this.
   const dupes = types.filter((t, i) => types.indexOf(t) !== i);
   if (dupes.length) fail(rel, `duplicate JSON-LD @type: ${[...new Set(dupes)].join(", ")}`);
+
+  for (const node of nodes.filter((n) => ARTICLE_TYPES.has(n["@type"]))) {
+    // `image` is the thumbnail half of the Article treatment. Google lists it as
+    // recommended, and without it the markup can only ever render as plain text.
+    // Resolved rather than merely present because a cover path is easy to typo
+    // and a 404ing image reads to Google as no image at all.
+    const image = typeof node.image === "string" ? node.image : node.image?.url;
+    if (!image) fail(rel, `${node["@type"]} JSON-LD has no image`);
+    else if (!(await resolvesOnApex(image)))
+      fail(rel, `${node["@type"]} image does not resolve in dist: ${image}`);
+
+    // Google's author best practices ask for @type and name on the node itself,
+    // not a bare @id pointing into another block on the page. Cross-block refs
+    // usually resolve, but "usually" is a poor thing to stake the byline on.
+    for (const field of ["author", "publisher"]) {
+      const value = node[field];
+      if (!value) fail(rel, `${node["@type"]} JSON-LD has no ${field}`);
+      else if (!value["@type"] || !value.name)
+        fail(rel, `${node["@type"]} ${field} needs @type and name, got ${JSON.stringify(value)}`);
+    }
+  }
+
+  // BreadcrumbList is one of the few rich result types this site is genuinely
+  // eligible for, and it turns the URL line in results into a readable trail.
+  if (!isFallback && LEAF_PAGE.test(rel) && !types.includes("BreadcrumbList"))
+    fail(rel, "leaf content page has no BreadcrumbList");
+
+  // og:image is what renders when the link is pasted into Slack or LinkedIn —
+  // for a portfolio that is a more travelled path than search results. Every
+  // page shipped the generic card once while per-project art sat unused.
+  const ogImage = metas.find((m) => m.property === "og:image")?.content;
+  if (!ogImage) fail(rel, "missing og:image");
+  else if (!(await resolvesOnApex(ogImage)))
+    fail(rel, `og:image does not resolve in dist: ${ogImage}`);
 
   return { rel, isFallback, canonical: canonical[0]?.href };
 }

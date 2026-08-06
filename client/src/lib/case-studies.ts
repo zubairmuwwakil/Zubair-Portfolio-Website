@@ -11,6 +11,8 @@ export type CaseStudy = {
   liveUrl?: string;
   repoUrl?: string;
   appStoreUrl?: string;
+  /** Site-absolute path to the share/schema image, carried through from frontmatter. */
+  cover?: string;
   body: string;
 };
 

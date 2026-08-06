@@ -4,6 +4,7 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { useDocumentHead } from "@/hooks/use-document-head";
 import { renderMarkdown } from "@/lib/markdown";
 import { getPost, formatPostDate, postUrl, SITE_ORIGIN, BLOG_INDEX_URL } from "@/lib/posts";
+import { breadcrumbList, PERSON_NODE, shareImage } from "@/lib/schema";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -14,21 +15,30 @@ export default function BlogPost() {
     description: post?.description ?? "This post could not be found.",
     canonical: post ? postUrl(post.slug) : BLOG_INDEX_URL,
     ogType: post ? "article" : "website",
+    image: shareImage(post?.cover),
     jsonLd: post
-      ? {
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          "@id": `${postUrl(post.slug)}#post`,
-          headline: post.title,
-          description: post.description,
-          datePublished: post.date,
-          dateModified: post.date,
-          url: postUrl(post.slug),
-          mainEntityOfPage: { "@type": "WebPage", "@id": postUrl(post.slug) },
-          keywords: post.tags,
-          author: { "@id": `${SITE_ORIGIN}/#person` },
-          publisher: { "@id": `${SITE_ORIGIN}/#person` },
-        }
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "@id": `${postUrl(post.slug)}#post`,
+            headline: post.title,
+            description: post.description,
+            image: shareImage(post.cover),
+            datePublished: post.date,
+            dateModified: post.date,
+            url: postUrl(post.slug),
+            mainEntityOfPage: { "@type": "WebPage", "@id": postUrl(post.slug) },
+            keywords: post.tags,
+            author: PERSON_NODE,
+            publisher: PERSON_NODE,
+          },
+          breadcrumbList([
+            { name: "Home", url: `${SITE_ORIGIN}/` },
+            { name: "Blog", url: BLOG_INDEX_URL },
+            { name: post.title, url: postUrl(post.slug) },
+          ]),
+        ]
       : null,
   });
 

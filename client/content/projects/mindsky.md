@@ -2,6 +2,7 @@
 title: MindSky — Visual Thought Mapping
 description: An infinite-canvas thought-mapping app with snapshot-based undo/redo and debounced autosave, persisting each map as a whole graph in Postgres JSONB.
 date: 2026-08-05
+cover: /assets/mindsky-cover.jpg
 tags: [React, TypeScript, React Flow, Node.js, PostgreSQL]
 stack: [React, TypeScript, React Flow, Node.js, PostgreSQL (JSONB)]
 liveUrl: https://mindsky.zubairmuwwakil.com
