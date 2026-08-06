@@ -64,3 +64,28 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Tells Bing (and Yandex, Naver, Seznam — one endpoint reaches all of them)
+  # that the URLs changed, instead of waiting to be crawled. Runs only after the
+  # deploy has published, because the script reads the live sitemap and would
+  # otherwise announce the previous build. Google does not support IndexNow;
+  # its equivalent is Request Indexing in Search Console, which is manual.
+  #
+  # continue-on-error: a search-engine ping failing is not a broken deploy. The
+  # site is already live at this point; this step only affects how fast it is
+  # recrawled, so it reports loudly but never turns the run red.
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Ping IndexNow
+        run: node script/indexnow.mjs
