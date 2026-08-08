@@ -97,3 +97,87 @@ jobs:
 
       - name: Ping IndexNow
         run: node script/indexnow.mjs
+
+  # notify, above, is the success path. This is the failure path, and it exists
+  # because there wasn't one: on 2026-08-06 the deploy job died on aedc49a,
+  # 1a0af23 and f73f159, and the site quietly served 409bb29 for two days.
+  #
+  # The condition is `failure() || cancelled()`, not `failure()`, because those
+  # runs ended two different ways. aedc49a and f73f159 hit the deploy-pages
+  # 10-minute timeout, which reports "Deployment cancelled." as a step error and
+  # marks the job `failure`. 1a0af23's push run was cancelled outright by a
+  # competing dispatch, so every job ended `cancelled` — and `failure()` is false
+  # for a cancelled job. Plain `failure()` would have missed the only run of the
+  # three that actually stranded a commit.
+  #
+  # Job-level permissions because the workflow-level block above lists
+  # contents/pages/id-token, and naming any scope drops every unnamed one to
+  # `none` — `issues` included. Granting it here keeps build and deploy as they
+  # are. No checkout: gh talks to the API over -R, and the last line of defence
+  # should have as little to trip over as possible.
+  alert:
+    needs: [build, deploy]
+    if: failure() || cancelled()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update the deploy-failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+        run: |
+          set -uo pipefail
+          BODY="$RUNNER_TEMP/alert.md"
+
+          # --force makes this idempotent, so the workflow bootstraps its own
+          # label and needs nothing configured in repo settings first. A failure
+          # here must not swallow the alert, hence the || rather than set -e.
+          gh label create deploy-failure \
+            --repo "$REPO" \
+            --color B60205 \
+            --description "A Pages deploy did not publish; the live site may be stale" \
+            --force || echo "Label bootstrap failed; continuing."
+
+          # printf for the run-specific facts, quoted heredoc for the prose, so
+          # the backticks and $ in the recovery snippet are never evaluated.
+          printf 'The deploy workflow did not publish. **The live site is still serving the previous commit.**\n\n' > "$BODY"
+          printf -- '- Commit: `%s`\n' "$SHA" >> "$BODY"
+          printf -- '- `build`: **%s** · `deploy`: **%s**\n' "$BUILD_RESULT" "$DEPLOY_RESULT" >> "$BODY"
+          printf -- '- Run: %s\n\n' "$RUN_URL" >> "$BODY"
+          cat >> "$BODY" <<'EOF'
+          ## Recovery
+
+          If `deploy` is **failure** or **cancelled**, that commit's SHA is spent. A Pages
+          deployment is keyed by its commit SHA, so re-running this run and dispatching
+          the workflow will both fail again — they reuse the same SHA. The only way out
+          is a new commit:
+
+          ```
+          git commit --allow-empty -m "Redeploy: republish after a failed Pages deploy"
+          git push
+          ```
+
+          If `deploy` is **skipped**, the build broke before a deployment was attempted,
+          so no SHA is stranded — fix the build and push normally.
+
+          Close this issue once the site is serving the new commit.
+          EOF
+
+          # One issue per outage, not one per run: the 2026-08-06 incident would
+          # otherwise have opened five. A burst of failures reuses the open issue
+          # and appends, so the alert stays legible instead of becoming noise.
+          existing=$(gh issue list --repo "$REPO" --label deploy-failure \
+            --state open --limit 1 --json number --jq '.[0].number // empty')
+
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPO" --body-file "$BODY"
+          else
+            gh issue create --repo "$REPO" --label deploy-failure \
+              --title "Deploy failed — the live site is stale" --body-file "$BODY"
+          fi
