@@ -90,7 +90,7 @@ Infinite-canvas thought mapping with snapshot-based undo/redo and debounced auto
 
 **University of Toronto** — BSc, Computer Science & Mathematics (Finance/Economics) · 2020 – 2025
 
-**Ontario Tech University** — MSc, Computer Science · 2024 – 2025 (postponed)
+**Ontario Tech University** — MSc, Computer Science · 2025 (postponed)
 
 **Microsoft Certified: Azure Fundamentals (AZ-900)** — Microsoft · 2024
 
