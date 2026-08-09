@@ -82,20 +82,68 @@ export function schemaImages(cover?: string, slug?: string): string | string[] {
   return urls.length === 1 ? urls[0] : urls;
 }
 
+/** The two shapes of content that get a card, and how each one refers to its art. */
+const CARD_KIND = {
+  "case study": { label: "Case study card", art: "the project's cover illustration" },
+  "blog post": { label: "Blog post card", art: "the post's cover illustration" },
+} as const;
+
+/**
+ * Mirrors MAX_PILLS in script/generate-share-cards.mjs. Kept in step by hand
+ * because that script is plain Node ESM and this is bundled TypeScript; the
+ * consequence of drift is an alt that lists a pill the card cropped, which is
+ * mild next to the alternative of the two files importing across that boundary.
+ */
+const CARD_PILL_LIMIT = 4;
+
+type CardContent = {
+  slug?: string;
+  title?: string;
+  cover?: string;
+  coverAlt?: string;
+  stack?: string[];
+  tags?: string[];
+};
+
 /**
  * What a page's share image depicts, paired with the image `shareImage` returns.
  *
- * Both arguments are needed, because the answer turns on whether the page has
- * cover art at all rather than on whether it has alt text. A page with no cover
- * shares the generic card and inherits its description; a page whose cover has
- * no `coverAlt` in frontmatter gets null, which strips the tag index.html
- * shipped instead of leaving it describing a picture this page doesn't show.
+ * For a page with a generated card this is composed rather than authored, because
+ * the card is itself composed: the largest thing on it is the title, under an
+ * eyebrow and over the stack pills. Alt text written by hand described the cover
+ * illustration instead — true of the square cover that used to be og:image, and
+ * an odd thing to say about a card whose art is a small inset panel. Composing
+ * from the same title and pills the card renders means a retitled piece of
+ * content cannot leave a card described by its old name.
  *
- * Losing the tag costs a screen reader a description of the card. Keeping a
- * wrong one costs them a confident, plausible description of the wrong image,
- * which they have no way to detect — so null is the safer failure.
+ * The illustration is named but not described. Its own text is illegible at the
+ * size the card insets it, so repeating `coverAlt` here would assert detail a
+ * sighted reader cannot check. `coverAlt` still answers for the cover itself,
+ * which is what og:image falls back to when a card has not been generated.
+ *
+ * Null when there is cover art but nothing to say about it, which strips the tag
+ * index.html shipped rather than leave it describing another picture: losing the
+ * tag costs a screen reader a description, while keeping a wrong one costs them a
+ * confident, plausible description of the wrong image.
  */
-export function shareImageAlt(cover?: string, coverAlt?: string): string | null {
+export function shareImageAlt(
+  content: CardContent | undefined,
+  kind: keyof typeof CARD_KIND,
+): string | null {
+  const { slug, title, cover, coverAlt, stack = [], tags = [] } = content ?? {};
+
+  if (title && shareCard(slug)) {
+    const { label, art } = CARD_KIND[kind];
+    const pills = (stack.length ? stack : tags).slice(0, CARD_PILL_LIMIT);
+    return [
+      `${label} for ${title}`,
+      pills.length ? `tagged ${pills.join(", ")}` : "",
+      `beside ${art}`,
+    ]
+      .filter(Boolean)
+      .join(", ");
+  }
+
   if (!cover) return DEFAULT_SHARE_IMAGE_ALT;
   return coverAlt ?? null;
 }

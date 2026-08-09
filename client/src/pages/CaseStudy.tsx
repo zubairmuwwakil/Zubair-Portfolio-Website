@@ -18,7 +18,7 @@ export default function CaseStudy() {
     canonical: study ? caseStudyUrl(study.slug) : PROJECTS_URL,
     ogType: study ? "article" : "website",
     image: shareImage(study?.cover, study?.slug),
-    imageAlt: shareImageAlt(study?.cover, study?.coverAlt),
+    imageAlt: shareImageAlt(study, "case study"),
     jsonLd: study
       ? [
           {

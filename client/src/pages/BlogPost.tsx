@@ -16,7 +16,7 @@ export default function BlogPost() {
     canonical: post ? postUrl(post.slug) : BLOG_INDEX_URL,
     ogType: post ? "article" : "website",
     image: shareImage(post?.cover, post?.slug),
-    imageAlt: shareImageAlt(post?.cover, post?.coverAlt),
+    imageAlt: shareImageAlt(post, "blog post"),
     jsonLd: post
       ? [
           {

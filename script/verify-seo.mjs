@@ -23,6 +23,16 @@ const APEX = "https://zubairmuwwakil.com";
 // intentionally carries the homepage's canonical, so page-level checks don't apply.
 const FALLBACKS = new Set(["404.html"]);
 const MAX_DESCRIPTION = 155;
+/**
+ * Per-content share cards, as written by script/generate-share-cards.mjs.
+ *
+ * og-card.png is deliberately excluded despite matching the same suffix. It is
+ * one generic card shared by /, /projects/, /blog/ and /resume/, so it cannot
+ * name any single page's title and the title check below must not demand it.
+ */
+const CARD_IMAGE = /\/assets\/(?!og-card\.png)[^/]+-card\.png$/;
+/** Appended to every route title, so stripping it leaves the card's own heading. */
+const SITE_TITLE_SUFFIX = " — Zubair Muwwakil";
 /** twitter:card is summary_large_image; 1200/630 is 1.905. */
 const MIN_SHARE_RATIO = 1.85;
 const MAX_SHARE_RATIO = 1.95;
@@ -318,6 +328,21 @@ async function checkPage(file) {
   if (!twitterAlt) fail(rel, "missing twitter:image:alt");
   else if (imageAlt && twitterAlt !== imageAlt)
     fail(rel, `twitter:image:alt "${twitterAlt}" does not match og:image:alt "${imageAlt}"`);
+
+  // A generated card renders the title as its largest element, so an alt that
+  // never says the title is not describing the card — it is describing whatever
+  // the card was built from. That is exactly what happened when cards replaced
+  // the square covers: og:image moved and the alt kept describing the cover art,
+  // leaving two visibly different cards sharing one sentence. Checked against
+  // og:title on the same page so it cannot drift from what the card renders.
+  if (imageAlt && ogImage && CARD_IMAGE.test(ogImage)) {
+    const ogTitle = metas.find((m) => m.property === "og:title")?.content ?? "";
+    const cardTitle = ogTitle.endsWith(SITE_TITLE_SUFFIX)
+      ? ogTitle.slice(0, -SITE_TITLE_SUFFIX.length)
+      : ogTitle;
+    if (cardTitle && !imageAlt.includes(cardTitle))
+      fail(rel, `og:image is a card headed "${cardTitle}" but og:image:alt never names it`);
+  }
 
   return { rel, isFallback, canonical: canonical[0]?.href, ogImage, imageAlt };
 }
