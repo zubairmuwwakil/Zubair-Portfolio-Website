@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 20
           cache: npm
@@ -57,8 +57,14 @@ jobs:
             npm run build -- --base="$BASE_PATH"
           fi
 
+      # v4 of this action stopped including dotfiles in the artifact, and v5 keeps
+      # that default behind an include-hidden-files input. dist/ has no dotfiles
+      # today — CNAME, the one file the custom domain depends on, is not hidden — so
+      # the default is correct. But a .well-known/ or similar added to client/public
+      # later would be dropped from the deploy silently, on a green run. Set
+      # include-hidden-files: true if that day comes.
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -71,7 +77,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   # Tells Bing (and Yandex, Naver, Seznam — one endpoint reaches all of them)
   # that the URLs changed, instead of waiting to be crawled. Runs only after the
@@ -88,10 +94,10 @@ jobs:
     continue-on-error: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 20
 
