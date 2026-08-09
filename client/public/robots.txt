@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# The PDF is the same resume as /resume/, so Google scores it as a duplicate —
+# and a PDF can only name a canonical through a Link: response header, which
+# GitHub Pages cannot set. Blocking the crawl is the only lever left, and it
+# leaves the Download PDF button on /resume/ working: robots.txt is read by
+# crawlers, not browsers. Longest match wins, so this beats the Allow above.
+Disallow: /resume.pdf
+
 Sitemap: https://zubairmuwwakil.com/sitemap.xml

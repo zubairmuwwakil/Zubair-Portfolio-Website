@@ -19,9 +19,9 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, "..", "dist");
 const APEX = "https://zubairmuwwakil.com";
 
-// SPA fallbacks: copies of the homepage served for unknown paths. They
-// intentionally carry the homepage's canonical, so page-level checks don't apply.
-const FALLBACKS = new Set(["200.html", "404.html"]);
+// The SPA fallback: a copy of the homepage served for unknown paths. It
+// intentionally carries the homepage's canonical, so page-level checks don't apply.
+const FALLBACKS = new Set(["404.html"]);
 const MAX_DESCRIPTION = 155;
 const ARTICLE_TYPES = new Set(["Article", "BlogPosting"]);
 /** Leaf content pages — the ones that sit under an index and need a trail back. */
@@ -159,8 +159,7 @@ async function checkPage(file) {
   const isFallback = FALLBACKS.has(rel);
 
   if (!/<html[^>]*\blang="[a-z-]+"/.test(html)) fail(rel, "missing <html lang>");
-  // 200.html is react-snap's raw SPA shell and is meant to have an empty #root;
-  // 404.html is a copy of the pre-rendered homepage. Neither is a real route.
+  // 404.html is a copy of the pre-rendered homepage, not a route of its own.
   if (!isFallback && !html.includes('<div id="root"><div'))
     fail(rel, "not pre-rendered (empty #root)");
 
@@ -188,6 +187,16 @@ async function checkPage(file) {
   }
 
   const metas = (head.match(/<meta\b[^>]*>/g) ?? []).map(attrs);
+
+  // Pages answers a by-name request for /404.html with a 200, so without this
+  // the fallback is a crawlable duplicate of the homepage. Headers would be the
+  // normal fix; Pages cannot set them. Asserted in both directions — the same
+  // tag on a real route would quietly deindex it.
+  const robots = metas.find((m) => m.name === "robots")?.content ?? "";
+  if (isFallback && !robots.includes("noindex"))
+    fail(rel, "SPA fallback is missing noindex — /404.html is served with a 200");
+  if (!isFallback && robots.includes("noindex")) fail(rel, "real route carries noindex");
+
   const canonical = (head.match(/<link\b[^>]*>/g) ?? [])
     .map(attrs)
     .filter((a) => a.rel === "canonical");
@@ -315,6 +324,12 @@ async function main() {
     console.error("dist/ not found — run the build first.");
     process.exit(1);
   }
+
+  // react-snap's own SPA shell, stripped by script/copy-404.js. Pages routes
+  // unknown paths to 404.html and never serves this, so shipping it only adds a
+  // URL that answers 200 with an empty #root and the homepage's canonical.
+  if (await exists(path.join(distDir, "200.html")))
+    fail("200.html", "react-snap's SPA shell shipped — a crawlable soft 404 duplicating the homepage");
 
   const files = await htmlFiles();
   console.log(`Verifying ${files.length} pre-rendered page(s) in dist/\n`);
