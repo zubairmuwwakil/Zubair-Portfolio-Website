@@ -183,7 +183,7 @@ export const education: Education[] = [
     school: "Ontario Tech University",
     degree: "Master of Computer Science",
     field: "Computer Science",
-    startDate: "2024",
+    startDate: "2025",
     endDate: "Postponed",
   },
   {
@@ -261,6 +261,18 @@ export const projects: Project[] = [
     githubLink: "https://github.com/zubairmuwwakil/mindmap",
     caseStudyUrl: "https://drive.google.com/file/d/1ageDjVn4WWSrZaNDd2xDDkv0M5nwmbCR/view?usp=sharing",
     tags: ["React", "TypeScript", "React Flow", "Node.js", "PostgreSQL (JSONB)"],
+  },
+  {
+    id: 5,
+    slug: "command-quest",
+    title: "Command Quest",
+    description:
+      "A command-line teaching game whose framework-free domain core drives both a terminal app and a browser app — one engine, two callers, 122 tests.",
+    link: "https://commandquest.zubairmuwwakil.com",
+    githubLink: "https://github.com/zubairmuwwakil/command-quest",
+    // On-domain from the start, rather than a Drive PDF to migrate later.
+    caseStudyUrl: null,
+    tags: ["Java", "Spring Boot", "Architecture", "Testing"],
   },
 ];
 
