@@ -1,6 +1,7 @@
 import { readdir, readFile, stat } from "fs/promises";
 import path from "path";
 import url from "url";
+import { imageSize } from "./image-size.mjs";
 
 /**
  * Post-build assertions over dist/.
@@ -64,6 +65,38 @@ async function resolveRoute(routePath) {
   // Non-HTML assets (images, robots.txt, CNAME) are served verbatim.
   if (await exists(path.join(distDir, rel))) return path.join(distDir, rel);
   return null;
+}
+
+/**
+ * og:image:width/height must describe the image the page actually points at.
+ * index.html hardcodes them for the 1200x630 generic card, so any route that
+ * overrides og:image and leaves them alone advertises another picture's
+ * dimensions — which is what every 1024x1024 project cover shipped. Unfurlers
+ * size the preview box from these before the image arrives, so a wrong pair
+ * reserves the wrong space and the card renders letterboxed or cropped.
+ *
+ * Read from the bytes in dist rather than compared to a constant, so replacing
+ * a cover at a different size can't quietly reintroduce the mismatch.
+ */
+async function checkShareImageSize(rel, metas, file) {
+  let actual;
+  try {
+    actual = imageSize(await readFile(file));
+  } catch (err) {
+    return fail(rel, `og:image ${path.basename(file)} is unreadable: ${err.message}`);
+  }
+  for (const [property, expected] of [
+    ["og:image:width", actual.width],
+    ["og:image:height", actual.height],
+  ]) {
+    const declared = metas.find((m) => m.property === property)?.content;
+    if (declared === undefined) fail(rel, `missing ${property}`);
+    else if (Number(declared) !== expected)
+      fail(
+        rel,
+        `${property} is ${declared} but ${path.basename(file)} is ${actual.width}x${actual.height}`,
+      );
+  }
 }
 
 async function checkPage(file) {
@@ -173,9 +206,13 @@ async function checkPage(file) {
   // for a portfolio that is a more travelled path than search results. Every
   // page shipped the generic card once while per-project art sat unused.
   const ogImage = metas.find((m) => m.property === "og:image")?.content;
+  const ogImageFile =
+    typeof ogImage === "string" && ogImage.startsWith(APEX)
+      ? await resolveRoute(ogImage.slice(APEX.length) || "/")
+      : null;
   if (!ogImage) fail(rel, "missing og:image");
-  else if (!(await resolvesOnApex(ogImage)))
-    fail(rel, `og:image does not resolve in dist: ${ogImage}`);
+  else if (!ogImageFile) fail(rel, `og:image does not resolve in dist: ${ogImage}`);
+  else await checkShareImageSize(rel, metas, ogImageFile);
 
   return { rel, isFallback, canonical: canonical[0]?.href };
 }

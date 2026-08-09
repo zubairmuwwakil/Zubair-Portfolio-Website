@@ -1,3 +1,4 @@
+import shareImageSizes from "virtual:share-image-sizes";
 import { SITE_ORIGIN } from "./posts";
 
 /**
@@ -26,6 +27,24 @@ export const DEFAULT_SHARE_IMAGE = `${SITE_ORIGIN}/assets/og-card.png`;
 export function shareImage(cover?: string): string {
   if (!cover) return DEFAULT_SHARE_IMAGE;
   return cover.startsWith("http") ? cover : `${SITE_ORIGIN}${cover}`;
+}
+
+/**
+ * Intrinsic pixel size of a share image, measured from the file at build time.
+ *
+ * og:image:width/height used to be written once in index.html for the 1200x630
+ * generic card, and stayed at those numbers while per-route og:image began
+ * pointing at 1024x1024 covers — so six pages advertised a shape no image on
+ * the site had. Deriving the pair from the file is what stops that recurring
+ * the next time a cover is replaced at a different size.
+ *
+ * Undefined for an image we cannot measure, such as an off-site URL. Callers
+ * emit nothing in that case: omitting the dimensions costs an unfurler one
+ * extra fetch to discover them, while wrong ones mis-size the card it draws.
+ */
+export function shareImageSize(image: string): { width: number; height: number } | undefined {
+  const assetPath = image.startsWith(SITE_ORIGIN) ? image.slice(SITE_ORIGIN.length) : image;
+  return shareImageSizes[assetPath];
 }
 
 /**

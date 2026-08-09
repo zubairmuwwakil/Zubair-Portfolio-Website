@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { DEFAULT_SHARE_IMAGE } from "@/lib/schema";
+import { DEFAULT_SHARE_IMAGE, shareImageSize } from "@/lib/schema";
 
 type JsonLdNode = Record<string, unknown>;
 
@@ -15,8 +15,26 @@ export type DocumentHead = {
 
 const JSON_LD_MARKER = "data-route-jsonld";
 
-function upsertMeta(selector: string, attr: "name" | "property", value: string, content: string) {
+/** `content: null` removes the tag — see the og:image:width call below for why. */
+function upsertMeta(
+  selector: string,
+  attr: "name" | "property",
+  value: string,
+  content: string | null,
+) {
   let el = document.head.querySelector<HTMLMetaElement>(selector);
+
+  // Nothing to declare for this route. Drop whatever index.html shipped rather
+  // than leave it describing something this page no longer points at.
+  if (content === null) {
+    const stale = el;
+    if (!stale) return () => {};
+    stale.remove();
+    return () => {
+      document.head.appendChild(stale);
+    };
+  }
+
   if (!el) {
     el = document.createElement("meta");
     el.setAttribute(attr, value);
@@ -69,6 +87,12 @@ export function useDocumentHead({
       else canonicalEl?.setAttribute("href", previousCanonical);
     });
 
+    // index.html declares og:image:width/height for the generic card, so every
+    // route that swaps og:image has to restate them or it inherits the previous
+    // image's shape. The numbers come from the file itself; null when the image
+    // isn't one we can measure, which removes the inherited tags entirely.
+    const size = shareImageSize(image);
+
     restores.push(
       upsertMeta('meta[name="description"]', "name", "description", description),
       upsertMeta('meta[property="og:title"]', "property", "og:title", title),
@@ -76,6 +100,18 @@ export function useDocumentHead({
       upsertMeta('meta[property="og:url"]', "property", "og:url", canonical),
       upsertMeta('meta[property="og:type"]', "property", "og:type", ogType),
       upsertMeta('meta[property="og:image"]', "property", "og:image", image),
+      upsertMeta(
+        'meta[property="og:image:width"]',
+        "property",
+        "og:image:width",
+        size ? String(size.width) : null,
+      ),
+      upsertMeta(
+        'meta[property="og:image:height"]',
+        "property",
+        "og:image:height",
+        size ? String(size.height) : null,
+      ),
       upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", title),
       upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description),
       upsertMeta('meta[name="twitter:image"]', "name", "twitter:image", image),

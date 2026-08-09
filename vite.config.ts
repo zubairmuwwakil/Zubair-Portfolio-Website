@@ -2,11 +2,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { shareImageSizes } from "./script/vite-plugin-share-image-sizes.mjs";
 
 export default defineConfig({
   plugins: [
     react(),
     runtimeErrorOverlay(),
+    shareImageSizes({
+      assetsDir: path.resolve(import.meta.dirname, "client", "public", "assets"),
+    }),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
