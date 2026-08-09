@@ -25,6 +25,7 @@ import {
   Apple,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { shareImageSize } from "@/lib/schema";
 import {
   Carousel,
   CarouselContent,
@@ -310,7 +311,7 @@ export default function Portfolio() {
       },
     },
     "MindSky": {
-        photo: "/assets/mindsky-cover.jpg",
+        photo: "/assets/mindsky-cover.png",
       problem: "Note-taking tools force ideas into linear lists and documents, which breaks down the moment thinking turns exploratory. Ideas are spatial, not sequential — and experimenting is only safe if nothing can be lost.",
       built: "Visual thought-mapping app: an infinite canvas where ideas are nodes and relationships are edges, persisted as a versioned graph.",
       decisions: [
@@ -732,6 +733,17 @@ export default function Portfolio() {
               {featuredProjectTitles.map((title) => {
                 const featuredCase = projectCaseStudies[title];
                 if (!featuredCase) return null;
+                const featuredPhoto = featuredCase.photo || "/assets/marketlens-cover.jpg";
+                // Measured from the file, for the same reason og:image:width is
+                // (77c0b9b): these were hardcoded 1024x1024 for square covers,
+                // and stayed that way when a cover was replaced at 1200x630.
+                const featuredPhotoSize = shareImageSize(featuredPhoto);
+                // Covers are square by contract — the share card insets them
+                // into a 440x440 slot. This is the guard for when one is not:
+                // the frame is portrait, so object-cover on a wide image crops
+                // it to a narrow vertical strip, silently and with no error.
+                const featuredPhotoIsWide =
+                  !!featuredPhotoSize && featuredPhotoSize.width / featuredPhotoSize.height > 1.3;
                 const project = projectByTitle.get(title);
                 const stack = (featuredCase.stack || project?.stack || project?.tags || []).slice(0, 5);
                 const outcomes = (Array.isArray(featuredCase.impact)
@@ -844,18 +856,26 @@ export default function Portfolio() {
                         </div>
                         <div className="relative mt-8 lg:mt-0">
                           <div className="absolute -inset-6 lg:-inset-8 bg-gradient-to-br from-primary/15 via-accent/10 to-primary/10 blur-3xl opacity-70" />
-                          <div className="relative overflow-hidden rounded-3xl border border-border/60 shadow-2xl bg-muted/60 flex items-center justify-center h-[380px] md:h-[460px] lg:h-[520px]">
+                          <div
+                            className={`relative overflow-hidden rounded-3xl border border-border/60 shadow-2xl bg-muted/60 flex items-center justify-center ${
+                              featuredPhotoIsWide
+                                ? "aspect-[1200/630]"
+                                : "h-[380px] md:h-[460px] lg:h-[520px]"
+                            }`}
+                          >
                             <img
-                              src={featuredCase.photo || "/assets/marketlens-cover.jpg"}
+                              src={featuredPhoto}
                               loading="lazy"
                               alt={`${title} — project screenshot`}
-                              width={1024}
-                              height={1024}
-                              className="w-full h-full object-cover object-center cursor-zoom-in"
+                              width={featuredPhotoSize?.width ?? 1024}
+                              height={featuredPhotoSize?.height ?? 1024}
+                              className={`w-full h-full cursor-zoom-in ${
+                                featuredPhotoIsWide ? "object-contain" : "object-cover object-center"
+                              }`}
                               style={{ objectPosition: "center" }}
                               onClick={() =>
                                 setFeaturedModal({
-                                  src: featuredCase.photo || "/assets/marketlens-cover.jpg",
+                                  src: featuredPhoto,
                                   title,
                                 })
                               }

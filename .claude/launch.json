@@ -7,6 +7,15 @@
       "runtimeArgs": ["run", "dev"],
       "port": 5173,
       "autoPort": true
+    },
+    {
+      "name": "mindsky",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/zub/Documents/Github_Projects/mindmap && npx vite dev --port 5174 --strictPort"
+      ],
+      "port": 5174
     }
   ]
 }

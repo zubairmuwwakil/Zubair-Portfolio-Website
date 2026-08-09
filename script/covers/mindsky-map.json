@@ -1,0 +1,165 @@
+{
+  "_comment": "Demo graph photographed for mindsky-cover.png. Laid out roughly square because the cover is inset into the share card's 440x440 art slot. Every bubble names a behaviour the app actually has. Carries no text of its own: the card renders the title, so art with baked-in wording duplicates it.",
+  "name": "MindSky cover",
+  "nodes": [
+    {
+      "id": "proposal",
+      "type": "thought",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "data": {
+        "label": "Make thinking visible",
+        "content": "Ideas are spatial, not sequential.",
+        "type": "proposal"
+      }
+    },
+    {
+      "id": "idea-shape",
+      "type": "thought",
+      "position": {
+        "x": 250,
+        "y": 400
+      },
+      "data": {
+        "label": "Shape it as you go",
+        "content": "Drag a bubble; its links follow.",
+        "type": "idea"
+      }
+    },
+    {
+      "id": "idea-safe",
+      "type": "thought",
+      "position": {
+        "x": 890,
+        "y": 400
+      },
+      "data": {
+        "label": "Never lose a thought",
+        "content": "Experiment without the risk.",
+        "type": "idea"
+      }
+    },
+    {
+      "id": "step-link",
+      "type": "thought",
+      "position": {
+        "x": 120,
+        "y": 800
+      },
+      "data": {
+        "label": "Link what relates",
+        "content": "Connect any two.",
+        "type": "step"
+      }
+    },
+    {
+      "id": "step-pop",
+      "type": "thought",
+      "position": {
+        "x": 440,
+        "y": 800
+      },
+      "data": {
+        "label": "Pop a bubble",
+        "content": "Delete a thought or link.",
+        "type": "step"
+      }
+    },
+    {
+      "id": "step-undo",
+      "type": "thought",
+      "position": {
+        "x": 760,
+        "y": 800
+      },
+      "data": {
+        "label": "Step back",
+        "content": "Cmd+Z undoes it.",
+        "type": "step"
+      }
+    },
+    {
+      "id": "step-save",
+      "type": "thought",
+      "position": {
+        "x": 1080,
+        "y": 800
+      },
+      "data": {
+        "label": "Saves itself",
+        "content": "Autosaves as you pause.",
+        "type": "step"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-p-shape",
+      "source": "proposal",
+      "target": "idea-shape",
+      "animated": true,
+      "style": {
+        "stroke": "#93C5FD",
+        "strokeWidth": 3
+      },
+      "type": "smoothstep"
+    },
+    {
+      "id": "e-p-safe",
+      "source": "proposal",
+      "target": "idea-safe",
+      "animated": true,
+      "style": {
+        "stroke": "#93C5FD",
+        "strokeWidth": 3
+      },
+      "type": "smoothstep"
+    },
+    {
+      "id": "e-shape-link",
+      "source": "idea-shape",
+      "target": "step-link",
+      "animated": true,
+      "style": {
+        "stroke": "#93C5FD",
+        "strokeWidth": 2
+      },
+      "type": "bezier"
+    },
+    {
+      "id": "e-shape-pop",
+      "source": "idea-shape",
+      "target": "step-pop",
+      "animated": true,
+      "style": {
+        "stroke": "#93C5FD",
+        "strokeWidth": 2
+      },
+      "type": "bezier"
+    },
+    {
+      "id": "e-safe-undo",
+      "source": "idea-safe",
+      "target": "step-undo",
+      "animated": true,
+      "style": {
+        "stroke": "#93C5FD",
+        "strokeWidth": 2
+      },
+      "type": "bezier"
+    },
+    {
+      "id": "e-safe-save",
+      "source": "idea-safe",
+      "target": "step-save",
+      "animated": true,
+      "style": {
+        "stroke": "#93C5FD",
+        "strokeWidth": 2
+      },
+      "type": "bezier"
+    }
+  ]
+}
