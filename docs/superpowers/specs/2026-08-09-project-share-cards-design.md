@@ -244,6 +244,52 @@ replacement is checked before anything downstream runs:
 Steps 1 and 2 gate 3. Everything in "Components" can be built before any
 artwork lands, because the generator reads whatever file is on disk.
 
+## Implementation notes
+
+Three things the design did not anticipate.
+
+**`og:image:alt` was already solved on `main`, better.** This branch was cut
+from `77c0b9b` and `main` had moved five commits ahead, including `2694c17`
+"Describe the share image each page actually points at" — which fixes the same
+alt-inheritance defect by authoring approved `coverAlt:` prose in frontmatter
+and adding verify-seo rules that require both alt tags, require them to agree,
+and reject a route that overrode og:image while keeping the homepage's
+description. An `imageAlt` derived from the title, which is what this branch
+first wrote, is strictly worse: it transcribes the title a screen reader has
+already heard from og:title instead of describing the picture.
+
+This branch was rebased onto `main` and its own alt work dropped in favour of
+that. The two changes compose: `shareImage(cover, slug)` picks the image,
+`shareImageAlt(cover, coverAlt)` describes it.
+
+One nuance that rebase leaves open. `coverAlt` describes the cover
+illustration, and og:image is now a card *containing* that illustration
+alongside the title and stack. The description stays accurate — the art is the
+card's dominant visual — but it is no longer complete. Left as authored,
+because Zubair approved that prose and it is deliberately about each
+illustration's subject rather than its labels, which is exactly the wording that
+survives both regenerating the art and wrapping it in a card.
+
+**One puppeteer page per card, and `load` rather than `networkidle0`.** Reusing
+a single page across `setContent` calls hangs the second one — `networkidle0`
+waits on a lifecycle event that already fired, and nothing makes a network
+request to fire it again because the art is inlined as a data URI. The first
+card wrote, then the run timed out at 30s. A fresh page per card with
+`waitUntil: "load"` plus an explicit `img.decode()` await is both correct and
+faster; the decode await matters because `load` resolves once images are
+fetched, not once they are painted.
+
+**The worktree had no `node_modules` at all**, not merely a missing
+`.bin/react-snap` symlink. Symlinking the whole directory from the main checkout
+is what makes `npm run cards` and `npm run build:ssg` runnable here:
+
+```bash
+ln -s /Users/zub/Documents/Github_Projects/Zubair-Portfolio-Website/node_modules node_modules
+```
+
+It is gitignored, so it is not committed, and it brings `.bin/react-snap` with
+it — which supersedes the narrower symlink in "Order of work" step 5.
+
 ## Out of scope
 
 - Regenerating `return-reminder-cover.jpg`, or deciding whether "Return

@@ -12,6 +12,7 @@
     "verify:seo": "node script/verify-seo.mjs",
     "indexnow": "node script/indexnow.mjs",
     "og": "node script/generate-og-image.mjs",
+    "cards": "node script/generate-share-cards.mjs",
     "ssg": "node script/run-ssg.mjs",
     "postbuild": "node script/copy-404.js && node script/generate-sitemap.mjs",
     "start": "vite preview --config vite.config.ts",

@@ -23,6 +23,9 @@ const APEX = "https://zubairmuwwakil.com";
 // intentionally carries the homepage's canonical, so page-level checks don't apply.
 const FALLBACKS = new Set(["404.html"]);
 const MAX_DESCRIPTION = 155;
+/** twitter:card is summary_large_image; 1200/630 is 1.905. */
+const MIN_SHARE_RATIO = 1.85;
+const MAX_SHARE_RATIO = 1.95;
 const ARTICLE_TYPES = new Set(["Article", "BlogPosting"]);
 /** Leaf content pages — the ones that sit under an index and need a trail back. */
 const LEAF_PAGE = /^(projects|blog)[/\\][^/\\]+[/\\]index\.html$/;
@@ -75,10 +78,17 @@ async function resolveRoute(routePath) {
  * size the preview box from these before the image arrives, so a wrong pair
  * reserves the wrong space and the card renders letterboxed or cropped.
  *
+ * The shape is checked as well as the numbers. twitter:card is
+ * summary_large_image, a 1.91:1 slot: a square image center-crops to it by
+ * discarding 244px off the top and bottom, and every project cover puts its
+ * title in exactly that band — so five projects unfurled with no name on them.
+ * Correct dimension tags do not save a wrong-shaped image, which is why this is
+ * a separate assertion rather than a consequence of the one above.
+ *
  * Read from the bytes in dist rather than compared to a constant, so replacing
  * a cover at a different size can't quietly reintroduce the mismatch.
  */
-async function checkShareImageSize(rel, metas, file) {
+async function checkShareImage(rel, metas, file) {
   let actual;
   try {
     actual = imageSize(await readFile(file));
@@ -97,6 +107,17 @@ async function checkShareImageSize(rel, metas, file) {
         `${property} is ${declared} but ${path.basename(file)} is ${actual.width}x${actual.height}`,
       );
   }
+
+  // A band rather than an exact 1200x630 check, so a future card at a different
+  // size but the same shape still passes. 1200/630 is 1.905; a square cover is
+  // 1.000 and fails plainly.
+  const ratio = actual.width / actual.height;
+  if (ratio < MIN_SHARE_RATIO || ratio > MAX_SHARE_RATIO)
+    fail(
+      rel,
+      `og:image ${path.basename(file)} is ${actual.width}x${actual.height} (${ratio.toFixed(2)}:1) — ` +
+        `summary_large_image crops anything outside ${MIN_SHARE_RATIO}-${MAX_SHARE_RATIO}:1. Run \`npm run cards\`.`,
+    );
 }
 
 /**
@@ -243,10 +264,18 @@ async function checkPage(file) {
     // recommended, and without it the markup can only ever render as plain text.
     // Resolved rather than merely present because a cover path is easy to typo
     // and a 404ing image reads to Google as no image at all.
-    const image = typeof node.image === "string" ? node.image : node.image?.url;
-    if (!image) fail(rel, `${node["@type"]} JSON-LD has no image`);
-    else if (!(await resolvesOnApex(image)))
-      fail(rel, `${node["@type"]} image does not resolve in dist: ${image}`);
+    //
+    // An array is the shape Google asks for — the same subject at several
+    // aspect ratios — so every entry is checked, not just the first. One broken
+    // URL in a list is as bad as a broken single value and much easier to miss.
+    const images = (Array.isArray(node.image) ? node.image : [node.image])
+      .map((entry) => (typeof entry === "string" ? entry : entry?.url))
+      .filter(Boolean);
+    if (!images.length) fail(rel, `${node["@type"]} JSON-LD has no image`);
+    for (const image of images) {
+      if (!(await resolvesOnApex(image)))
+        fail(rel, `${node["@type"]} image does not resolve in dist: ${image}`);
+    }
 
     // Google's author best practices ask for @type and name on the node itself,
     // not a bare @id pointing into another block on the page. Cross-block refs
@@ -274,7 +303,7 @@ async function checkPage(file) {
       : null;
   if (!ogImage) fail(rel, "missing og:image");
   else if (!ogImageFile) fail(rel, `og:image does not resolve in dist: ${ogImage}`);
-  else await checkShareImageSize(rel, metas, ogImageFile);
+  else await checkShareImage(rel, metas, ogImageFile);
 
   // The alt is what a screen reader announces in place of the card, and what
   // Slack shows when the image itself fails to load. Required rather than

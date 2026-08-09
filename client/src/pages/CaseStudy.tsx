@@ -5,7 +5,7 @@ import { useDocumentHead } from "@/hooks/use-document-head";
 import { renderMarkdown } from "@/lib/markdown";
 import { getCaseStudy, caseStudyUrl } from "@/lib/case-studies";
 import { SITE_ORIGIN } from "@/lib/posts";
-import { breadcrumbList, PERSON_NODE, shareImage, shareImageAlt } from "@/lib/schema";
+import { breadcrumbList, PERSON_NODE, schemaImages, shareImage, shareImageAlt } from "@/lib/schema";
 import { PROJECTS_URL } from "@/pages/Projects";
 
 export default function CaseStudy() {
@@ -17,7 +17,7 @@ export default function CaseStudy() {
     description: study?.description ?? "This project could not be found.",
     canonical: study ? caseStudyUrl(study.slug) : PROJECTS_URL,
     ogType: study ? "article" : "website",
-    image: shareImage(study?.cover),
+    image: shareImage(study?.cover, study?.slug),
     imageAlt: shareImageAlt(study?.cover, study?.coverAlt),
     jsonLd: study
       ? [
@@ -27,7 +27,7 @@ export default function CaseStudy() {
             "@id": `${caseStudyUrl(study.slug)}#case-study`,
             headline: study.title,
             description: study.description,
-            image: shareImage(study.cover),
+            image: schemaImages(study.cover, study.slug),
             datePublished: study.date,
             dateModified: study.date,
             url: caseStudyUrl(study.slug),

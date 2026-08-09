@@ -1,9 +1,9 @@
-import { execFileSync } from "child_process";
 import { existsSync } from "fs";
 import { readFile } from "fs/promises";
 import path from "path";
 import url from "url";
 import puppeteer from "puppeteer";
+import { findChrome } from "./find-chrome.mjs";
 
 /**
  * Renders the 1200x630 Open Graph card to client/public/assets/og-card.png.
@@ -21,33 +21,6 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const portrait = path.join(root, "client", "public", "assets", "zubair-muwwakil.jpg");
 const outPath = path.join(root, "client", "public", "assets", "og-card.png");
-
-// Same resolution order as script/run-ssg.mjs — the bundled Chromium is from
-// 2019 and will not launch on a current macOS, so prefer a system install.
-function findChrome() {
-  if (process.env.PUPPETEER_EXECUTABLE_PATH && existsSync(process.env.PUPPETEER_EXECUTABLE_PATH)) {
-    return process.env.PUPPETEER_EXECUTABLE_PATH;
-  }
-  for (const bin of ["google-chrome", "google-chrome-stable", "chromium-browser", "chromium"]) {
-    try {
-      // execFile, not exec: no shell, so nothing here can be interpreted as a
-      // shell metacharacter even if the candidate list ever becomes dynamic.
-      const found = execFileSync("which", [bin], { stdio: ["ignore", "pipe", "ignore"] })
-        .toString()
-        .trim();
-      if (found && existsSync(found)) return found;
-    } catch {
-      /* not on PATH */
-    }
-  }
-  const macPaths = [
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "/Applications/Chromium.app/Contents/MacOS/Chromium",
-  ];
-  const mac = macPaths.find((p) => existsSync(p));
-  if (mac) return mac;
-  return puppeteer.executablePath();
-}
 
 const NAME = "Zubair Muwwakil";
 const ROLE = "Backend / Full-Stack Software Engineer";

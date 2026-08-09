@@ -17,6 +17,24 @@ import { SITE_ORIGIN } from "./posts";
 
 export const DEFAULT_SHARE_IMAGE = `${SITE_ORIGIN}/assets/og-card.png`;
 
+const absolute = (assetPath: string) =>
+  assetPath.startsWith("http") ? assetPath : `${SITE_ORIGIN}${assetPath}`;
+
+/**
+ * The 1200x630 share card `npm run cards` renders for a piece of content, or
+ * undefined when it has not been generated yet.
+ *
+ * Keyed off the slug rather than the cover filename, because /projects/pickleops/
+ * and the offline-sync blog post share one illustration and must not share one
+ * card — they carry different titles. Existence comes from the build-time asset
+ * map, so a missing card is a fallback rather than a 404.
+ */
+function shareCard(slug?: string): string | undefined {
+  if (!slug) return undefined;
+  const assetPath = `/assets/${slug}-card.png`;
+  return shareImageSizes[assetPath] ? assetPath : undefined;
+}
+
 /**
  * Must stay in step with the og:image:alt in index.html, which is the copy that
  * serves the homepage. That duplication is unavoidable — index.html is static
@@ -33,11 +51,35 @@ export const DEFAULT_SHARE_IMAGE_ALT =
  * the form the page's own <img> tags need. og:image and schema `image` both
  * require a fully-qualified URL, so every metadata use goes through here.
  *
- * Falls back to the generic card so a post without art still shares cleanly.
+ * Prefers the generated card: og:image feeds a 1.91:1 slot, and a 1024x1024
+ * cover center-crops to it by discarding 244px off the top and bottom — which
+ * is exactly where every cover puts its title. Falls back to the cover, then to
+ * the generic card, so a page without art still shares cleanly.
  */
-export function shareImage(cover?: string): string {
+export function shareImage(cover?: string, slug?: string): string {
+  const card = shareCard(slug);
+  if (card) return absolute(card);
   if (!cover) return DEFAULT_SHARE_IMAGE;
-  return cover.startsWith("http") ? cover : `${SITE_ORIGIN}${cover}`;
+  return absolute(cover);
+}
+
+/**
+ * Schema `image` for an Article or BlogPosting, which is a different question
+ * from og:image and gets a different answer.
+ *
+ * Google's Article guidance asks for 16x9, 4x3 and 1x1 crops of the same
+ * subject and says to supply several. 1.91:1 is on none of those lists, while
+ * the square cover is precisely the 1x1 case — so pointing this at the card
+ * alone would trade a recommended shape for an unrecommended one. Both go in,
+ * card first, since the first entry is what most consumers take.
+ *
+ * og:image cannot do this: it is a single URL by definition.
+ */
+export function schemaImages(cover?: string, slug?: string): string | string[] {
+  const card = shareCard(slug);
+  const urls = [card, cover].filter((v): v is string => Boolean(v)).map(absolute);
+  if (!urls.length) return DEFAULT_SHARE_IMAGE;
+  return urls.length === 1 ? urls[0] : urls;
 }
 
 /**

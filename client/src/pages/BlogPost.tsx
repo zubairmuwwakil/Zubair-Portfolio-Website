@@ -4,7 +4,7 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { useDocumentHead } from "@/hooks/use-document-head";
 import { renderMarkdown } from "@/lib/markdown";
 import { getPost, formatPostDate, postUrl, SITE_ORIGIN, BLOG_INDEX_URL } from "@/lib/posts";
-import { breadcrumbList, PERSON_NODE, shareImage, shareImageAlt } from "@/lib/schema";
+import { breadcrumbList, PERSON_NODE, schemaImages, shareImage, shareImageAlt } from "@/lib/schema";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -15,7 +15,7 @@ export default function BlogPost() {
     description: post?.description ?? "This post could not be found.",
     canonical: post ? postUrl(post.slug) : BLOG_INDEX_URL,
     ogType: post ? "article" : "website",
-    image: shareImage(post?.cover),
+    image: shareImage(post?.cover, post?.slug),
     imageAlt: shareImageAlt(post?.cover, post?.coverAlt),
     jsonLd: post
       ? [
@@ -25,7 +25,7 @@ export default function BlogPost() {
             "@id": `${postUrl(post.slug)}#post`,
             headline: post.title,
             description: post.description,
-            image: shareImage(post.cover),
+            image: schemaImages(post.cover, post.slug),
             datePublished: post.date,
             dateModified: post.date,
             url: postUrl(post.slug),
