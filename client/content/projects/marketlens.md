@@ -3,6 +3,7 @@ title: MarketLens — Market Data Pipeline & Analytics Service
 description: A Java/Spring Boot market data pipeline with idempotent ingestion, rate limiting, and full observability, serving typed REST endpoints for dashboards.
 date: 2026-08-05
 cover: /assets/marketlens-cover.jpg
+coverAlt: "Hand-drawn diagram of the MarketLens pipeline: rate-limited price feeds funnel into Postgres, then out to cached REST endpoints and dashboards."
 tags: [Java, Spring Boot, PostgreSQL, Flyway, Observability]
 stack: [Java 21, Spring Boot 4, PostgreSQL, Flyway, Bucket4j, Prometheus, OpenTelemetry]
 liveUrl: https://marketdata.zubairmuwwakil.com

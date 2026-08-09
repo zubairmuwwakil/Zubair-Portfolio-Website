@@ -17,6 +17,12 @@ export type Frontmatter = {
   draft: boolean;
   /** Site-absolute path to the share/schema image, e.g. "/assets/looply-cover.jpg". */
   cover?: string;
+  /**
+   * What the cover depicts, for og:image:alt. Authored per file because it is
+   * prose about a specific picture — nothing about the image or the project can
+   * derive it. Quote the value if it contains a colon, as `description` does.
+   */
+  coverAlt?: string;
 };
 
 const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
@@ -47,6 +53,7 @@ export function parseFrontmatter(raw: string): { data: Frontmatter; body: string
       date: stripQuotes(fields.date ?? ""),
       draft: fields.draft === "true",
       cover: fields.cover ? stripQuotes(fields.cover) : undefined,
+      coverAlt: fields.coverAlt ? stripQuotes(fields.coverAlt) : undefined,
       tags: rawTags
         .replace(/^\[|\]$/g, "")
         .split(",")

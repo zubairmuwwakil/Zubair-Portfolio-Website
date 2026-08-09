@@ -3,6 +3,7 @@ title: Why scorekeeping had to work with no signal
 description: Building offline-first sync with version conflict resolution for The Pickleball Social, where the network fails exactly when the app is needed most.
 date: 2026-08-05
 cover: /assets/pickleops-cover.jpg
+coverAlt: Cartoon pickleball court with players mid-rally, below a club dashboard showing scheduled sessions, player ratings, balanced pairings and admin controls.
 tags: [Offline-first, Sync, React Native, Distributed Systems]
 ---
 

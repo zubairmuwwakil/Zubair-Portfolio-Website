@@ -4,7 +4,7 @@ import { BlogLayout } from "@/components/BlogLayout";
 import { useDocumentHead } from "@/hooks/use-document-head";
 import { renderMarkdown } from "@/lib/markdown";
 import { getPost, formatPostDate, postUrl, SITE_ORIGIN, BLOG_INDEX_URL } from "@/lib/posts";
-import { breadcrumbList, PERSON_NODE, shareImage } from "@/lib/schema";
+import { breadcrumbList, PERSON_NODE, shareImage, shareImageAlt } from "@/lib/schema";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -16,6 +16,7 @@ export default function BlogPost() {
     canonical: post ? postUrl(post.slug) : BLOG_INDEX_URL,
     ogType: post ? "article" : "website",
     image: shareImage(post?.cover),
+    imageAlt: shareImageAlt(post?.cover, post?.coverAlt),
     jsonLd: post
       ? [
           {

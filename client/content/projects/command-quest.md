@@ -3,6 +3,7 @@ title: Command Quest — One Domain Core, Two Front Ends
 description: "A command-line teaching game: one framework-free domain core drives both a terminal app and a browser app. Java, Spring Boot, 122 tests at 93% coverage."
 date: 2026-08-09
 cover: /assets/commandquest-cover.png
+coverAlt: Retro green-on-black terminal titled Command Quest, showing a file tree and a blinking shell prompt above the commands touch, mkdir, ls and cd.
 tags: [Java, Spring Boot, Architecture, Testing]
 stack: [Java 25, Spring Boot 4, JUnit 6, Maven, Docker, Vanilla JS]
 liveUrl: https://commandquest.zubairmuwwakil.com

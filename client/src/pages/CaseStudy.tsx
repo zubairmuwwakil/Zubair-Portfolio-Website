@@ -5,7 +5,7 @@ import { useDocumentHead } from "@/hooks/use-document-head";
 import { renderMarkdown } from "@/lib/markdown";
 import { getCaseStudy, caseStudyUrl } from "@/lib/case-studies";
 import { SITE_ORIGIN } from "@/lib/posts";
-import { breadcrumbList, PERSON_NODE, shareImage } from "@/lib/schema";
+import { breadcrumbList, PERSON_NODE, shareImage, shareImageAlt } from "@/lib/schema";
 import { PROJECTS_URL } from "@/pages/Projects";
 
 export default function CaseStudy() {
@@ -18,6 +18,7 @@ export default function CaseStudy() {
     canonical: study ? caseStudyUrl(study.slug) : PROJECTS_URL,
     ogType: study ? "article" : "website",
     image: shareImage(study?.cover),
+    imageAlt: shareImageAlt(study?.cover, study?.coverAlt),
     jsonLd: study
       ? [
           {

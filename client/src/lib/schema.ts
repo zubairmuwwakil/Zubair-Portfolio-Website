@@ -18,6 +18,17 @@ import { SITE_ORIGIN } from "./posts";
 export const DEFAULT_SHARE_IMAGE = `${SITE_ORIGIN}/assets/og-card.png`;
 
 /**
+ * Must stay in step with the og:image:alt in index.html, which is the copy that
+ * serves the homepage. That duplication is unavoidable — index.html is static
+ * and cannot import this — but it is not unguarded: verify-seo compares the alt
+ * every page declares against the image it points at, so a version of this that
+ * disagreed with index.html would surface as og-card.png being described two
+ * ways and fail the build.
+ */
+export const DEFAULT_SHARE_IMAGE_ALT =
+  "Zubair Muwwakil — Backend / Full-Stack Software Engineer, Brooklyn, NY";
+
+/**
  * Cover art is authored in frontmatter as a site-absolute path, because that is
  * the form the page's own <img> tags need. og:image and schema `image` both
  * require a fully-qualified URL, so every metadata use goes through here.
@@ -27,6 +38,24 @@ export const DEFAULT_SHARE_IMAGE = `${SITE_ORIGIN}/assets/og-card.png`;
 export function shareImage(cover?: string): string {
   if (!cover) return DEFAULT_SHARE_IMAGE;
   return cover.startsWith("http") ? cover : `${SITE_ORIGIN}${cover}`;
+}
+
+/**
+ * What a page's share image depicts, paired with the image `shareImage` returns.
+ *
+ * Both arguments are needed, because the answer turns on whether the page has
+ * cover art at all rather than on whether it has alt text. A page with no cover
+ * shares the generic card and inherits its description; a page whose cover has
+ * no `coverAlt` in frontmatter gets null, which strips the tag index.html
+ * shipped instead of leaving it describing a picture this page doesn't show.
+ *
+ * Losing the tag costs a screen reader a description of the card. Keeping a
+ * wrong one costs them a confident, plausible description of the wrong image,
+ * which they have no way to detect — so null is the safer failure.
+ */
+export function shareImageAlt(cover?: string, coverAlt?: string): string | null {
+  if (!cover) return DEFAULT_SHARE_IMAGE_ALT;
+  return coverAlt ?? null;
 }
 
 /**

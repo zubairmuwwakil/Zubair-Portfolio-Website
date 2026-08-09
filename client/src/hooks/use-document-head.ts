@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { DEFAULT_SHARE_IMAGE, shareImageSize } from "@/lib/schema";
+import { DEFAULT_SHARE_IMAGE, DEFAULT_SHARE_IMAGE_ALT, shareImageSize } from "@/lib/schema";
 
 type JsonLdNode = Record<string, unknown>;
 
@@ -9,6 +9,8 @@ export type DocumentHead = {
   canonical: string;
   ogType?: string;
   image?: string;
+  /** What `image` depicts. null emits no alt — see shareImageAlt for the tradeoff. */
+  imageAlt?: string | null;
   /** One node, or several to emit as separate blocks (e.g. Article + BreadcrumbList). */
   jsonLd?: JsonLdNode | JsonLdNode[] | null;
 };
@@ -63,6 +65,7 @@ export function useDocumentHead({
   canonical,
   ogType = "website",
   image = DEFAULT_SHARE_IMAGE,
+  imageAlt = DEFAULT_SHARE_IMAGE_ALT,
   jsonLd = null,
 }: DocumentHead) {
   useEffect(() => {
@@ -112,9 +115,13 @@ export function useDocumentHead({
         "og:image:height",
         size ? String(size.height) : null,
       ),
+      upsertMeta('meta[property="og:image:alt"]', "property", "og:image:alt", imageAlt),
       upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", title),
       upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description),
       upsertMeta('meta[name="twitter:image"]', "name", "twitter:image", image),
+      // Twitter reads its own alt and does not fall back to og:image:alt, so the
+      // same description has to be written twice or the card ships half-labelled.
+      upsertMeta('meta[name="twitter:image:alt"]', "name", "twitter:image:alt", imageAlt),
     );
 
     // Drop any route JSON-LD already in the document before adding ours. On a
@@ -140,5 +147,5 @@ export function useDocumentHead({
     return () => {
       for (const restore of restores) restore();
     };
-  }, [title, description, canonical, ogType, image, JSON.stringify(jsonLd)]);
+  }, [title, description, canonical, ogType, image, imageAlt, JSON.stringify(jsonLd)]);
 }

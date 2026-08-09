@@ -99,6 +99,59 @@ async function checkShareImageSize(rel, metas, file) {
   }
 }
 
+/**
+ * og:image:alt has to describe the image the page actually points at.
+ *
+ * Nothing about the tag alone can look wrong — any sentence is a valid sentence —
+ * so this is checked by comparing pages against each other. Two rules:
+ *
+ * 1. A route that overrides og:image must not keep the homepage's description.
+ *    index.html ships an alt written for the generic card, and useDocumentHead
+ *    swaps og:image per route; the six pages with cover art inherited that
+ *    sentence and announced Zubair's job title while showing a project cover.
+ *    The homepage is the baseline because it is the page that ships the default
+ *    card, so the pair it declares is read out of dist rather than written down
+ *    here. (Not 200.html, which would be the more literal "what a route
+ *    inherits" — that file is a react-snap artifact and may not be shipped.)
+ *
+ * 2. One image, one description. Two pages sharing a cover must agree about what
+ *    it shows, or one of them is stale.
+ *
+ * Neither rule can catch two covers whose descriptions are swapped with each
+ * other: that output is self-consistent, and no gate can tell which sentence
+ * belongs to which picture. Alt text is reviewed by a human or not at all.
+ */
+function checkShareImageAlt(pages) {
+  const home = pages.find((p) => p.rel === "index.html");
+  if (!home) fail("index.html", "no pre-rendered homepage to check share-image alts against");
+
+  for (const { rel, ogImage, imageAlt } of pages) {
+    // A homepage missing either tag is already reported by the per-page checks;
+    // there is no baseline to compare against, so this rule has nothing to say.
+    if (!home?.ogImage || !home.imageAlt || rel === home.rel) continue;
+    if (!ogImage || !imageAlt) continue;
+    if (ogImage !== home.ogImage && imageAlt === home.imageAlt)
+      fail(
+        rel,
+        `og:image:alt still describes ${path.basename(home.ogImage)} but og:image is ` +
+          `${path.basename(ogImage)} — the route overrode the image and not the alt`,
+      );
+  }
+
+  const altsForImage = new Map();
+  for (const { rel, ogImage, imageAlt } of pages) {
+    if (!ogImage || !imageAlt) continue;
+    if (!altsForImage.has(ogImage)) altsForImage.set(ogImage, new Map());
+    altsForImage.get(ogImage).set(imageAlt, rel);
+  }
+  for (const [image, alts] of altsForImage) {
+    if (alts.size < 2) continue;
+    const conflict = [...alts].map(([alt, rel]) => `${rel} says "${alt}"`).join("; ");
+    for (const rel of alts.values())
+      fail(rel, `${path.basename(image)} is described more than one way — ${conflict}`);
+  }
+}
+
 async function checkPage(file) {
   const rel = path.relative(distDir, file);
   const html = await readFile(file, "utf8");
@@ -214,7 +267,21 @@ async function checkPage(file) {
   else if (!ogImageFile) fail(rel, `og:image does not resolve in dist: ${ogImage}`);
   else await checkShareImageSize(rel, metas, ogImageFile);
 
-  return { rel, isFallback, canonical: canonical[0]?.href };
+  // The alt is what a screen reader announces in place of the card, and what
+  // Slack shows when the image itself fails to load. Required rather than
+  // optional: the code that writes the head omits it when a cover has none
+  // declared, which is safe but silent, and silence is how it goes unnoticed.
+  const imageAlt = metas.find((m) => m.property === "og:image:alt")?.content;
+  if (!imageAlt) fail(rel, "missing og:image:alt");
+
+  // Twitter reads its own alt and falls back to nothing, not to og:image:alt.
+  // Both tags describe the same picture, so a difference means one is stale.
+  const twitterAlt = metas.find((m) => m.name === "twitter:image:alt")?.content;
+  if (!twitterAlt) fail(rel, "missing twitter:image:alt");
+  else if (imageAlt && twitterAlt !== imageAlt)
+    fail(rel, `twitter:image:alt "${twitterAlt}" does not match og:image:alt "${imageAlt}"`);
+
+  return { rel, isFallback, canonical: canonical[0]?.href, ogImage, imageAlt };
 }
 
 async function checkSitemap(pages) {
@@ -254,6 +321,7 @@ async function main() {
 
   const pages = [];
   for (const file of files) pages.push(await checkPage(file));
+  checkShareImageAlt(pages);
   await checkSitemap(pages);
 
   for (const p of pages.filter((x) => !x.isFallback)) console.log(`  checked  ${p.rel} -> ${p.canonical}`);

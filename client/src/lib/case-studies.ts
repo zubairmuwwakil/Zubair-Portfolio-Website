@@ -13,6 +13,8 @@ export type CaseStudy = {
   appStoreUrl?: string;
   /** Site-absolute path to the share/schema image, carried through from frontmatter. */
   cover?: string;
+  /** What the cover depicts, for og:image:alt. Also carried through frontmatter. */
+  coverAlt?: string;
   body: string;
 };
 
