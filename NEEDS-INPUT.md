@@ -138,12 +138,38 @@ Checked 2026-08-05. Per your instruction, links that are verifiably dead are no
 longer rendered; the surrounding card content is untouched and returns as soon
 as you supply a working URL.
 
-### Removed from the page — need replacement URLs
+### ~~Removed from the page — need replacement URLs~~ — BOTH RESOLVED 2026-08-08
+
+Nothing in this table is still blocked. Re-verified 2026-08-08 against the
+GitHub API rather than plain HTTP, so private-vs-deleted is now distinguishable.
 
 | What | URL | Result |
 |---|---|---|
-| PickleOps repo | `github.com/zubairmuwwakil/pickleball-session-manager` | **404** — renamed, private, or deleted. The App Store link now carries this card. |
-| ~~MindSky repo~~ | `github.com/zubairmuwwakil/mindmap` | **RESOLVED 2026-08-05** — verified 200. Now linked from the homepage card, /projects/ and the case study. The repo has **no README and no description**; a draft is at `repo-readmes/mindmap-README.md`. |
+| ~~PickleOps repo~~ | ~~`github.com/zubairmuwwakil/pickleball-session-manager`~~ → `github.com/zubairmuwwakil/pickleops` | **RESOLVED 2026-08-08** — the repo was renamed. `pickleops` is **public**, returns 200, and has a 9,509-byte README plus a full description. The old slug still 404s. The card can now carry a repo link alongside the App Store link. |
+| ~~MindSky repo~~ | `github.com/zubairmuwwakil/mindmap` | **RESOLVED 2026-08-05** — verified 200. Now linked from the homepage card, /projects/ and the case study. ~~The repo has no README and no description~~ — **updated 2026-08-08:** both now exist (README committed 2026-08-05 "Add README", 3,386 B; description set). The draft at `repo-readmes/mindmap-README.md` has been published and is no longer pending. |
+
+### Open — Looply repo renders create-next-app boilerplate
+
+`github.com/zubairmuwwakil/return-saas` returns 200 and is linked from the
+homepage card, `/projects/` and the case study — but its `main` README is the
+**untouched create-next-app scaffold** from the initial commit (2026-01-08,
+1,450 B, zero occurrences of "Looply"). A recruiter following the repo link
+from the Looply case study lands on generic Next.js boilerplate.
+
+This also works against indexation: the scaffold is byte-identical to millions
+of other repos, so Google's near-duplicate filtering makes that page *less*
+likely to be indexed than a thin-but-unique one would be.
+
+A better README (3,272 B) already exists on the **`organized`** branch, along
+with `docs/architecture.md`, `docs/env.md` and `docs/onboarding.md` — but
+`main` is the default branch, so the landing page never shows it. That branch
+version also cannot be copied to `main` as-is: four of its five linked source
+paths, `.env.example`, the `prisma:migrate:deploy` script, and
+`/api/cron/shipping` do not exist on `main`.
+
+A merged draft, verified against `main` on 2026-08-08, is at
+`repo-readmes/looply-README.md`. Publishing it **overwrites** the existing
+file, so it is left unpushed pending your go-ahead.
 
 ### Still rendered — both work, but are slow to wake
 
