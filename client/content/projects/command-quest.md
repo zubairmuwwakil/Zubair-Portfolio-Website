@@ -1,6 +1,6 @@
 ---
 title: Command Quest — One Domain Core, Two Front Ends
-description: A command-line teaching game whose framework-free domain core drives both a terminal app and a browser app, with a deliberately stateless API so a sleeping free-tier container costs a player nothing.
+description: "A command-line teaching game: one framework-free domain core drives both a terminal app and a browser app. Java, Spring Boot, 122 tests at 93% coverage."
 date: 2026-08-09
 cover: /assets/commandquest-cover.png
 tags: [Java, Spring Boot, Architecture, Testing]
