@@ -3,7 +3,8 @@
 Items that could not be resolved from the repository. Nothing here was guessed
 at or written into the site. Ordered by how much damage it does while unresolved.
 
-Last updated: 2026-08-16 (item 15 **retracted** — it audited the wrong branch;
+Last updated: 2026-08-16 (item 14 partly fixed — `/resume.pdf` now serves the
+software-engineering résumé, three date fields still disagree. Item 15 **retracted** — it audited the wrong branch;
 the `marketdata` repo backs every case-study claim, and its committed artifacts
 are now cleaned up. Item 16's two residuals remain: re-add the Search Console
 DNS TXT, confirm the sitemap submission)
@@ -348,34 +349,65 @@ Not touched here — it is outside the content/metadata/links scope you set.
 
 ---
 
-## 14. The résumé PDF is now out of date relative to the site
+## 14. The résumé PDF — PARTLY FIXED 2026-08-16, three fields still disagree
 
-Added 2026-08-05, after the employment-type and date corrections.
+Added 2026-08-05. **Updated 2026-08-16: `/resume.pdf` now serves the USA
+software-engineering résumé instead of the old IT-support one.**
 
-`/resume/` (the HTML page) reflects the corrected data. **`/resume.pdf` does
-not** — it is a copy of the Drive original, taken before those corrections, so it
-still says:
+The served file used to be a different document altogether — headlined "IT
+Coordinator & Application Developer", missing G2i entirely, with no GitHub link
+and an IT-support skills list (Office 365, Active Directory, QuickBooks). A
+recruiter read a backend-engineer site and downloaded an IT-coordinator résumé.
+That is now replaced by `content-inbox/Zubair_Muwwakil_Resume_USA.pdf`, headlined
+"Full Stack Software Engineer", with G2i, Spring Boot, OpenTelemetry and Prometheus.
 
-| Field | PDF says | Correct |
+**PDFs are readable here now.** `pypdf` is installed, so text *and* link
+annotations can be extracted — the note previously in this item saying they could
+not be is wrong. To re-check the served file:
+
+```
+python3 -c "
+from pypdf import PdfReader
+r=PdfReader('client/public/resume.pdf')
+print(r.pages[0].extract_text())
+print([a.get_object().get('/A').get_object().get('/URI') for p in r.pages for a in (p.get('/Annots') or [])])"
+```
+
+### Fixed
+
+| Field | Was | Now |
 |---|---|---|
-| NDCTrades | absent entirely | Sep 2022 – Jun 2023, Internship |
-| U of T BSc | 2019 – 2023 | 2020 – 2025 |
-| Employment types | none | Contract / Part-time / Part-time → Full-time / Internship |
-| Azure cert issuer | University of Calgary | Microsoft |
-| GitHub link | `github.com/ZthEchelon` (404) — unverified, see below | `github.com/zubairmuwwakil` |
+| Headline | IT Coordinator & Application Developer | Full Stack Software Engineer |
+| G2i Inc. | absent | Aug 2025 – Present, Contract |
+| Senac / Elevation dates | stale | match the site |
+| GitHub link | none in served PDF | `github.com/zubairmuwwakil` |
 
-This matters because a recruiter can read the page and download the PDF in the
-same visit, and the two disagree on dates. That is worse than either being
-imperfect on its own.
+The GitHub link needed its own repair. The USA résumé's **visible text** already
+read `github.com/zubairmuwwakil`, but the **hyperlink annotation underneath still
+pointed at `github.com/ZthEchelon`**, which 404s since the username change —
+GitHub redirects renamed repositories but not vacated usernames. Reading the
+résumé could never reveal that; only clicking it. Patched with pypdf into
+`content-inbox/Zubair_Muwwakil_Resume_USA_fixed-github-link.pdf`, which is what
+was copied to `client/public/resume.pdf`. The original is untouched.
 
-**To fix:** update the Drive document, export a fresh PDF, and drop it at
-`client/public/resume.pdf`. I'll wire nothing further — the path is already
-served and linked from `/resume/` and the hero button.
+### Still disagreeing with the site
 
-On the GitHub link specifically: the markdown export you supplied contained
-`ZthEchelon`. I could not verify the PDF itself — PDF text lives in compressed
-streams and the tooling here cannot read it. Check it directly when you open the
-document.
+The swap did not fix the dates. These three fields remain wrong in the PDF:
+
+| Field | PDF says | Site says (correct) |
+|---|---|---|
+| U of T BSc | 2019 – 2023 | **2020 – 2025** |
+| Ontario Tech MSc | 2024 – 2025 | **2025 – Postponed** |
+| Azure AZ-900 issuer | University of Calgary | **Microsoft** |
+
+Also absent from the PDF: NDCTrades (Sep 2022 – Jun 2023, Internship) and the
+employment-type labels. NDCTrades may be a deliberate omission — a résumé need not
+list every internship — so nothing was changed there.
+
+**To finish:** fix those three fields in the source document and export again,
+then drop the export at `client/public/resume.pdf`. While in the source doc, also
+repoint the GitHub hyperlink so a fresh export does not reintroduce the dead link
+— the visible text is already correct, it is only the link target that is stale.
 
 ---
 
