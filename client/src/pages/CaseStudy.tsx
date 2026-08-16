@@ -128,6 +128,9 @@ export default function CaseStudy() {
               ))}
             </div>
           )}
+          {study.liveUrl && study.liveNote && (
+            <p className="mt-3 text-xs text-muted-foreground">{study.liveNote}</p>
+          )}
         </header>
 
         <div className="border-t border-border/60 pt-2">{renderMarkdown(study.body)}</div>

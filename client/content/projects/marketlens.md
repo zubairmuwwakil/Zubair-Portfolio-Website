@@ -7,6 +7,7 @@ coverAlt: "Hand-drawn diagram of the MarketLens pipeline: rate-limited price fee
 tags: [Java, Spring Boot, PostgreSQL, Flyway, Observability]
 stack: [Java 21, Spring Boot 4, PostgreSQL, Flyway, Bucket4j, Prometheus, OpenTelemetry]
 liveUrl: https://marketdata.zubairmuwwakil.com
+liveNote: "The live API runs on a free tier and sleeps when idle — the first request can take ~30 seconds to wake it."
 repoUrl: https://github.com/zubairmuwwakil/marketdata
 ---
 

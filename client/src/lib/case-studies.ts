@@ -9,6 +9,8 @@ export type CaseStudy = {
   tags: string[];
   stack: string[];
   liveUrl?: string;
+  /** Shown under the link row. For services that sleep and need a wake-up warning. */
+  liveNote?: string;
   repoUrl?: string;
   appStoreUrl?: string;
   /** Site-absolute path to the share/schema image, carried through from frontmatter. */
@@ -62,6 +64,7 @@ export const caseStudies: CaseStudy[] = Object.entries(modules)
       slug: path.split("/").pop()!.replace(/\.md$/, ""),
       stack: listField(raw, "stack"),
       liveUrl: extraField(raw, "liveUrl"),
+      liveNote: extraField(raw, "liveNote"),
       repoUrl: extraField(raw, "repoUrl"),
       appStoreUrl: extraField(raw, "appStoreUrl"),
     };
