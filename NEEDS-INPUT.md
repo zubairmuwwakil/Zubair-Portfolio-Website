@@ -3,7 +3,8 @@
 Items that could not be resolved from the repository. Nothing here was guessed
 at or written into the site. Ordered by how much damage it does while unresolved.
 
-Last updated: 2026-08-05 (post-merge, deployed)
+Last updated: 2026-08-16 (item 16 added — Google page-one diagnosis; every
+action in it is owner-side, nothing in this repo blocks it)
 
 **Resolved:** item 1 (apex is canonical), item 7 (/projects on the apex),
 item 8 (York moved to Certifications),
@@ -211,6 +212,13 @@ LinkedIn returns HTTP 999 to every non-browser client, so this is *unverified*
 rather than failing. Open it in a browser and confirm — a `sameAs` entry that
 404s weakens the whole Person entity.
 
+**Update 2026-08-16:** resolved by the live SERP rather than a browser check.
+The URL is live and indexed — but Google's stored title is
+"Zubair M. - Software Engineer | Backend & Full-Stack - LinkedIn". The public
+page renders the surname as an initial, so the profile cannot match the
+full-name query. The `sameAs` target is fine; the surname-visibility setting is
+the failure. See item 16a.
+
 ---
 
 ## 6. Résumé and case studies are Google Drive PDFs
@@ -413,3 +421,76 @@ unbacked features and states plainly that the deployment runs ahead of the repo.
 
 Also in that repo: three `.DS_Store` files are committed, and the description is
 null. Both fixable with the commands in the draft's header comment.
+
+---
+
+## 16. LinkedIn and GitHub are missing from Google page one — diagnosis
+
+Added 2026-08-16, from the live SERP for "zubair muwwakil". The site side was
+re-verified the same day and is **not** the problem: the live homepage carries
+the Person JSON-LD with `sameAs`, four visible LinkedIn and four GitHub links in
+the prerendered HTML, sitemap and robots are correct, and `www` 301s cleanly to
+the apex. No repo change is needed or made. Three things outside the repo are.
+
+### a. LinkedIn publicly renders the name as "Zubair M."
+
+Google's stored title for the profile:
+`Zubair M. - Software Engineer | Backend & Full-Stack - LinkedIn`.
+The string "Muwwakil" does not appear on the public page, so the profile cannot
+match the full-name query — no amount of site markup fixes that. The proof by
+contrast: Instagram, YouTube, and Facebook all carry the full name and all rank
+on page one. Fix, in account settings (~2 minutes):
+
+1. Me → **Settings & Privacy → Visibility → "Who sees your last name"** → your
+   full last name (not "first name and last initial").
+2. `linkedin.com/public-profile/settings` → public profile visibility **on**,
+   sections visible.
+3. Profile → Contact info → add `https://zubairmuwwakil.com` (this is the
+   reciprocal link that lets Google confirm the site's `sameAs` claim).
+
+### b. Google's copy of the site predates the Pages migration
+
+The #1 result's snippet is still old Google Sites content — "Bachelors of
+Computer Science | graduated from University of Toronto. [647-643-5497]" — text
+and a **phone number** that occur nowhere on the live site (verified: zero
+matches on `/` and `/resume/`). Until Google recrawls, the shipped entity work
+is invisible to it. Search Console is confirmed absent (no meta token in the
+built HTML, no `google-site-verification` DNS TXT — matches the 2026-08-08
+design doc's finding). Fix (~10 minutes, needs your Google account):
+
+1. `search.google.com/search-console` → add property → **Domain** →
+   `zubairmuwwakil.com` → add the TXT record at the registrar. (Alternative:
+   URL-prefix property with the HTML-tag method — supply the token and it can
+   be committed to `client/index.html`.)
+2. Sitemaps → submit `https://zubairmuwwakil.com/sitemap.xml`.
+3. URL Inspection → **Request indexing** for `/`, `/resume/`, `/projects/`.
+4. While there: if the old Google Sites is still *published* under your
+   account, unpublish it — it is a competing duplicate of the entity and the
+   source of the stale phone-number snippet.
+
+### c. GitHub needs nothing but time (and, optionally, pins)
+
+The profile is already complete: display name "Zubair Muwwakil", keyword bio,
+`blog = zubairmuwwakil.com` (the reciprocal link), and the profile README live
+since 2026-08-06 with the full name, project table, and site/LinkedIn links.
+Google is actively crawling the account — command-quest snippets in the SERP
+are dated Aug 11–13. Optional polish: pin `command-quest`, `marketdata`,
+`mindmap`, and `return-saas` (web UI only) so the profile page leads with the
+work the site links to.
+
+### Why this matters under the "closer, not opener" strategy
+
+Nobody discovers you by Googling your name — but every recruiter who already
+has your name Googles it before a call. Page one currently answers them with a
+company registry entry reading "Dissolved for non-compliance", a restaurant
+review, and an AI Overview that says you are "based in Ontario, Canada" —
+sourced from that registry — while you sit in Brooklyn. The AI Overview builds
+its answer from whatever entity signals exist; today the registry outweighs
+your profiles because Google hasn't ingested the new site or a full-name
+LinkedIn. Items (a) and (b) displace that junk with pages you control.
+
+Expected lag once (a) and (b) are done: days to ~2 weeks for LinkedIn and the
+refreshed site snippet; a few weeks for the GitHub profile to surface. One
+caveat when checking progress: the SERP that prompted this item was
+personalized ("Results are personalized" footer) — verify from a signed-out or
+incognito window.
