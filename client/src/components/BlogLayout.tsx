@@ -39,7 +39,7 @@ export function BlogLayout({ children }: { children: ReactNode }) {
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link href="/" className="flex items-center space-x-2 group cursor-pointer">
               <img
-                src={theme === "dark" ? "/assets/zm-logo-dark.svg" : "/assets/zm-logo-light.svg"}
+                src={theme === "dark" ? "/assets/zm-logo-dark-192.png" : "/assets/zm-logo-light-192.png"}
                 alt="Zubair Muwwakil monogram"
                 width={192}
                 height={192}

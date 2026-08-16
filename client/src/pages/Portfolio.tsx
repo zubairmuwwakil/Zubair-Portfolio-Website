@@ -420,7 +420,7 @@ export default function Portfolio() {
             <a href="/" className="flex items-center space-x-2 group cursor-pointer">
               <div className="p-0 group-hover:scale-110 transition-transform">
                 <img
-                  src={theme === "dark" ? "/assets/zm-logo-dark.svg" : "/assets/zm-logo-light.svg"}
+                  src={theme === "dark" ? "/assets/zm-logo-dark-192.png" : "/assets/zm-logo-light-192.png"}
                   alt="Zubair Muwwakil monogram"
                   width={192}
                   height={192}
