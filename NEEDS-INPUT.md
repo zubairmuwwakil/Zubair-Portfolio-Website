@@ -3,8 +3,9 @@
 Items that could not be resolved from the repository. Nothing here was guessed
 at or written into the site. Ordered by how much damage it does while unresolved.
 
-Last updated: 2026-08-16 (item 16 added — Google page-one diagnosis; every
-action in it is owner-side, nothing in this repo blocks it)
+Last updated: 2026-08-16 (item 16 added, and its same-day status recorded —
+owner actions done except two residuals: re-add the Search Console DNS TXT,
+confirm the sitemap submission)
 
 **Resolved:** item 1 (apex is canonical), item 7 (/projects on the apex),
 item 8 (York moved to Certifications),
@@ -494,3 +495,50 @@ refreshed site snippet; a few weeks for the GitHub profile to surface. One
 caveat when checking progress: the SERP that prompted this item was
 personalized ("Results are personalized" footer) — verify from a signed-out or
 incognito window.
+
+### Status — verified against account screenshots the same day (2026-08-16)
+
+**16a (LinkedIn) — settings are correct; the lag is Google's.** Last-name
+visibility is set to the full "Zubair Muwwakil", the public-profile toggle is
+on, and Contact info carries both `zubairmuwwakil.com` (Personal) and
+`github.com/zubairmuwwakil` (Portfolio). The "Zubair M." in Google is
+therefore a **stale crawl** of the profile page, not a live setting — nothing
+left to click; the freshly recrawled site (four links to the profile) and
+GitHub (crawled constantly, links it twice) are the recrawl paths. Two
+cosmetic notes: a third, empty Website row (type "Blog") was left mid-edit in
+Contact info — fill with `https://zubairmuwwakil.com/blog/` or Remove before
+saving — and "Past experience" is the one public-profile section set to Hide,
+so logged-out viewers (and Google) see only the G2i role. Optional either way.
+
+**16b (Search Console) — exists, works, but its verification anchor is gone.**
+A `zubairmuwwakil.com` domain property and a `https://www.zubairmuwwakil.com/`
+prefix property are live; indexing was requested same-day for `/` and
+`/resume/` (both "URL is on Google"; `/resume/` shows "Profile page — 1 valid
+item detected", so Google is parsing the Person structured data). Two
+residuals:
+
+1. **The DNS TXT that verifies the domain property is no longer in DNS** —
+   re-checked 2026-08-16: the apex answers only the SPF record. Google
+   periodically re-confirms ownership; when it can't, the domain property
+   unverifies, taking the piggybacked www prefix property with it. Re-add it:
+   GSC → Settings → Ownership verification → copy the
+   `google-site-verification=…` string → registrar DNS → TXT record @ apex.
+   Belt-and-suspenders: an HTML-tag token (Add property → URL prefix →
+   `https://zubairmuwwakil.com/` → HTML tag method) can be committed into
+   `client/index.html` so one verification path never depends on DNS.
+2. **Sitemap submission unconfirmed.** The sitemap lists 10 URLs; indexing was
+   hand-requested for 2. Domain property → Sitemaps → submit
+   `https://zubairmuwwakil.com/sitemap.xml` so `/projects/`, the five case
+   studies, and the blog get queued too.
+
+**16c (GitHub) — done.** Pins are set (pickleops, marketdata, mindmap,
+return-saas — pickleops in place of command-quest, which is the better pick),
+and the sidebar now also carries ORCID, LinkedIn, X, dev.to, and the App Store
+link.
+
+**Old Google Sites — unpublished by owner, same day.**
+
+**Skipped deliberately: the LinkedIn public-profile badge.** The badge embeds
+a `platform.linkedin.com` script to render what is functionally a styled link;
+the site already carries four plain-HTML links to the profile, which is the
+part crawlers read. Third-party script weight for zero marginal signal.
