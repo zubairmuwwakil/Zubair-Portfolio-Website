@@ -22,6 +22,10 @@ export function BlogLayout({ children }: { children: ReactNode }) {
     root.classList.remove(theme === "dark" ? "light" : "dark");
     root.classList.add(theme);
     window.localStorage.setItem("theme", theme);
+    const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (favicon) {
+      favicon.href = theme === "dark" ? "/favicon-dark.png" : "/favicon-light.png";
+    }
   }, [theme]);
 
   return (
@@ -35,10 +39,10 @@ export function BlogLayout({ children }: { children: ReactNode }) {
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link href="/" className="flex items-center space-x-2 group cursor-pointer">
               <img
-                src="/assets/zubair-muwwakil-mark.jpg"
+                src={theme === "dark" ? "/assets/zm-logo-dark.svg" : "/assets/zm-logo-light.svg"}
                 alt="Zubair Muwwakil monogram"
-                width={1024}
-                height={1024}
+                width={192}
+                height={192}
                 className="w-9 h-9 object-cover rounded-lg shadow group-hover:scale-110 transition-transform"
               />
               <span className="font-serif font-bold text-xl tracking-tight">Zubair Muwwakil</span>

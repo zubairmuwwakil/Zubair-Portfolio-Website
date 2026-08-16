@@ -59,6 +59,10 @@ export default function Portfolio() {
       root.classList.remove(next === "dark" ? "light" : "dark");
       root.classList.add(next);
       window.localStorage.setItem("theme", next);
+      const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+      if (favicon) {
+        favicon.href = next === "dark" ? "/favicon-dark.png" : "/favicon-light.png";
+      }
     },
     [],
   );
@@ -416,10 +420,10 @@ export default function Portfolio() {
             <a href="/" className="flex items-center space-x-2 group cursor-pointer">
               <div className="p-0 group-hover:scale-110 transition-transform">
                 <img
-                  src="/assets/zubair-muwwakil-mark.jpg"
+                  src={theme === "dark" ? "/assets/zm-logo-dark.svg" : "/assets/zm-logo-light.svg"}
                   alt="Zubair Muwwakil monogram"
-                  width={1024}
-                  height={1024}
+                  width={192}
+                  height={192}
                   className="w-9 h-9 object-cover rounded-lg shadow"
                 />
               </div>
