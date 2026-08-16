@@ -3,13 +3,15 @@
 Items that could not be resolved from the repository. Nothing here was guessed
 at or written into the site. Ordered by how much damage it does while unresolved.
 
-Last updated: 2026-08-16 (item 16 added, and its same-day status recorded —
-owner actions done except two residuals: re-add the Search Console DNS TXT,
-confirm the sitemap submission)
+Last updated: 2026-08-16 (item 15 **retracted** — it audited the wrong branch;
+the `marketdata` repo backs every case-study claim, and its committed artifacts
+are now cleaned up. Item 16's two residuals remain: re-add the Search Console
+DNS TXT, confirm the sitemap submission)
 
 **Resolved:** item 1 (apex is canonical), item 7 (/projects on the apex),
 item 8 (York moved to Certifications),
-item 10 (contact email confirmed correct).
+item 10 (contact email confirmed correct),
+item 15 (retracted — the finding was wrong, nothing to fix).
 **Half-done:** item 2 (redirect works, drops the path).
 Everything else is still open.
 
@@ -377,53 +379,84 @@ document.
 
 ---
 
-## 15. The MarketLens case study describes a build the public repo doesn't contain
+## 15. ~~The MarketLens case study describes a build the public repo doesn't contain~~ — RETRACTED
 
-Found 2026-08-05 while drafting a README for `zubairmuwwakil/marketdata`.
+Found 2026-08-05. **Retracted 2026-08-16: the finding was wrong — it audited the
+wrong branch.**
 
-The case study at `/projects/marketlens/` — written from the résumé — claims
-Bucket4j rate limiting and quota tracking, Prometheus metrics, OTLP tracing,
-correlation IDs, and OpenAPI/Swagger. **None of those appear in the public
-repo's `pom.xml`**, which declares only: actuator, flyway (+ postgres), data-jpa,
-webmvc, postgresql, lombok.
+`zubairmuwwakil/marketdata`'s default branch is **`render_2`**, not `main`. That
+is what GitHub serves at the bare repo URL, so it is exactly what the case
+study's Source link lands a reviewer on. The sparse `pom.xml` recorded below
+belongs to `main` — a branch last touched 2026-03-26 ("vercel deploy 2").
 
-The deployed service is clearly a later build than the public repo:
+Every claim the case study makes is backed by public, tested code on the default
+branch:
 
-| | `marketdata` repo | marketdata.zubairmuwwakil.com |
-|---|---|---|
-| `/` | `RootController` returns a `String` | full HTML dashboard, titled "MarketLens — Market Data Pipeline" |
-| `/api/v1/candles` | endpoint does not exist | **401** — API-key auth enforced |
-| Bucket4j / Micrometer / OTel / springdoc | absent from pom.xml | claimed on the résumé |
+| Claim | On `render_2` |
+|---|---|
+| Bucket4j rate limiting | `bucket4j-core`, `RateLimitFilter`, `RateLimitProperties` — with `RateLimitFilterTest` |
+| Quota tracking | `AppKeyQuotaService`, `QuotaController` |
+| Prometheus metrics | `micrometer-registry-prometheus` |
+| OTLP tracing | `micrometer-tracing-bridge-otel`, `opentelemetry-exporter-otlp` |
+| OpenAPI / Swagger | `springdoc-openapi-starter-webmvc-ui`, `OpenApiConfig` |
+| API-key auth | `ApiKeyAuthFilter`, `ApiKeyService`, `ApiKeyRegistry` — with tests |
 
-So the strongest backend evidence in the whole footprint is running somewhere
-that is not public.
+Plus Caffeine caching, Spring Security, validation, Testcontainers, and
+structured logging via `logstash-logback-encoder`. Secrets hygiene is sound: every
+credential is `${ENV_VAR:default}`, and `ALPHAVANTAGE_API_KEY` is injected from the
+Render dashboard with no value committed.
 
-**Update (2026-08-06): the "Source" link is now repointed to `marketdata`** at
-your request. The mismatch above is unchanged by that — a reviewer who clicks
-Source still lands on a repo that does not contain the rate limiting,
-observability, or `/api/v1/candles` the case study describes. Worth closing with
-one of the options below.
+**Two inference errors produced the original finding.** Both are worth not repeating:
 
-Options, roughly in order of value:
+1. Auditing by branch *name* (`main`) rather than by the repo's declared default.
+   Check `gh api repos/OWNER/REPO --jq .default_branch` first, then pass `?ref=`.
+2. Reading `/api/v1/candles` → **401** as proof the endpoint exists. `ApiKeyAuthFilter`
+   is a servlet filter, so it runs before dispatch and returns 401 for *any*
+   unauthenticated path, real or not. A 401 evidences a filter, never a route.
+   `/api/v1/candles` exists on no branch — the real routes are
+   `/api/v1/market/adjusted`, `/api/v1/market/summary` and
+   `/api/v1/indicators/{symbol}`. The case study never names `/candles`, so nothing
+   on the site is wrong.
 
-1. **Push the deployed code to `marketdata`.** Makes the strongest claims
-   checkable and the repo pin-worthy. Check for committed secrets first — the
-   live service has an API-key system, so there is a real chance of a key in
-   config history.
-2. **Qualify the case study** to describe only what is public, and move the
-   rate-limiting/observability material into a "what the deployed service adds"
-   note that does not imply the source is available.
-3. **Drop the Source link entirely**, the way PickleOps does, and let the live
-   demo and case study carry it.
+The three options previously listed here — push the deployed code, qualify the case
+study, drop the Source link — are all moot. Nothing to add, nothing to qualify. The
+Source link repointed to `marketdata` on 2026-08-06 and is correct as it stands.
 
-A README draft for the repo as it stands is at
-`repo-readmes/marketdata-README.md`. It deliberately claims none of the
-unbacked features and states plainly that the deployment runs ahead of the repo.
+**Original finding, preserved for the record:**
 
-Also in that repo: three `.DS_Store` files are committed, and the description is
-null. Both fixable with the commands in the draft's header comment.
+> The case study claims Bucket4j rate limiting and quota tracking, Prometheus
+> metrics, OTLP tracing, correlation IDs, and OpenAPI/Swagger. None of those appear
+> in the public repo's `pom.xml`, which declares only: actuator, flyway (+ postgres),
+> data-jpa, webmvc, postgresql, lombok.
+>
+> | | `marketdata` repo | marketdata.zubairmuwwakil.com |
+> |---|---|---|
+> | `/` | `RootController` returns a `String` | full HTML dashboard |
+> | `/api/v1/candles` | endpoint does not exist | **401** — API-key auth enforced |
+> | Bucket4j / Micrometer / OTel / springdoc | absent from pom.xml | claimed on the résumé |
+>
+> So the strongest backend evidence in the whole footprint is running somewhere
+> that is not public.
 
----
+### Genuinely still open in that repo
+
+1. **Committed artifacts — DONE 2026-08-16.** 142 `node_modules` files (a stray `pg`
+   npm tree in a Java project), 12 `.DS_Store`, three logback outputs and a root
+   `META-INF/MANIFEST.MF` were untracked in `85d17e1`, and `.gitignore` now covers
+   all four. The logs had carried Spring Boot's generated development passwords.
+   Untracked rather than history-filtered — the repo is under half a megabyte, so a
+   rewrite would cost every clone more than it saves.
+2. **The stale `main` branch is a trap.** Anyone who opens the branch dropdown and
+   picks the conventionally-important name sees the March build, not the real one.
+   Fixing it means renaming `render_2` → `main` (or force-updating `main`), **and**
+   re-pointing the deploy branch in the Render dashboard — `render.yaml` does not pin
+   a branch, so that setting is invisible from the repo. Not done here: getting it
+   wrong takes the live demo offline mid-job-hunt. `renderdeploy` and `alphavantage`
+   are both from January and look equally droppable, but `renderdeploy` may be what
+   Render actually watches — confirm in the dashboard before deleting anything.
+3. **31-second cold start.** `marketdata.zubairmuwwakil.com` returns 200 but takes
+   ~31s to wake on Render's free tier. A recruiter clicking "Live" may bounce first.
+   Nothing to fix in code; it is the plan.
 
 ## 16. LinkedIn and GitHub are missing from Google page one — diagnosis
 
