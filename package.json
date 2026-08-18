@@ -129,7 +129,12 @@
       "/projects/mindsky/",
       "/projects/command-quest/",
       "/blog/",
-      "/blog/offline-first-sync-on-a-pickleball-court/"
+      "/blog/offline-first-sync-on-a-pickleball-court/",
+      "/blog/why-i-stopped-treating-stock-prices-like-a-frontend-problem/",
+      "/blog/your-inbox-already-knows-what-you-bought/",
+      "/blog/i-have-too-many-credit-cards-so-i-built-an-app-to-pick-one/",
+      "/blog/i-turned-an-iphone-shortcut-into-a-transaction-feed/",
+      "/blog/i-accidentally-built-four-pieces-of-the-same-financial-app/"
     ],
     "skipThirdPartyRequests": true,
     "puppeteerArgs": [
