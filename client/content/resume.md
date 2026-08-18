@@ -1,6 +1,6 @@
 ---
 title: Résumé — Zubair Muwwakil
-description: Full-Stack Software Engineer in Brooklyn, NY — Java/Spring Boot, Python, TypeScript, and autonomous agent orchestration. Production reliability, API design, and database performance.
+description: Full-Stack Software Engineer in Brooklyn, NY — Java/Spring Boot, Python, TypeScript, AI agent orchestration, API design, and production reliability.
 date: 2026-08-18
 ---
 
