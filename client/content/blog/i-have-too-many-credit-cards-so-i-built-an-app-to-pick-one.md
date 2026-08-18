@@ -1,7 +1,7 @@
 ---
 title: I have too many credit cards, so I built an app to pick one
 description: The idea behind PickMe is intentionally simple: at checkout, tell me which card gives me the most value.
-date: 2026-08-16
+date: 2026-08-14
 tags: [SwiftUI, iOS, Decision Engines, Fintech, Product Engineering, Privacy]
 ---
 

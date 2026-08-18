@@ -1,7 +1,7 @@
 ---
 title: Looply — Returns, Subscriptions & Receipt Automation
 description: A finance assistant that turns inbox data into a purchases timeline, a deadline calendar, and retry-safe reminders for returns and renewals.
-date: 2026-08-05
+date: 2026-05-20
 cover: /assets/looply-cover.jpg
 coverAlt: "Illustration of Looply: a phone listing upcoming renewals and bill deadlines, flanked by icons for inbox scanning, return tracking and reminder emails."
 tags: [Next.js, TypeScript, Prisma, PostgreSQL, Stripe]

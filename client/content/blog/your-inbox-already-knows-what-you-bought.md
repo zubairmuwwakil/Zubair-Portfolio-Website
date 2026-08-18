@@ -1,7 +1,7 @@
 ---
 title: Your inbox already knows what you bought
 description: Building Looply taught me that a surprising amount of financial automation can start with data people already receive.
-date: 2026-08-15
+date: 2026-05-28
 cover: /assets/looply-cover.jpg
 coverAlt: "Illustration of Looply: a phone listing upcoming renewals and bill deadlines, flanked by icons for inbox scanning, return tracking and reminder emails."
 tags: [Next.js, PostgreSQL, Gmail API, Automation, Privacy, Backend Engineering]

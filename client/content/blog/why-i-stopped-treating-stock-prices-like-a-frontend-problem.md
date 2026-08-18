@@ -1,7 +1,7 @@
 ---
 title: Why I stopped treating stock prices like a frontend problem
 description: Building MarketLens, a Spring Boot market-data pipeline that turned a simple portfolio feature into a real backend system.
-date: 2026-08-14
+date: 2026-02-18
 cover: /assets/marketlens-cover.jpg
 coverAlt: "Hand-drawn diagram of the MarketLens pipeline: rate-limited price feeds funnel into Postgres, then out to cached REST endpoints and dashboards."
 tags: [Java, Spring Boot, PostgreSQL, Data Engineering, REST APIs, Observability]
