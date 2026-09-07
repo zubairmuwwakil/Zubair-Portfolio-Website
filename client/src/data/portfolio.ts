@@ -179,14 +179,6 @@ export const experiences: Experience[] = [
 
 export const education: Education[] = [
   {
-    id: 3,
-    school: "Ontario Tech University",
-    degree: "Master of Computer Science",
-    field: "Computer Science",
-    startDate: "2025",
-    endDate: "Postponed",
-  },
-  {
     id: 5,
     school: "University of Toronto",
     degree: "BSc, Computer Science & Mathematics",

@@ -1303,10 +1303,15 @@ export default function Portfolio() {
 
       {/* Footer */}
       <footer className="py-8 border-t border-border/50 bg-background text-center">
-        <div className="max-w-7xl mx-auto px-4">
-          <p className="text-muted-foreground text-sm">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+          <p>
             © {new Date().getFullYear()} {profileData.name}. All rights reserved. Built with React & Tailwind.
           </p>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy/" className="hover:text-primary transition-colors">
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </footer>
     </div>

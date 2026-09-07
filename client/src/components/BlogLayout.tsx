@@ -87,13 +87,16 @@ export function BlogLayout({ children }: { children: ReactNode }) {
       </main>
 
       <footer className="py-8 border-t border-border/50 bg-background text-center">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to portfolio
+          </Link>
+          <Link href="/privacy/" className="hover:text-primary transition-colors">
+            Privacy Policy
           </Link>
         </div>
       </footer>
