@@ -93,7 +93,7 @@ export const profile: Profile = {
   email: "zmuwwakil@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
   githubUrl: "https://github.com/zubairmuwwakil",
-  resumeUrl: "/resume/",
+  resumeUrl: null,
 };
 
 /**

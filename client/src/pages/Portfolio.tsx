@@ -117,7 +117,7 @@ export default function Portfolio() {
     email: "zmuwwakil@gmail.com",
     linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
     githubUrl: "https://github.com/zubairmuwwakil",
-    resumeUrl: "/resume/",
+    resumeUrl: null as string | null,
   };
 
   const profileData = {
@@ -127,7 +127,7 @@ export default function Portfolio() {
     email: profile?.email || profileDefaults.email,
     linkedinUrl: profile?.linkedinUrl || profileDefaults.linkedinUrl,
     githubUrl: profile?.githubUrl || profileDefaults.githubUrl,
-    resumeUrl: profile?.resumeUrl || profileDefaults.resumeUrl,
+    resumeUrl: profile?.resumeUrl ?? profileDefaults.resumeUrl,
   };
 
   type SkillLevel = "familiar";
@@ -213,7 +213,9 @@ export default function Portfolio() {
   };
 
   const proofLinks: ProofLink[] = [
-    { label: "Résumé", href: profileData.resumeUrl, icon: FileText },
+    ...(profileData.resumeUrl
+      ? [{ label: "Résumé", href: profileData.resumeUrl, icon: FileText }]
+      : []),
     {
       label: "GitHub",
       href: profileData.githubUrl,
@@ -538,16 +540,18 @@ export default function Portfolio() {
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
-                  className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold bg-primary text-primary-foreground border border-primary-border rounded-full px-6 py-3 hover:bg-primary/90 transition-colors"
+                  className={`${profileData.resumeUrl ? "flex-1 min-w-[140px]" : "w-full"} inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold bg-primary text-primary-foreground border border-primary-border rounded-full px-6 py-3 hover:bg-primary/90 transition-colors`}
                 >
                   Hire Me
                 </button>
-                <a
-                  href={profileData.resumeUrl}
-                  className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold border border-border rounded-full px-6 py-3 hover:bg-secondary transition-colors"
-                >
-                  Résumé
-                </a>
+                {profileData.resumeUrl && (
+                  <a
+                    href={profileData.resumeUrl}
+                    className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold border border-border rounded-full px-6 py-3 hover:bg-secondary transition-colors"
+                  >
+                    Résumé
+                  </a>
+                )}
               </div>
             </div>
           </div>
@@ -616,10 +620,12 @@ export default function Portfolio() {
                   View Featured Project
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-up-right w-4 h-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
                 </a>
-                <a href={profileData.resumeUrl} className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border [border-color:var(--button-outline)] shadow-xs active:shadow-none min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
-                  Resume
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-text w-4 h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
-                </a>
+                {profileData.resumeUrl && (
+                  <a href={profileData.resumeUrl} className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border [border-color:var(--button-outline)] shadow-xs active:shadow-none min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
+                    Resume
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-text w-4 h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                  </a>
+                )}
               </div>
               <div className="flex gap-6 pt-2 text-muted-foreground justify-center lg:justify-start">
                 {/* The accessible name is real sr-only text rather than an
