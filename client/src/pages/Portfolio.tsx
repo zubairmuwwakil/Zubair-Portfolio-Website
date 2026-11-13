@@ -1138,7 +1138,7 @@ export default function Portfolio() {
           <div className="section-glow" />
           <SectionHeader 
             title="About" 
-            subtitle="Evidence over hype—what I build and how I approach it."
+            subtitle="The path behind my work, and how I approach building useful systems."
           />
 
           <div className="grid lg:grid-cols-3 gap-8">
@@ -1186,6 +1186,42 @@ export default function Portfolio() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Personal education context belongs in the About section, not on
+              the project case study or in an unsupported degree credential. */}
+          <div className="mt-8 relative overflow-hidden rounded-3xl border border-border/60 p-6 sm:p-8 bg-gradient-to-br from-primary/8 via-background to-accent/8 shadow-lg shadow-primary/10">
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-accent to-primary/60 opacity-80" />
+            <p className="text-xs uppercase tracking-[0.18em] text-primary font-semibold mb-3">
+              My path into software
+            </p>
+            <h3 className="font-serif text-2xl sm:text-3xl font-extrabold leading-tight mb-5">
+              An interrupted degree did not end the work.
+            </h3>
+            <div className="max-w-3xl space-y-4 text-base sm:text-lg leading-relaxed text-foreground/85">
+              <p>
+                I studied Computer Science and Mathematics at the University of Toronto.
+                A car accident interrupted my studies, and I did not complete that degree.
+                My education has taken a different path than I originally expected.
+                I am now pursuing a B.Sc. in Computer Science at Ontario Tech University.
+              </p>
+              <p>
+                Along the way, I kept working on practical technical problems: automating
+                finance and reporting workflows, developing production services, and
+                building a platform to simplify the day-to-day work of running sports
+                programs. Those experiences shaped the way I approach engineering:
+                understand the people and the process first, then build something
+                reliable enough for them to depend on.
+              </p>
+              <p>
+                My path is not a traditional straight line, but the work is real—and
+                I am continuing both my education and my practice as a software engineer.
+              </p>
+            </div>
+            <Link href="/projects/pickleops/" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+              Read how I built software for real-world operations
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
