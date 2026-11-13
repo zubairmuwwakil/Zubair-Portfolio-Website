@@ -275,8 +275,8 @@ export default function Portfolio() {
       },
     },
     "PickleOps — The Pickleball Social": {
-      problem: "Clubs run sessions, ladders, and player ratings on spreadsheets and group chats. Organizers lose evenings to admin, and ratings drift out of date.",
-      built: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
+      problem: "As a program operator, I saw clubs manage registrations, attendance, matches, ratings, and payments across spreadsheets and messages. Every new session added manual effort and errors.",
+      built: "I proposed, built, and deployed a web and iOS operations platform for organizers and players, then helped partner clubs adopt it. It brings registration, scheduling, scores, ratings, and payments into one workflow.",
       decisions: [
         "Offline-first sync with version conflict resolution so scoring works on courts with no signal and reconciles cleanly on reconnect.",
         "DUPR single sign-on via WebView with opt-in match write-back, keeping external ratings in sync without manual entry.",
@@ -284,15 +284,16 @@ export default function Portfolio() {
         "Competitive rating model that weights wins against stronger opponents, with guardrails for forfeits and an audit-friendly history.",
       ],
       impact: [
-        "Shipped to the App Store and maintained through 21 releases in five months.",
-        "Sessions, ratings, and payments handled in one place; organizers stopped running the club from spreadsheets.",
+        "Automated scheduling work that previously took about 10 minutes, reducing it to seconds for supported workflows.",
+        "Supported approximately 850 accounts and 1,000+ participants across club operations; shipped 21 iOS releases in five months.",
+        "Tracked repeat registration grew from about 20% to 89% in an eight-week cohort during broader program improvements; this is not a software-only causal estimate.",
+        "Added a production AI assistant used by approximately 136 unique people since April 2026.",
       ],
       stack: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
       links: {
         demo: "https://pickleball.zubairmuwwakil.com",
         appStore: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
-        // No repo link: github.com/zubairmuwwakil/pickleball-session-manager
-        // returns 404 under the new handle. See NEEDS-INPUT.md.
+        github: "https://github.com/zubairmuwwakil/pickleops",
         caseStudy: "/projects/pickleops/",
       },
       photo: "/assets/pickleops-cover.jpg",
