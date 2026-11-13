@@ -180,9 +180,17 @@ export const experiences: Experience[] = [
 export const education: Education[] = [
   {
     id: 5,
+    school: "Ontario Tech University",
+    degree: "B.Sc. (in progress)",
+    field: "Computer Science",
+    startDate: "In progress",
+    endDate: null,
+  },
+  {
+    id: 6,
     school: "University of Toronto",
-    degree: "BSc, Computer Science & Mathematics",
-    field: "Finance/Economics",
+    degree: "Undergraduate coursework (degree not completed)",
+    field: "Computer Science and Mathematics",
     startDate: "2020",
     endDate: "2025",
   },
@@ -215,12 +223,11 @@ export const projects: Project[] = [
     id: 1,
     slug: "pickleops",
     title: "PickleOps — The Pickleball Social",
-    description: "Shipped, actively maintained iOS product for running club pickleball: sessions, ladders, ratings, and payments in one app.",
+    description: "I turned manual league operations into a live web and iOS platform. Used across partner clubs, with automated scheduling, payments, ratings and an AI assistant.",
     link: "https://pickleball.zubairmuwwakil.com",
     appStoreLink: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
-    // No repo link: .../pickleball-session-manager returns 404 under the new
-    // handle. See NEEDS-INPUT.md.
-    githubLink: null,
+    // Public architecture overview (production application source remains private).
+    githubLink: "https://github.com/zubairmuwwakil/pickleops",
     caseStudyUrl: "https://drive.google.com/file/d/1GaO37v1o1Nnkl51TF8M-C8YZZ3TpPfJg/view?usp=sharing",
     tags: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
   },
