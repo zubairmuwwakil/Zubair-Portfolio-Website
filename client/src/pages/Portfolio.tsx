@@ -745,6 +745,9 @@ export default function Portfolio() {
                 A Canadian nonprofit I founded to support community athletics.
                 It operates separately from the software business.
               </p>
+              <a href="https://echeloncommunity.ca/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary hover:underline underline-offset-4">
+                Visit the nonprofit website
+              </a>
             </div>
           </div>
           <Link href="/ventures/" className="mt-7 inline-flex items-center gap-2 font-semibold text-primary hover:underline underline-offset-4">
