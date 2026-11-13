@@ -4,7 +4,6 @@ description: "PickMe started as a checkout annoyance. Building it meant solving 
 date: 2026-11-12
 tags: [iOS, Swift, Algorithms, Privacy, Product Engineering]
 stack: [Swift 6, SwiftUI, SwiftData, MapKit, CoreLocation, XCTest]
-repoUrl: https://github.com/zubairmuwwakil/PickMe
 ---
 
 I have more than one credit card, and I used to do the same annoying calculation over and over.
@@ -57,4 +56,4 @@ The engineering challenge is knowing where the simple experience needs serious w
 
 **PickMe taught me to separate “the app produced an answer” from “the answer deserves to be trusted.”**
 
-[Read the story behind the idea](/blog/i-have-too-many-credit-cards-so-i-built-an-app-to-pick-one/) · [Explore the code](https://github.com/zubairmuwwakil/PickMe)
+[Read the story behind the idea](/blog/i-have-too-many-credit-cards-so-i-built-an-app-to-pick-one/)
