@@ -113,8 +113,8 @@ export default function Portfolio() {
 
   const profileDefaults = {
     name: "Zubair Muwwakil",
-    title: "Software Engineer (Full-Stack / Backend)",
-    bio: "Finance-informed engineer who builds production APIs, data pipelines, and web apps with reliability, data integrity, and performance top of mind.",
+    title: "Software Engineer & Founder",
+    bio: "I build reliable backend systems, SaaS products, and software for real-world operations.",
     email: "zmuwwakil@gmail.com",
     linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
     githubUrl: "https://github.com/zubairmuwwakil",
@@ -157,7 +157,7 @@ export default function Portfolio() {
     "Backend-leaning SWE: APIs, data pipelines, internal tools.",
     "Reliability first: schemas, migrations, idempotency, CI/CD.",
     "Finance background → correctness and auditability mindset.",
-    "Shipped multiple real systems (not tutorials).",
+    "Build software products that support real people and live operations.",
     "Targeting backend / full-stack SWE roles (Brooklyn, NY — remote, hybrid, or onsite).",
   ];
 
@@ -191,9 +191,9 @@ export default function Portfolio() {
     return `${start} — ${end}`;
   };
 
-  const heroRoleLine = "Backend / Full-Stack Software Engineer";
-  const heroFocusLine = "I build reliable APIs, data pipelines, and production web apps.";
-  const heroStackLine = "Java · Spring Boot · TypeScript · SQL · Docker · Brooklyn, NY · US Citizen";
+  const heroRoleLine = "Software Engineer & Founder";
+  const heroFocusLine = "I build reliable software—and the products and organizations that put it to work.";
+  const heroStackLine = "Backend systems · APIs · TypeScript · PostgreSQL · Java · Production operations";
   const featuredProjectTitles = [
     "PickleOps — The Pickleball Social",
     "Looply",
@@ -436,7 +436,7 @@ export default function Portfolio() {
             <div className="hidden md:flex items-center space-x-8">
               <a href="#featured" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Featured</a>
               <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Experience</a>
-              <a href="#skills" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Skills</a>
+              <Link href="/ventures/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Ventures</Link>
               <a href="#about" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">About</a>
               <Link href="/projects/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Projects</Link>
               <Link href="/blog/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Blog</Link>
@@ -484,7 +484,7 @@ export default function Portfolio() {
       </nav>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md md:hidden">
+        <div className="fixed inset-0 z-40 overflow-y-auto bg-background/95 backdrop-blur-md md:hidden">
           <div className="max-w-7xl mx-auto px-4 pt-24 pb-10 h-full flex flex-col">
             <div className="space-y-6">
               <div className="grid gap-3 text-lg font-semibold">
@@ -502,13 +502,13 @@ export default function Portfolio() {
                 >
                   Experience
                 </button>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection("skills")}
+                <Link
+                  href="/ventures/"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
                 >
-                  Skills
-                </button>
+                  Ventures
+                </Link>
                 <button
                   type="button"
                   onClick={() => scrollToSection("about")}
@@ -622,6 +622,9 @@ export default function Portfolio() {
                   View Featured Project
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-up-right w-4 h-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
                 </a>
+                <Link href="/ventures/" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium border border-border rounded-full px-7 h-12 text-base hover:bg-secondary transition-colors">
+                  Explore my ventures <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
                 {profileData.resumeUrl && (
                   <a href={profileData.resumeUrl} className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border [border-color:var(--button-outline)] shadow-xs active:shadow-none min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
                     Resume
@@ -716,6 +719,38 @@ export default function Portfolio() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Engineering is still the primary identity; ventures show where it is applied. */}
+      <section id="ventures" className="relative py-16 md:py-20 border-b border-border/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            title="Beyond the code"
+            subtitle="I build products and work with organizations that put software into practice."
+          />
+          <div className="grid gap-5 md:grid-cols-2">
+            <div className="rounded-3xl border border-border/60 p-7 bg-gradient-to-br from-primary/10 via-background to-accent/10">
+              <p className="text-xs uppercase tracking-[0.15em] text-primary font-semibold">Commercial software</p>
+              <h3 className="mt-2 font-serif text-2xl font-bold">Zemi Echelon</h3>
+              <p className="mt-3 text-foreground/80 leading-relaxed">
+                The for-profit side of my work: software products including PB Social,
+                Inunity, and the PickMe iOS project.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-border/60 p-7 bg-gradient-to-br from-accent/10 via-background to-primary/10">
+              <p className="text-xs uppercase tracking-[0.15em] text-primary font-semibold">Independent nonprofit</p>
+              <h3 className="mt-2 font-serif text-2xl font-bold">Echelon Community Athletics</h3>
+              <p className="mt-3 text-foreground/80 leading-relaxed">
+                A Canadian nonprofit I founded to support community athletics.
+                It operates separately from the software business.
+              </p>
+            </div>
+          </div>
+          <Link href="/ventures/" className="mt-7 inline-flex items-center gap-2 font-semibold text-primary hover:underline underline-offset-4">
+            Explore the organizations, products, and websites
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
       </section>
 
@@ -1352,6 +1387,7 @@ export default function Portfolio() {
             © {new Date().getFullYear()} {profileData.name}. All rights reserved. Built with React & Tailwind.
           </p>
           <div className="flex items-center gap-6">
+            <Link href="/ventures/" className="hover:text-primary transition-colors">Ventures</Link>
             <Link href="/privacy/" className="hover:text-primary transition-colors">
               Privacy Policy
             </Link>

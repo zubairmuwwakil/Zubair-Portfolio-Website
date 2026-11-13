@@ -88,8 +88,8 @@ export const contactEmail = "zmuwwakil@gmail.com";
 
 export const profile: Profile = {
   name: "Zubair Muwwakil",
-  title: "Software Engineer (Full-Stack / Backend)",
-  bio: "Finance-informed engineer who builds production APIs, data pipelines, and web apps with reliability, data integrity, and performance top of mind.",
+  title: "Software Engineer & Founder",
+  bio: "I build reliable backend systems, SaaS products, and software for real-world operations.",
   email: "zmuwwakil@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/zubairmuwwakil/",
   githubUrl: "https://github.com/zubairmuwwakil",
