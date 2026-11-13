@@ -5,6 +5,7 @@ date: 2026-11-12
 tags: [Full Stack, Fintech, Privacy, Data Modeling, Integrations]
 stack: [Next.js, TypeScript, PostgreSQL, Prisma, Clerk, Vercel]
 liveUrl: https://inunity.ca
+repoUrl: https://github.com/zubairmuwwakil/MoneyTalks
 ---
 
 I got tired of financial information being scattered everywhere.
@@ -16,6 +17,12 @@ I wanted one place that could give me a clearer picture.
 But there was a catch. I didn't want to build that picture by asking people to hand over their bank credentials.
 
 That became the starting point for **Inunity**.
+
+## If you only have two minutes
+
+Inunity is about making scattered financial information more useful **without treating a bank password as the price of entry**. Start with a transaction capture, keep the original observation, and reconcile it carefully before it changes a financial picture.
+
+The [live site](https://inunity.ca/) shows the product direction. The wallet-payload tests and purchase-matching tests above show the decisions underneath. They are stronger evidence of the design than a dashboard screenshot would be.
 
 ## Start with the information you can collect responsibly
 
@@ -41,6 +48,16 @@ I like that separation. Each tool can solve a focused problem without forcing ev
 
 Some of those cross-product connections are still evolving, so I distinguish the intended architecture from what has been verified end to end.
 
+## The difference between a match and a guess
+
+Suppose a Wallet automation captures a $6.42 purchase, and an email receipt arrives later. Did those two sources see the same coffee, or did somebody buy two coffees?
+
+The public matching code doesn't assume that amount and time are enough. It checks currency compatibility, a bounded time window, and merchant evidence. When the amount and time fit but the merchant does not, the matcher calls it a *possible* match rather than pretending it is certain.
+
+The capture parser has another job: keep bad or incomplete observations distinguishable from valid ones. A currency label that cannot be decoded should not silently turn into a confident amount.
+
+These are small rules with big consequences. If a finance app merges two different purchases, the dashboard can look tidy while being wrong.
+
 ## Privacy is an engineering decision
 
 Financial software deals with sensitive information. I don't think “secure” should just be a badge on the homepage.
@@ -59,4 +76,4 @@ The more I work on financial software, the more I see that a useful interface de
 
 That's the part of Inunity I find most interesting.
 
-[Explore Inunity](https://inunity.ca) · [How an iPhone shortcut became a transaction feed](/blog/i-turned-an-iphone-shortcut-into-a-transaction-feed/)
+[Explore Inunity](https://inunity.ca) · [Inspect wallet capture tests](https://github.com/zubairmuwwakil/MoneyTalks/blob/main/src/lib/domain/wallet/capturePayload.test.ts) · [How an iPhone shortcut became a transaction feed](/blog/i-turned-an-iphone-shortcut-into-a-transaction-feed/)
