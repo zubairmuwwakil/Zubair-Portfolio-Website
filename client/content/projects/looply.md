@@ -1,77 +1,73 @@
 ---
-title: Looply — Returns, Subscriptions & Receipt Automation
-description: A finance assistant that turns inbox data into a purchases timeline, a deadline calendar, and retry-safe reminders for returns and renewals.
-date: 2026-05-20
+title: "I wanted my inbox to remember the return dates for me"
+description: "Looply grew from a familiar frustration into a full-stack project for receipts, renewals, return deadlines and careful automation."
+date: 2026-11-12
 cover: /assets/looply-cover.jpg
 coverAlt: "Illustration of Looply: a phone listing upcoming renewals and bill deadlines, flanked by icons for inbox scanning, return tracking and reminder emails."
-tags: [Next.js, TypeScript, Prisma, PostgreSQL, Stripe]
-stack: [Next.js, React 19, TypeScript, Prisma, Neon Postgres, Clerk, Stripe, Resend]
+tags: [Full Stack, Email Integrations, Automation, PostgreSQL, SaaS]
+stack: [Next.js, React 19, TypeScript, Prisma, PostgreSQL, Clerk, Stripe, Resend]
 liveUrl: https://looply.zubairmuwwakil.com
 repoUrl: https://github.com/zubairmuwwakil/return-saas
 ---
 
-Looply is a personal finance assistant that turns scattered inbox data — receipts, shipping, renewals, bills — into a single actionable system: a purchases timeline, a calendar of deadlines, and reminders that prevent missed returns, surprise renewals, and overdue refunds.
+A return window can disappear faster than you expect.
 
-It's built to feel premium and trustworthy: automation when it's safe, manual control when it's needed, and clear privacy controls at every step.
+The receipt is somewhere in your inbox. The shipping update is in another thread. A free trial quietly turns into a paid subscription. And technically, all the information was there the whole time.
 
-## Problem
+I kept thinking there should be a better way to use it than searching through old emails every week.
 
-Most people *intend* to return items or cancel trials, but the workflow breaks down because:
+That gave me the idea for **Looply**: what if my inbox could help me keep track of the things I'd already bought?
 
-- Purchase proof lives in email and attachments, and is easy to lose.
-- Return deadlines and refund timelines vary by merchant.
-- Shipping and refund updates are split across multiple emails.
-- Manual tracking is tedious, and users abandon it after a week.
-- Reminders are either missing or annoying — spammy, duplicated, poorly timed.
+## The problem wasn't a lack of data
 
-The result: wasted money, missed refunds, and recurring charges users didn't want.
+Email stores a surprising amount of useful information about a purchase.
 
-## Solution
+What you bought. When you ordered it. How much it cost. When it shipped. Sometimes even when it can be returned.
 
-Looply centralizes the entire lifecycle:
+The hard part is that every merchant formats those messages differently, and the same purchase can produce a confirmation, shipping update, delivery notice and refund email.
 
-- **Purchases Inbox** storing proof — receipt, order number, items, total
-- **Trial Radar + Renewal Guard** detecting subscriptions and renewal dates early enough to act
-- **Returns and refund tracking** with shipment timelines, refund SLAs, and overdue alerts
-- **Multi-channel reminders** across email, push, and calendar, with snoozes and quiet hours
-- **Privacy & Control Center** with scan modes, disconnect, delete, and export
+I didn't want an app that treated every email as a separate transaction.
 
-## Key features
+I wanted something that could build one understandable timeline out of all those messages.
 
-**Trial Radar + Renewal Guard.** Detects trials, intro pricing, renewals, and bill cadence from inbox and receipts. One-tap actions: keep, cancel, snooze, or convert to annual. Rules remind a configurable number of days before renewal and auto-snooze once cancelled.
+## I built around the moment someone needs to act
 
-**Return shipment tracking + refund SLA timeline.** Tracks label → in transit → delivered → refund expected → refunded, with SLA calculation and "overdue by X days" alerts — built to close the "I returned it… where's my money?" gap.
+Looply connects to inbox data through Gmail or IMAP, extracts purchase information, and organizes receipts, subscriptions, returns and refunds into a more useful view.
 
-**Purchases Inbox.** A normalized timeline of purchases from Gmail ingestion and uploaded receipts, with attachments linked to each purchase and a quick action to open a return or refund case.
+The interface is meant to answer plain questions:
 
-**Saved / At Risk / Recovered dashboard.** Money saved, money at risk in the next 7 days, refunds recovered, and overdue refund totals — with clear labelling for estimated versus confirmed amounts.
+*What did I buy? What's about to renew? Do I still have time to return this? Has my refund arrived?*
 
-**Privacy & Control Center.** Scan modes (receipts only, shipping only, subscriptions only), disconnect Gmail, delete all stored data, export purchase history, and a plain explanation of what is stored and why.
+That led to a Purchases Inbox, renewal detection, return cases, deadline tracking and user-controlled notifications.
 
-**Guided cancellation flows and price-drop claim tracking** on higher tiers, both designed assist-first rather than overpromising automation.
+I also built privacy controls around scan modes, data export and deletion. If the product reads personal email, it needs to give the user meaningful control.
 
-## Architecture notes
+## Automation gets annoying when it isn't careful
 
-**Ingestion and normalization.** A Gmail OAuth connection enables automated parsing of purchase confirmations, subscription receipts, and shipping updates. Users can also upload receipts as images or PDFs, which are parsed into the same purchase model. Scans handle up to ~200 emails per run, extracting ~30–60 receipts at roughly 88% parse success. Normalized entities power the calendar, boards, and dashboards.
+It's easy to send a reminder.
 
-**Reliability: idempotency and dedupe.** Looply is designed to be safe under retries and incremental scans. Ingestion writes are idempotent via upserts and stable dedupe keys; jobs record run history to avoid duplicate digest sends; and notification scheduling is centralized so the same event can't spam multiple times.
+It's harder to avoid sending the same reminder three times because a background job was retried.
 
-**Notifications: helpful, not spammy.** Digests and event notifications share a common scheduler. Snoozes and quiet hours are first-class. Users can tune channels and cadence without losing core protection.
+The application uses PostgreSQL and Prisma to store normalized records, with deduplication and job tracking for repeated scans. Scheduled work handles notifications and related updates.
 
-**Security and privacy.** Least-privilege OAuth with clear user-facing controls, one-click disconnect, deletion jobs, and export — supporting user trust and compliance expectations.
+That work matters because users don't care whether a duplicate came from a webhook, a retry or a cron job. They just know the app bothered them again.
 
-**Automation.** Cron-triggered jobs via GitHub Actions calling secured routes, with Postgres job and run tracking for safe reprocessing, and Resend for auditable, retry-safe delivery.
+I tried to make automation helpful without making it noisy.
 
-## Results
+## This is still a product I'm improving
 
-- Fewer missed return windows and fewer surprise renewals
-- Faster "what do I need to do this week?" clarity via At Risk views and timelines
-- Predictable cost and performance through incremental scanning and deduped processing
-- Retention hooks through visible value: saved and recovered amounts, and upcoming deadlines
+The repository documents a broad set of implemented workflows, from receipt ingestion to billing and notifications.
 
-## What I'd improve next
+I haven't established a public, independently verified measure of how many real deadlines Looply has saved users from missing. So I don't claim that result.
 
-- More merchant playbooks and confirmation-signal detection for cancellations
-- Better carrier and merchant normalization for global use
-- Deeper insights: household spending patterns, subscription consolidation suggestions
-- Mobile-first polish: widgets and richer push experiences
+The honest outcome is that I built the system needed to find those deadlines, organize the data and support reminders. Measuring how often it changes a user's behavior is the next step.
+
+## What I learned
+
+A useful automation doesn't need to feel magical.
+
+It needs to be predictable, easy to understand and respectful of the person using it.
+
+**The goal was never more notifications. It was one less thing somebody has to keep in their head.**
+
+[Explore the code](https://github.com/zubairmuwwakil/return-saas) · [Read about the inbox idea](/blog/your-inbox-already-knows-what-you-bought/)

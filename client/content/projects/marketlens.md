@@ -1,67 +1,78 @@
 ---
-title: MarketLens — Market Data Pipeline & Analytics Service
-description: A Java/Spring Boot market data pipeline with idempotent ingestion, rate limiting, and full observability, serving typed REST endpoints for dashboards.
-date: 2026-02-15
+title: "Stock prices looked simple until I tried to build a reliable feed"
+description: "MarketLens is a Java backend project about imperfect external data, safe retries and making sure the numbers behind a chart are worth trusting."
+date: 2026-11-12
 cover: /assets/marketlens-cover.jpg
 coverAlt: "Hand-drawn diagram of the MarketLens pipeline: rate-limited price feeds funnel into Postgres, then out to cached REST endpoints and dashboards."
-tags: [Java, Spring Boot, PostgreSQL, Flyway, Observability]
-stack: [Java 21, Spring Boot 4, PostgreSQL, Flyway, Bucket4j, Prometheus, OpenTelemetry]
+tags: [Java, Spring Boot, Data Pipelines, Reliability, PostgreSQL]
+stack: [Java 21, Spring Boot 4, PostgreSQL, Flyway, Prometheus, OpenTelemetry]
 liveUrl: https://marketdata.zubairmuwwakil.com
-liveNote: "The live API runs on a free tier and sleeps when idle — the first request can take ~30 seconds to wake it."
+liveNote: "The demo may take a little time to respond after being idle."
 repoUrl: https://github.com/zubairmuwwakil/marketdata
 ---
 
-Backend pipeline that ingests price and indicator feeds, normalizes them into Postgres, and serves typed REST endpoints for dashboards and analytics.
+At first, market data looks like a pretty straightforward problem.
 
-## Problem
+Request a stock price. Save it. Show it on a chart.
 
-Dashboards needed reliable, de-duplicated market indicator data without:
+Then you try to build something that works every day.
 
-- hammering upstream APIs under rate limits
-- duplicate rows from retries and backfills
-- inconsistent indicator shapes across sources
-- slow "latest + time-range" queries for common views
+What if the provider gives you a bad row? What if a scheduled job runs twice? What happens over a long weekend when the market is closed? What if the provider rate-limits you halfway through a backfill?
 
-## Solution
+I started **MarketLens** because I wanted to understand those problems properly instead of hiding them behind a frontend chart.
 
-I built a pipeline focused on **data correctness, predictable performance, and safe reprocessing**.
+## A price isn't just a number
 
-### Idempotent ingestion and de-duplication
+A stock price needs context.
 
-Ingest jobs are safe to re-run using upserts keyed by `(symbol, date)`, so retries and backfills don't create duplicates. Ingestion runs are tracked with retries, handling roughly 50k–250k rows per run — about 5–30 MB of CSV — using composite keys, upserts, and yearly partitioning to keep time-series queries scalable.
+Which symbol? Which currency? Which trading day? Is it the latest daily close or something live? Has a split changed the meaning of the old prices?
 
-### Normalized indicator storage
+I deliberately kept MarketLens focused on daily and historical pricing, rather than advertising it as a real-time trading feed.
 
-Raw feeds are transformed into a normalized schema so indicators are queryable, consistent, and easy to extend as new series are added.
+That made the contract clearer. A caller can see how fresh a quote is and make its own decision about whether the data is usable.
 
-### Typed REST slices for dashboards
+## I didn't want one bad row to ruin the whole import
 
-The API serves stable response shapes for common dashboard needs: latest values, date ranges, per-symbol slices. Hot paths are cached to keep latency predictable and reduce upstream churn. Endpoints are documented with OpenAPI/Swagger.
+External providers aren't perfect. Neither are the files you get from them.
 
-### Production hardening
+I built ingestion so it could be rerun safely. Duplicate work should not silently create duplicate prices.
 
-Rate limiting and quota tracking with Bucket4j, Prometheus metrics, structured logs with correlation IDs, and OTLP tracing. Data-quality checks — missing days, duplicates, outliers — protect backfills from silently importing bad data.
+I also added row-level quarantine. When a provider sends a malformed entry, the system can keep the bad row with a reason for review instead of throwing away valid records from the same batch.
 
-## Key technical decisions
+That was an important shift for me.
 
-- **Upserts on `(symbol, date)`** to guarantee idempotency across retries
-- **Normalized indicator tables** for a stable schema and fast range queries
-- **Yearly partitioning** so historical range queries stay fast as the dataset grows
-- **Cached hot indicator queries** to reduce repeated reads and upstream pressure
-- **API-key auth with quota tracking** so consumption is bounded and attributable
+It's tempting to think of a pipeline as successful when it finishes. I started thinking of success as **knowing what arrived, what was accepted, what failed, and why.**
 
-## Outcomes
+## The backend needs to be useful to another product
 
-- Consistent indicator data even across retries and historical backfills
-- Faster dashboard reads via query-friendly tables and caching
-- Predictable upstream usage and costs by reducing API churn
-- A clean foundation for adding more feeds, symbols, and indicator families
+MarketLens uses Java and Spring Boot, PostgreSQL, and Flyway migrations. It exposes protected REST endpoints for prices and indicators such as RSI, EMA and MACD.
 
-Shipped backfills, RSI/MACD indicators, corporate actions, a market calendar, and quality reporting, with a dashboard on top.
+It also handles corporate actions, exchange-calendar rules, quota tracking, data-quality checks and operational metrics.
 
-## What I'd improve next
+I kept the service separate from personal finance accounts. A market-pricing service shouldn't need to know who owns a stock or how much money is in their portfolio.
 
-- Backfill tooling with guardrails: range jobs, progress tracking, re-run safety
-- Deeper observability around ingest latency, failures, and query hot paths
-- Stronger indexing strategy and optional partitioning for very large history
-- More indicator families: technicals, fundamentals, macro series
+That boundary makes it possible for something like Inunity to use prices without turning MarketLens into a giant finance application.
+
+## How I check my work
+
+I added a demo mode with seeded data, operational pages and API documentation so I can walk through the system without relying on an outside provider.
+
+The repository also documents health checks, logs, observability and quality reports.
+
+I haven't published a repeatable production load benchmark, so I wouldn't claim a specific throughput or latency improvement. The stronger story here is about correctness and recovery, not impressive numbers on a slide.
+
+## What I'd still improve
+
+I want to keep improving backfill visibility, failure diagnostics and performance testing under larger data volumes.
+
+I'd also like to make the boundary between historical data and genuinely time-sensitive quotes even easier for API consumers to understand.
+
+## What I learned
+
+Building MarketLens made me much more careful about the information behind an application.
+
+A chart can look perfect while its data is wrong. That's a dangerous kind of bug because it's easy to miss.
+
+**I'd rather show someone a stale quote honestly than give them a fresh-looking number I can't explain.**
+
+[Explore the code](https://github.com/zubairmuwwakil/marketdata) · [Why I stopped treating stock prices like a frontend problem](/blog/why-i-stopped-treating-stock-prices-like-a-frontend-problem/)
