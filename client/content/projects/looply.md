@@ -1,5 +1,5 @@
 ---
-title: "I kept missing return windows. So I made my inbox do the remembering."
+title: "I wanted my inbox to remember the return dates for me"
 description: "Looply grew from a familiar frustration into a full-stack project for receipts, renewals, return deadlines and careful automation."
 date: 2026-11-12
 cover: /assets/looply-cover.jpg
@@ -10,11 +10,11 @@ liveUrl: https://looply.zubairmuwwakil.com
 repoUrl: https://github.com/zubairmuwwakil/return-saas
 ---
 
-I have a bad habit of remembering a return deadline just after it passes.
+A return window can disappear faster than you expect.
 
-The receipt is somewhere in my inbox. The shipping email is in another thread. A free trial has turned into a paid subscription. And technically, all the information was there the whole time.
+The receipt is somewhere in your inbox. The shipping update is in another thread. A free trial quietly turns into a paid subscription. And technically, all the information was there the whole time.
 
-I just wasn't going to search for it every week.
+I kept thinking there should be a better way to use it than searching through old emails every week.
 
 That gave me the idea for **Looply**: what if my inbox could help me keep track of the things I'd already bought?
 
