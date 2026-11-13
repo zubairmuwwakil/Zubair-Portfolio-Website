@@ -1,83 +1,112 @@
 ---
-title: PickleOps — The Pickleball Social
-description: A shipped club-pickleball product — Next.js web app plus a React Native iOS client for sessions, ladders, ratings, and payments.
-date: 2026-04-10
+title: PickleOps — From Manual Sports Operations to Production Software
+description: How I turned manual pickleball league workflows into a live web and iOS platform used by clubs, organizers and players.
+date: 2026-11-12
 cover: /assets/pickleops-cover.jpg
-coverAlt: Cartoon pickleball court with players mid-rally, below a club dashboard showing scheduled sessions, player ratings, balanced pairings and admin controls.
-tags: [Next.js, React Native, TypeScript, Prisma, PostgreSQL, iOS]
-stack: [Next.js (App Router), React, React Native, TypeScript, Tailwind, PostgreSQL, Prisma, Zod, iOS]
+coverAlt: Illustrated pickleball court and club dashboard showing sessions, player ratings and scheduling controls.
+tags: [Operations, Automation, Product Engineering, React Native, TypeScript, PostgreSQL, Applied AI]
+stack: [Next.js, React, React Native, TypeScript, PostgreSQL, Prisma, iOS, pgvector]
 liveUrl: https://pickleball.zubairmuwwakil.com
 appStoreUrl: https://apps.apple.com/us/app/the-pickleball-social/id6759585852
+repoUrl: https://github.com/zubairmuwwakil/pickleops
 ---
 
-One product, two clients: a web app for running sessions and a React Native iOS app shipped to the App Store and maintained through 21 releases in five months.
+I started close to the problem, not with a feature list. Working in pickleball program operations, I saw organizers manage registration, attendance, scheduling, ratings and payments across spreadsheets, messages and separate services. The process worked when a program was small, but each added session created more manual coordination and more opportunities for mistakes.
 
-Player roster, attendance, balanced grouping, match scheduling, score entry, and ratings with audit history — for clubs that were running all of it on spreadsheets and group chats.
+I proposed and built **The Pickleball Social (PickleOps)** to make those workflows repeatable. It grew into a web platform for organizers and a React Native iOS application for people running and playing in sessions. I also worked directly with partner organizations on demonstrations, adoption, onboarding and external integrations.
 
-## Problem
+This case study explains the **operational problem, the choices I made, the deployment work and what changed**, not just the frameworks I used.
 
-Clubs run sessions, ladders, and player ratings on spreadsheets and group chats. Organizers lose evenings to admin, and ratings drift out of date.
+## Results at a glance
 
-Running drop-in sessions — open play, ladder nights — is chaotic without structure:
+- **Approximately 850 accounts and more than 1,000 participants** supported across company and partner-club operations.
+- **Scheduling work reduced from about 10 minutes to seconds** for workflows that previously required manual grouping or match setup.
+- **Tracked repeat registration increased from approximately 20% to 89%** in an eight-week cohort during broader program and software improvements. This is an observed result, **not a controlled claim that the software alone caused the increase**.
+- **21 iOS releases in five months**, reflecting continuous delivery and support after launch.
+- **Approximately 136 unique people used the production AI assistant** after it became available around April 2026.
 
-- Organizers need a quick way to manage a roster, including inactive players.
-- Attendance changes every session and affects fair grouping.
-- Groups need to be formed by *skill similarity* to keep games competitive.
-- Matches must be generated consistently for groups of different sizes.
-- Ratings must update deterministically and **never double-apply** if a finalize call is repeated.
+Figures are from my operational records and experience; they are approximate, not independently audited platform-wide benchmarks.
 
-I wanted a system that is fast to use during a live session, but still enforces correctness like a production app.
+## 1. The problem was operational, not just technical
 
-## Outcomes
+Before the platform, an organizer might register players in one place, update attendance in a spreadsheet, arrange balanced games by hand, chase scores in messages and reconcile ratings afterward. Staff also needed to handle changes when a participant canceled or a court had poor connectivity.
 
-- **Shipped to the App Store** and maintained through 21 releases in five months.
-- **Sessions, ratings, and payments handled in one place** — organizers stopped running the club from spreadsheets.
-- **Session workflow in minutes:** create a session, mark attendance, generate groups, generate matches, enter scores, finalize.
-- **Balanced play:** grouping based on ratings clusters players by similar skill, reducing blowouts.
-- **Ratings you can trust:** Glicko-2 updates applied atomically, with an audit trail of before, after, and delta.
+That created three recurring problems:
 
-## Technical decisions
+- **Time:** staff repeated the same scheduling and reporting work every session.
+- **Consistency:** manual edits and handoffs made it hard to keep registrations, results and ratings aligned.
+- **Growth:** onboarding another club required more administration rather than a reusable process.
 
-### Glicko-2 over plain Elo
+My first job was to understand the work well enough to decide what could be automated, what still required human judgment, and which failures would matter most during a live event.
 
-Glicko-2 extends Elo with a rating deviation — how confident the system is in a rating — and a volatility term for how erratic a player's results are. That matters for drop-in club play, where someone can miss six weeks and come back: plain Elo would treat their stale rating as gospel, while Glicko-2 widens the uncertainty and lets the rating correct faster.
+## 2. I owned the path from an idea to a deployed product
 
-### Schema designed for auditability
+I proposed a unified workflow, gathered requirements from the people actually running programs, designed the core application and delivered working web and mobile clients.
 
-Instead of only storing "current rating," I introduced **rating snapshots** — `RatingSnapshot(before, after, delta, matchId?, sessionId)`. This makes "why did my rating change?" an answerable question, and leaves room to expand into player history, charts, and analytics without a migration.
+The organizer journey became:
 
-### Normalized many-to-many modelling for doubles
+1. Create or configure a session.
+2. Register players and record attendance.
+3. Generate balanced groups and matches from session data.
+4. Record scores, including when connectivity is unreliable.
+5. Finalize results and update the rating history.
+6. Use the same data for follow-up, reporting and future sessions.
 
-Matches and teams use a join table, `MatchTeamMember(matchId, playerId, team)`, rather than `team1Player1Id / team1Player2Id / …` columns. It avoids awkward wide rows and simplifies match generation and querying across any match format.
+Instead of building a dashboard that only displayed information, I focused on **software that changes how the work gets done**. I continued shipping fixes, new capabilities and product releases once real users began depending on it.
 
-### Pure business logic separated from I/O
+## 3. The engineering decisions were driven by real failures
 
-Core algorithms live as pure functions — the Glicko-2 rating engine, the grouping strategy, and the match-generation formats each in their own module. Easier to test, easier to reason about, and easier to explain in an interview.
+### Offline-first scoring
 
-### Atomic match finalization to prevent double-apply
+Some courts have unreliable mobile coverage. If score entry fails offline, the organizer returns to paper and the original manual process survives.
 
-Finalization is treated as a critical section: verify scores exist, verify not already finalized, then update ratings, create snapshots, and set `finalizedAt` **in a single transaction**. That closes three real-world failure modes — duplicate finalize clicks, retried requests, and race conditions during a live session.
+I designed mobile scoring around locally recorded changes, replay-safe synchronization and version-aware conflict detection. A reconnect should not silently overwrite a different score entered by another device.
 
-### Offline-first sync on the mobile client
+[Read the deeper engineering write-up on offline scoring](/blog/offline-first-sync-on-a-pickleball-court/).
 
-Scoring works on courts with no signal and reconciles cleanly on reconnect, using version-based conflict resolution so concurrent edits are detected rather than silently overwritten. There's a longer write-up of the reasoning in [Why scorekeeping had to work with no signal](/blog/offline-first-sync-on-a-pickleball-court/).
+### Reliable match finalization
 
-### DUPR single sign-on with opt-in match write-back
+A duplicate tap, retry or concurrent request must not apply a rating change twice. I designed match finalization as a transaction that checks state, applies the update, records a history snapshot and marks the match finalized together.
 
-Players authenticate against DUPR through a WebView, and matches can be written back on an opt-in basis — keeping external ratings in sync without manual entry.
+The core grouping, match-generation and Glicko-2 rating logic was separated from I/O so it could be reasoned about and tested independently. The result is an auditable workflow rather than a spreadsheet full of manual corrections.
 
-### Bluetooth proximity discovery
+### Integrating a system players already trusted
 
-Nearby players can be invited directly, with explicit consent gates before anyone joins a match.
+Players already used DUPR for their ratings. Requiring a second, disconnected profile would have created friction.
 
-### Production deployment and migration handling
+I worked with DUPR's technical stakeholders on authentication, integration review and match submission. The implementation supports user-directed account linking and opt-in match write-back. The difficult part was correctly validating data and matching the expectations of both systems, not simply calling an endpoint.
 
-Deploying surfaced the class of problem you only hit in production: Prisma schema drift against the production database, required column additions with existing rows, and build-time migration execution. The approach that worked was to make migration-safe changes first — nullable where needed — apply migrations via `prisma migrate deploy` in the build pipeline, then backfill and tighten constraints once it was safe.
+### Adding practical AI assistance
 
-## What I'd improve next
+I later added a customer-facing AI assistant using LLM tools and PostgreSQL/pgvector retrieval. The implementation includes retrieval-backed context and application tools for relevant workflows. Approximately 136 distinct users have actively used it since around April 2026.
 
-- Better group balancing: skill clustering first, then equalize group sizes
-- Support for group sizes 4/5/6 with correct round-robin templates and consistent ordering by rating
-- A session summary dashboard: matches played, rating movers, attendance stats
-- Player profile history: rating trend, match history, win/loss over time
-- Automated tests for the rating and match-generation logic
+I have **not** published a formal evaluation of answer accuracy, retrieval quality or inference latency. I would rather state what is deployed and used than imply those measurements already exist.
+
+## 4. Adoption took more than shipping code
+
+I demonstrated the product to partner-club leaders, handled their concerns and supported onboarding. One organization tested the software with a subset of its team for **three months** before deciding to sign an agreement.
+
+Real support also shaped the roadmap. Issues included broken payment links, completed payments that did not create registrations, interrupted connections and unexpected errors. I handled user reports and improved payment, registration and recovery workflows rather than treating deployment as the finish line.
+
+This work taught me to translate between a business user's description of a problem and the underlying system behavior. A good technical fix also needs a clear explanation and a safe rollout.
+
+## 5. What the results do — and do not — prove
+
+The clearest direct engineering result was reducing some repetitive scheduling tasks from minutes to seconds. Product adoption, continued releases and use by partner organizations show that this was more than a prototype.
+
+Repeat registration also improved substantially in a tracked cohort. But coaching, clearer communication and other program changes happened alongside the software, so I do not attribute the full increase to one feature. This distinction matters when interpreting operational data.
+
+## 6. What I would improve next
+
+- Establish consistent before/after measurements for staff time, payment failures and registration completion.
+- Build a repeatable AI evaluation set for retrieval relevance, answer quality and tool correctness.
+- Improve operational reporting so program leads can see attendance, churn, engagement and capacity in one place.
+- Keep hardening reliability and access controls as the number of partner organizations grows.
+
+## What I learned
+
+**The most useful software starts with an accurate understanding of the real workflow.** The hard part was not choosing Next.js, React Native or PostgreSQL. It was finding the right manual steps to remove, designing for live-event failures, getting other organizations to trust the system, and remaining responsible for it after launch.
+
+That experience is why I want to keep working on software, data and AI that help people run complex operations—not just produce demonstrations.
+
+**Explore the product:** [Live platform](https://pickleball.zubairmuwwakil.com) · [iOS App Store](https://apps.apple.com/us/app/the-pickleball-social/id6759585852) · [Public architecture overview](https://github.com/zubairmuwwakil/pickleops)
