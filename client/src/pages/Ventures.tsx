@@ -57,6 +57,7 @@ export default function Ventures() {
         {
           "@type": "Organization",
           name: "Echelon Community Athletics Inc.",
+          url: "https://echeloncommunity.ca/",
           founder: { "@id": SITE_ORIGIN + "/#person" },
         },
       ],
@@ -162,7 +163,10 @@ export default function Ventures() {
             It is legally separate from Zemi Echelon, not a software subsidiary.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
-            A dedicated nonprofit website can be linked here when it is ready.
+            Learn more about its independent programs and mission at{" "}
+            <a href="https://echeloncommunity.ca/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline underline-offset-4">
+              echeloncommunity.ca
+            </a>.
           </p>
         </div>
       </section>
