@@ -29,3 +29,17 @@ jobs:
           grep -q 'Zemi Echelon' dist/ventures/index.html
           grep -q 'Echelon Community Athletics' dist/ventures/index.html
           grep -q 'https://zubairmuwwakil.com/ventures/' dist/sitemap.xml
+      - name: Verify source-backed flagship proof pages
+        run: |
+          set -eu
+          for slug in pickleops marketlens inunity; do
+            page="dist/projects/$slug/index.html"
+            test -s "$page"
+            grep -q 'The problem, the build, and the proof' "$page"
+            grep -q 'Check the evidence yourself' "$page"
+          done
+          grep -q 'offline.conflict-resolver.ts' dist/projects/pickleops/index.html
+          grep -q 'pickleball-session-manager' dist/projects/pickleops/index.html
+          grep -q 'PriceHonestyTest.java' dist/projects/marketlens/index.html
+          grep -q 'purchaseMerge.test.ts' dist/projects/inunity/index.html
+          grep -q 'Three projects that show how I work' dist/projects/index.html
