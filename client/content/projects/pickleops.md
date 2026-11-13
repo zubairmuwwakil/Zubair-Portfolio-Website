@@ -6,9 +6,9 @@ cover: /assets/pickleops-cover.jpg
 coverAlt: "Illustrated pickleball court and club dashboard showing sessions, player ratings and scheduling controls."
 tags: [Product Engineering, Sports Technology, Operations, Reliability, React Native]
 stack: [Next.js, React, React Native, TypeScript, PostgreSQL, Prisma, iOS, pgvector]
-liveUrl: https://pickleball.zubairmuwwakil.com
+liveUrl: https://www.pbsocial.ca
 appStoreUrl: https://apps.apple.com/us/app/the-pickleball-social/id6759585852
-repoUrl: https://github.com/zubairmuwwakil/pickleops
+repoUrl: https://github.com/zubairmuwwakil/pickleball-session-manager
 ---
 
 I didn't set out to build a big sports platform.
@@ -22,6 +22,12 @@ And I was doing some of it myself, so I knew how frustrating it could be.
 Eventually I decided to build the software I wished we had.
 
 That became **The Pickleball Social**.
+
+## If you only have two minutes
+
+This is a real product, not just a project that looks good in a screenshot. You can [see the public PB Social website](https://www.pbsocial.ca/), [open the iOS listing](https://apps.apple.com/us/app/the-pickleball-social/id6759585852), and inspect the code and tests linked above.
+
+The shortest way to understand the engineering is to follow a league-night problem: an organizer needs to keep games running even when the gym's connection drops. The app needs to preserve work, replay it when possible, and make disagreements visible when two edits cannot safely be combined.
 
 ## I started with the work, not the tech stack
 
@@ -46,6 +52,14 @@ Then there was match finalization. If somebody taps twice, or a request gets ret
 And payments taught me a different lesson. A successful payment screen means very little if the person still isn't registered. I dealt with broken links, failed registrations after payment, and other reports that came directly from the people relying on the product.
 
 I learned quickly that **shipping the feature is only half the job. The other half is being there when it doesn't work.**
+
+## A failure case I can explain in code
+
+Imagine a coach enters a result with weak Wi-Fi. The request might reach the server even if the reply never gets back to the phone. Blindly retrying as a brand-new action risks doing the work twice.
+
+That is why I cared about **stable idempotency keys** on retried mutations. In the public mobile tests, the same key is reused across requests. And when a durable offline action hits a version conflict or validation error, the conflict handling code can capture it for review instead of hiding it behind a generic error message.
+
+This is a more useful engineering conversation than simply saying the app supports offline mode. You can ask me what fails, how that failure is represented, and what a coach sees next.
 
 ## Getting clubs to trust it took work too
 
@@ -87,4 +101,4 @@ I still care about clean architecture, tests and a sensible database design. But
 
 **The best part of building something is seeing it make somebody else's day easier.**
 
-[Why scorekeeping had to work with no signal](/blog/offline-first-sync-on-a-pickleball-court/) · [Try the platform](https://pickleball.zubairmuwwakil.com)
+[Why scorekeeping had to work with no signal](/blog/offline-first-sync-on-a-pickleball-court/) · [Explore PB Social](https://www.pbsocial.ca/) · [Browse the full implementation](https://github.com/zubairmuwwakil/pickleball-session-manager)
