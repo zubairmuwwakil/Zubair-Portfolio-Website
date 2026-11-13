@@ -44,7 +44,7 @@ function shareCard(slug?: string): string | undefined {
  * ways and fail the build.
  */
 export const DEFAULT_SHARE_IMAGE_ALT =
-  "Zubair Muwwakil — Backend / Full-Stack Software Engineer, Brooklyn, NY";
+  "Zubair Muwwakil — Software Engineer & Founder, Brooklyn, NY";
 
 /**
  * Cover art is authored in frontmatter as a site-absolute path, because that is
