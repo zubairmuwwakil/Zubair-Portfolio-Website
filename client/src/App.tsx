@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Portfolio from "@/pages/Portfolio";
+import Ventures from "@/pages/Ventures";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Projects from "@/pages/Projects";
@@ -39,6 +40,7 @@ function AppRouter() {
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:slug" component={BlogPost} />
         <Route path="/projects" component={Projects} />
+        <Route path="/ventures" component={Ventures} />
         <Route path="/projects/:slug" component={CaseStudy} />
         <Route path="/resume" component={Resume} />
         <Route path="/privacy" component={Privacy} />

@@ -1,0 +1,31 @@
+name: Validate portfolio pull requests
+
+on:
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify pre-rendered production build
+        run: npm run build:ssg
+      - name: Check new ventures page and sitemap
+        run: |
+          test -s dist/ventures/index.html
+          test -s dist/sitemap.xml
+          grep -q 'Zemi Echelon' dist/ventures/index.html
+          grep -q 'Echelon Community Athletics' dist/ventures/index.html
+          grep -q 'https://zubairmuwwakil.com/ventures/' dist/sitemap.xml

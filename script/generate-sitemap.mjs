@@ -110,6 +110,7 @@ async function main() {
     // Trailing slashes throughout: pre-rendered routes are served from
     // directories, so the unslashed form 301s.
     { loc: `${SITE_ORIGIN}/projects/`, priority: "0.8" },
+    { loc: `${SITE_ORIGIN}/ventures/`, priority: "0.8" },
     { loc: `${SITE_ORIGIN}/resume/`, priority: "0.9" },
     { loc: `${SITE_ORIGIN}/privacy/`, priority: "0.5" },
     ...caseStudies,

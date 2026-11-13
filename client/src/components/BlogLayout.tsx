@@ -45,9 +45,9 @@ export function BlogLayout({ children }: { children: ReactNode }) {
                 height={192}
                 className="w-9 h-9 object-cover rounded-lg shadow group-hover:scale-110 transition-transform"
               />
-              <span className="font-serif font-bold text-xl tracking-tight">Zubair Muwwakil</span>
+              <span className="font-serif font-bold text-xl tracking-tight hidden sm:inline">Zubair Muwwakil</span>
             </Link>
-            <div className="flex items-center gap-4 sm:gap-8">
+            <div className="flex items-center gap-2 sm:gap-5 lg:gap-8">
               <Link
                 href="/projects/"
                 className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide"
@@ -55,8 +55,14 @@ export function BlogLayout({ children }: { children: ReactNode }) {
                 Projects
               </Link>
               <Link
-                href="/blog/"
+                href="/ventures/"
                 className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide"
+              >
+                Ventures
+              </Link>
+              <Link
+                href="/blog/"
+                className="hidden sm:inline text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide"
               >
                 Blog
               </Link>
