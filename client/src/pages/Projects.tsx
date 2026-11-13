@@ -68,6 +68,60 @@ export default function Projects() {
         </p>
       </header>
 
+      <section className="mb-12" aria-labelledby="featured-proof-heading">
+        <div className="mb-5">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-primary font-semibold">
+            Start here
+          </p>
+          <h2 id="featured-proof-heading" className="mt-2 font-serif text-2xl md:text-3xl font-bold">
+            Three projects that show how I work
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+            A production sports product, a Java data pipeline, and a financial system.
+            Each story includes a short architecture map and links to the actual implementation.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            {
+              slug: "pickleops",
+              label: "Product engineering",
+              title: "Pickleball Social",
+              description: "A live product with offline reliability, real users, and the messy details of running leagues.",
+            },
+            {
+              slug: "marketlens",
+              label: "Backend and data",
+              title: "MarketLens",
+              description: "A Java pipeline that handles provider failures, safe ingestion, and honest quote freshness.",
+            },
+            {
+              slug: "inunity",
+              label: "Full-stack and finance",
+              title: "Inunity",
+              description: "A privacy-aware financial ledger built around reliable capture and cautious reconciliation.",
+            },
+          ].map((featured) => (
+            <article key={featured.slug} className="flex flex-col rounded-2xl border border-border/70 bg-card p-5 shadow-sm">
+              <p className="text-xs uppercase tracking-wide font-semibold text-primary">
+                {featured.label}
+              </p>
+              <h3 className="mt-2 text-xl font-bold font-display">{featured.title}</h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                {featured.description}
+              </p>
+              <Link
+                href={`/projects/${featured.slug}/`}
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
+                Read the case study and inspect the proof
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <ul className="space-y-6">
         {list.map((project) => {
           // Prefer the on-domain case study over the Google Drive PDF: the PDF
