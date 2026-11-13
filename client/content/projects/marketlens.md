@@ -21,6 +21,12 @@ What if the provider gives you a bad row? What if a scheduled job runs twice? Wh
 
 I started **MarketLens** because I wanted to understand those problems properly instead of hiding them behind a frontend chart.
 
+## If you only have two minutes
+
+I built a Java backend to ingest market prices, recover from bad external data, and tell callers when information is stale. The interesting part is not displaying a stock price. It is making the price **explainable and safe to reuse**.
+
+You can [explore the running demo](https://marketdata.zubairmuwwakil.com) or look at the ingestion, quote service, and tests linked above. The demo uses seeded data; it is not evidence of live-market trading performance.
+
 ## A price isn't just a number
 
 A stock price needs context.
@@ -42,6 +48,14 @@ I also added row-level quarantine. When a provider sends a malformed entry, the 
 That was an important shift for me.
 
 It's tempting to think of a pipeline as successful when it finishes. I started thinking of success as **knowing what arrived, what was accepted, what failed, and why.**
+
+## The failure path matters as much as the happy path
+
+Here's a scenario I designed for, not a claim about a specific production outage: a daily provider returns valid rows, a malformed row, and then a rate-limit error.
+
+I don't want one bad row to erase everything that was useful. The ingestion service tracks what was attempted and what failed; rejected rows can be examined through the quarantine path. Repeated ingestion needs to avoid duplicating accepted price records.
+
+The quote read path is just as important. When a fresh price is unavailable, it needs to say what is known rather than manufacture a fresh-looking value. Those decisions show up in the ingestion service, quote service, and price-honesty tests.
 
 ## The backend needs to be useful to another product
 
@@ -75,4 +89,4 @@ A chart can look perfect while its data is wrong. That's a dangerous kind of bug
 
 **I'd rather show someone a stale quote honestly than give them a fresh-looking number I can't explain.**
 
-[Explore the code](https://github.com/zubairmuwwakil/marketdata) · [Why I stopped treating stock prices like a frontend problem](/blog/why-i-stopped-treating-stock-prices-like-a-frontend-problem/)
+[Try the seeded-data demo](https://marketdata.zubairmuwwakil.com) · [Explore the source](https://github.com/zubairmuwwakil/marketdata) · [Why I stopped treating stock prices like a frontend problem](/blog/why-i-stopped-treating-stock-prices-like-a-frontend-problem/)
