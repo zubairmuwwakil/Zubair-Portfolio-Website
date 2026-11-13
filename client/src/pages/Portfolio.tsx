@@ -23,6 +23,7 @@ import {
   X,
   SquareStack,
   Apple,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { shareImageSize } from "@/lib/schema";
