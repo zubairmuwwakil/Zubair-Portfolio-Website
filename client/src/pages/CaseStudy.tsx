@@ -1,6 +1,7 @@
 import { Link, useRoute } from "wouter";
 import { ArrowLeft, Apple, Github, ExternalLink } from "lucide-react";
 import { BlogLayout } from "@/components/BlogLayout";
+import { CaseStudyProof } from "@/components/CaseStudyProof";
 import { useDocumentHead } from "@/hooks/use-document-head";
 import { renderMarkdown } from "@/lib/markdown";
 import { getCaseStudy, caseStudyUrl } from "@/lib/case-studies";
@@ -133,6 +134,7 @@ export default function CaseStudy() {
           )}
         </header>
 
+        <CaseStudyProof slug={study.slug} />
         <div className="border-t border-border/60 pt-2">{renderMarkdown(study.body)}</div>
       </article>
     </BlogLayout>
