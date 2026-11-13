@@ -186,6 +186,14 @@ export const education: Education[] = [
     startDate: "In progress",
     endDate: null,
   },
+  {
+    id: 6,
+    school: "University of Toronto",
+    degree: "Undergraduate coursework (degree not completed)",
+    field: "Computer Science and Mathematics",
+    startDate: "2020",
+    endDate: "2025",
+  },
 ];
 
 export const certifications: Certification[] = [
