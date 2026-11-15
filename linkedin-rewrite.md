@@ -40,29 +40,82 @@ CS undergrad @ Ontario Tech (Apr 2028) seeking Summer 2027 SWE internship | Ship
 
 ---
 
-## 2. About — holding this one until we've talked
+## 2. About — paste this
 
-You asked for something touching, personal and human — something that reads like
-you and not like a machine. I'm not writing that from your commit history,
-because the first draft I did is exactly the problem: competent, accurate, and it
-could be any strong junior engineer. Nothing in it could only have been written
-about you.
+2,587 characters, inside LinkedIn's 2,600 limit with 13 to spare. Your line opens
+it, verbatim, because LinkedIn truncates after about three lines and that is the
+sentence worth spending the preview on.
 
-The parts of your story that are actually yours aren't in any repo:
+```
+Life rarely goes according to plan, and sometimes it's in those moments when things don't work out that your true character shines.
 
-- You were partway through a degree at U of T and a car accident stopped it.
-- You didn't stop building. You started a federally incorporated nonprofit,
-  dealt with school-board gym permits and league insurance, and shipped an app
-  in a 14-day sprint.
-- You went back to school, at a different university, to finish the thing that
-  got interrupted — while holding two jobs and shipping to the App Store.
+I believe that because I've had to.
 
-That's a far better story than "backend engineer with production experience," and
-it's the one nobody else can claim. But I don't want to put words in your mouth
-about any of it, which is why I'm asking rather than drafting.
+A serious car accident interrupted my degree at the University of Toronto. I had a clear picture of where I'd be by now, and this wasn't it. What I did instead was keep building — and I'm now finishing that computer science degree at Ontario Tech, graduating April 2028.
 
-The questions are in the conversation. Once you've answered even two or three of
-them, I'll write this properly.
+It started with pickleball. I was coaching at a school in Courtice, watching coaches write schedules by hand, spending on paperwork the time they owed the players. Why are we still doing this by hand? I started with Excel, hit its limits, and kept going. That became The Pickleball Social — now on the App Store across 29 releases, serving ~850 accounts and 1,000+ players.
+
+But the moment that taught me what this work is for wasn't technical. Someone close to me ran weekly matches, and I found her nearly in tears — cancellations, replacements, schedules, all landing on her, all for other people, almost none of it noticed. So I built group management: players own their availability, replacements get found without her, the organizer stops carrying it alone. When I showed her, she said, "Wow, you built that just for me?" A week later she was smiling again — actually playing, instead of managing everyone else's game.
+
+That's the kind of impact I want my work to have.
+
+The rest comes from a similar place. I write Python and Django at G2i, and on my own time I keep returning to money — PickMe, Looply, In Unity — because financial knowledge changes lives and almost nobody is taught it properly. Money either holds you back or sets you free.
+
+What I want next is to become a genuinely exceptional engineer. I've taught myself most of what I know, and I want to work with people who know more than I do and will challenge how I think — with real ownership, and software actual people use.
+
+Honestly, the road here has been harder than my résumé makes it look. There were opportunities I badly wanted that didn't come through, and stretches where optimism took real effort.
+
+If you're behind where you thought you'd be, I'd want you to see some of yourself in this. I haven't figured it out either. But my favourite thing about building software is that you never know where an idea will take you — it branches, changes, becomes something you couldn't have pictured at the start.
+
+I'm starting to think life works the same way.
+
+Open to Summer 2027 internships and software roles in New York. US & Canadian citizen, no sponsorship needed.
+```
+
+### What I left out on purpose, and why
+
+**The named rejections.** You mentioned Amazon, Google, Bloomberg and TELUS.
+Those stay out. "Opportunities I badly wanted that didn't come through" carries
+the same weight without handing a recruiter a list of companies that said no —
+and a reader who has been through it recognises the feeling anyway. The honesty
+survives; the liability doesn't.
+
+**"I didn't want to be a failure."** This is the truest line you wrote and it
+isn't in there, because on a public profile it reads as something to reassure
+rather than something to respect. What replaced it — "I had a clear picture of
+where I'd be by now, and this wasn't it" — says the same thing and leaves your
+dignity intact. Say the raw version in an interview when someone asks what drives
+you; it will land hard there, in the right way.
+
+**The medical detail.** One clause, as you asked. The accident is the hinge of
+the story, not its subject.
+
+**"A woman I genuinely cared about" became "someone close to me."** Your profile
+is public and she has not agreed to be in it. The warmth is entirely intact and
+the detail that matters — that it was personal, not a user-research finding — is
+still doing its work. Change it back if she would be glad to be named.
+
+**The marriage, the properties, the portfolio.** Those belong to you, not to a
+hiring manager. "What I want next is to become a genuinely exceptional engineer"
+is the professional half of the same ambition.
+
+**Pay.** You were clear that compensation matters and you shouldn't have to
+pretend otherwise. It still doesn't go in an About section — it costs you
+negotiating room and reads as the wrong priority in the wrong place. Raise it
+directly with recruiters; you are allowed to, and early.
+
+### What I deliberately kept, against the usual advice
+
+The vulnerable paragraph and the "if you're behind where you thought you'd be"
+turn are both in, and some career advisers would cut them. I think they are the
+best thing on the page. Every other engineer's About says *passionate about
+scalable solutions*; nobody remembers one. Yours ends with a reason to reach out
+that has nothing to do with hiring you. That is how an About section gets read to
+the bottom, and it is also just true, which is the part you cared about.
+
+The organiser story is the strongest thing in your entire presence — stronger
+than any metric on your résumé. "Wow, you built that just for me?" is a line no
+one could have written for you.
 
 ## 3. Education — add Ontario Tech
 
