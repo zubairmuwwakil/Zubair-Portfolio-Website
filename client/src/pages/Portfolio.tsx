@@ -358,9 +358,9 @@ export default function Portfolio() {
         "Clear operational visibility with traceable events from email ingestion through reminders and refunds."
       ].join("\n"),
       links: {
-        demo: "https://returnreminder.zubairmuwwakil.com",
-        github: "https://github.com/zubairmuwwakil/return-reminder-saas",
-        caseStudy: "https://returnreminder.zubairmuwwakil.com/case-study",
+        demo: "https://looply.zubairmuwwakil.com",
+        github: "https://github.com/zubairmuwwakil/return-saas",
+        caseStudy: "/projects/looply/",
       },
       stack: [
         "Node",
