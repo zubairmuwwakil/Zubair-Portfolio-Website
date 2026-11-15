@@ -113,6 +113,7 @@ async function main() {
     { loc: `${SITE_ORIGIN}/ventures/`, priority: "0.8" },
     { loc: `${SITE_ORIGIN}/story/`, priority: "0.8" },
     { loc: `${SITE_ORIGIN}/interview-journey/`, priority: "0.7" },
+    { loc: `${SITE_ORIGIN}/growth/`, priority: "0.7" },
     { loc: `${SITE_ORIGIN}/resume/`, priority: "0.9" },
     { loc: `${SITE_ORIGIN}/privacy/`, priority: "0.5" },
     ...caseStudies,

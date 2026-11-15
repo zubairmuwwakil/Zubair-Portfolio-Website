@@ -38,7 +38,7 @@ const MIN_SHARE_RATIO = 1.85;
 const MAX_SHARE_RATIO = 1.95;
 const ARTICLE_TYPES = new Set(["Article", "BlogPosting"]);
 /** Leaf content pages — the ones that sit under an index and need a trail back. */
-const LEAF_PAGE = /^(?:(projects|blog)[/\\][^/\\]+|story|interview-journey)[/\\]index\.html$/;
+const LEAF_PAGE = /^(?:(projects|blog)[/\\][^/\\]+|story|interview-journey|growth)[/\\]index\.html$/;
 
 let failures = 0;
 const fail = (where, msg) => {

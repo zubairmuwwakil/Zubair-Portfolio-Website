@@ -96,12 +96,25 @@ export default function InterviewJourney() {
           </p>
         </header>
 
-        <div className="rounded-2xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-5 sm:p-6">
+        <div className="rounded-2xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-5 sm:p-6 space-y-4">
           <p className="font-serif text-xl sm:text-2xl text-foreground leading-relaxed">
             After enough setbacks, you start wondering if you're good enough.
             I don't want to pretend that feeling isn't real.
           </p>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="leading-relaxed text-foreground/85">
+            When I get a rejection, I don't immediately feel motivated to study harder.
+            Sometimes I feel discouraged for a while. I think about the life I wanted,
+            and it takes time to find my energy again. Eventually, I get curious about
+            something and return to practicing, learning, or building.
+          </p>
+          <p className="leading-relaxed text-foreground/85">
+            I don't want to edit out that gap between disappointment and motivation.
+            It's part of the journey, too.
+          </p>
+          <Link href="/growth/" className="inline-flex items-center gap-2 font-semibold text-primary hover:underline underline-offset-4">
+            See the work I've kept doing <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <p className="text-sm text-muted-foreground">
             This page is about my experience, not a judgment of any employer or their interview process.
           </p>
         </div>
@@ -152,9 +165,9 @@ export default function InterviewJourney() {
             What those outcomes don't show
           </h2>
           <p>
-            They don't show the work I went back to after closing the email.
-            They don't show the things I built, the skills I kept practicing,
-            or the people I was able to help in the meantime.
+            They don't show the time it sometimes took before I felt ready to work
+            again. And they don't show the things I later built, the skills I
+            kept practicing, or the people I was able to help in the meantime.
           </p>
           <p>
             I used to picture myself already working at a major tech company,

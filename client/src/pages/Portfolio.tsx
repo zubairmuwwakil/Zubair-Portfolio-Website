@@ -1267,6 +1267,9 @@ export default function Portfolio() {
               <Link href="/interview-journey/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
                 The interviews that did not work out <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
+              <Link href="/growth/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+                The work I kept doing afterward <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
               <Link href="/projects/pickleops/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
                 The engineering behind Pickleball Social <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
