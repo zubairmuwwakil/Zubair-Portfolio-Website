@@ -437,7 +437,7 @@ export default function Portfolio() {
               <a href="#featured" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Featured</a>
               <a href="#experience" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Experience</a>
               <Link href="/ventures/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Ventures</Link>
-              <a href="#about" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">About</a>
+              <Link href="/story/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">My Story</Link>
               <Link href="/projects/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Projects</Link>
               <Link href="/blog/" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Blog</Link>
               <a href="#contact" className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
@@ -509,13 +509,13 @@ export default function Portfolio() {
                 >
                   Ventures
                 </Link>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection("about")}
+                <Link
+                  href="/story/"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="text-left px-4 py-3 rounded-xl border border-border/60 bg-card hover:bg-secondary transition-colors"
                 >
-                  About
-                </button>
+                  My Story
+                </Link>
                 <Link
                   href="/projects/"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -624,6 +624,9 @@ export default function Portfolio() {
                 </a>
                 <Link href="/ventures/" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium border border-border rounded-full px-7 h-12 text-base hover:bg-secondary transition-colors">
                   Explore my ventures <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+                <Link href="/story/" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium border border-border rounded-full px-7 h-12 text-base hover:bg-secondary transition-colors">
+                  Read my story <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
                 {profileData.resumeUrl && (
                   <a href={profileData.resumeUrl} className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border [border-color:var(--button-outline)] shadow-xs active:shadow-none min-h-10 rounded-full px-8 text-base h-12 flex items-center gap-2">
@@ -1257,10 +1260,17 @@ export default function Portfolio() {
                 I am continuing both my education and my practice as a software engineer.
               </p>
             </div>
-            <Link href="/projects/pickleops/" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
-              Read how I built software for real-world operations
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <div className="mt-6 flex flex-wrap gap-x-7 gap-y-3">
+              <Link href="/story/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+                Read my full story <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link href="/interview-journey/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+                The interviews that did not work out <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link href="/projects/pickleops/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-4">
+                The engineering behind Pickleball Social <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
