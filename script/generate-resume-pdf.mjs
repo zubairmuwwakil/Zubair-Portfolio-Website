@@ -59,13 +59,15 @@ const EMAIL = "zmuwwakil@gmail.com";
  * exactly the arrangement that let the old PDF drift out of step with the page,
  * so the selection lives here instead of forking the content.
  *
- * Chosen for: shipped-and-maintained production software (PickleOps), backend
+ * Chosen for: shipped-and-maintained production software (The Pickleball
+ * Social), backend
  * and operational depth (MarketLens), and testing rigour that is unusual at
  * this level and cheap for a screener to verify (glicko2-ts: a published
  * package, 100% branch coverage, mutation-tested against 18 seeded defects).
  *
  * Omitted projects are not weaker work. PickMe is a second shipped App Store
- * app, but PickleOps already carries the ships-and-maintains-iOS signal, while
+ * app, but The Pickleball Social already carries the ships-and-maintains-iOS
+ * signal, while
  * nothing else on the résumé carries what glicko2-ts does. orc, Looply and
  * MindSky likewise overlap with the four kept signals. All of them stay on the
  * web page, and the case studies carry them in full. Reordering this array is
@@ -74,7 +76,7 @@ const EMAIL = "zmuwwakil@gmail.com";
  * Matching is on the project heading's leading name. A name here that no longer
  * appears in resume.md fails the build rather than silently printing nothing.
  */
-const PDF_PROJECTS = ["PickleOps", "MarketLens", "glicko2-ts"];
+const PDF_PROJECTS = ["The Pickleball Social", "MarketLens", "glicko2-ts"];
 
 const MIME = {
   ".html": "text/html; charset=utf-8",

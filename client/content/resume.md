@@ -52,8 +52,8 @@ Toronto, ON · Mar 2023 – Feb 2026 · Part-time · *Promoted: Coach → Lead C
 - Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.
 - Ran a structured support and triage workflow for 1,000+ users across 8 cities, keeping organizers and players unblocked with clear updates.
 
-### The Senac Group — Financial Software Analyst (FP&A), Automation & Analytics
-Toronto, ON · Jun 2023 – May 2025 · Part-time → Full-time · *Promoted: Intern → Assistant Financial Analyst → Software Developer*
+### The Senac Group — Software Developer, Automation & Analytics
+Toronto, ON · Jun 2023 – May 2025 · *Assistant Financial Analyst (intern), Jun – Dec 2023 → Junior Software Engineer, Jan 2024 – Jan 2025 → Software Developer, Feb – May 2025*
 
 - Built internal automation and reporting logic in C#/.NET and SQL Server (T-SQL) to improve FP&A data accuracy, repeatability, and close-cycle reliability, cutting recurring workflow time by 10+ hours/week.
 - Developed ETL pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, shipping validation dashboards that surfaced discrepancies early to eliminate close-cycle rework.
@@ -76,7 +76,7 @@ Python 3.12, Typer, Pydantic, Claude Code CLI, Subprocess Execution, Git
 - Built an automated multi-step verification pipeline executing test suites and linters on generated code, capturing exact compiler and runtime diagnostics.
 - Designed an iterative feedback retry loop that injects exact failure diagnostics back into model context with escalated reasoning effort until builds pass cleanly.
 
-### PickleOps — The Pickleball Social (Club Operations Platform)
+### The Pickleball Social — Club Operations Platform
 Next.js (App Router), React Native, TypeScript, Prisma, PostgreSQL, iOS · [App Store](https://apps.apple.com/us/app/the-pickleball-social/id6759585852) · [Case study](/projects/pickleops/)
 
 - Shipped a club-management platform (Next.js web app for organizers + React Native iOS client on the App Store) maintained through 29 App Store releases since March 2026.

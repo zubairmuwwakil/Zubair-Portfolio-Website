@@ -27,7 +27,7 @@ Backend / full-stack software engineer in Brooklyn, NY. I build reliable APIs, d
 
 | Project | What it is | Stack |
 |---|---|---|
-| **[PickleOps — The Pickleball Social](https://zubairmuwwakil.com/projects/pickleops/)** | Shipped iOS + web product for running club pickleball | React Native · Next.js · TypeScript · Prisma · Postgres |
+| **[The Pickleball Social](https://zubairmuwwakil.com/projects/pickleops/)** | Shipped iOS + web product for running club pickleball | React Native · Next.js · TypeScript · Prisma · Postgres |
 | **[MarketLens](https://zubairmuwwakil.com/projects/marketlens/)** | Market data pipeline with idempotent ingestion, rate limiting, and full observability | Java 21 · Spring Boot · Postgres · Flyway · Bucket4j · OTLP |
 | **[Looply](https://zubairmuwwakil.com/projects/looply/)** | Finance assistant that turns inbox data into deadlines and retry-safe reminders | Next.js · TypeScript · Prisma · Neon Postgres · Stripe |
 | **[MindSky](https://zubairmuwwakil.com/projects/mindsky/)** | Visual thought mapping with snapshot undo/redo and debounced autosave | React · React Flow · Node · Postgres (JSONB) |
