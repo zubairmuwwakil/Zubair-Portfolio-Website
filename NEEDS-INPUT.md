@@ -490,7 +490,7 @@ Source link repointed to `marketdata` on 2026-08-06 and is correct as it stands.
    ~31s to wake on Render's free tier. A recruiter clicking "Live" may bounce first.
    Nothing to fix in code; it is the plan.
 
-## 16. LinkedIn and GitHub are missing from Google page one — diagnosis
+## 16. LinkedIn and GitHub are missing from Google page one — MOSTLY RESOLVED 2026-11-14
 
 Added 2026-08-16, from the live SERP for "zubair muwwakil". The site side was
 re-verified the same day and is **not** the problem: the live homepage carries
@@ -607,3 +607,59 @@ link.
 a `platform.linkedin.com` script to render what is functionally a styled link;
 the site already carries four plain-HTML links to the profile, which is the
 part crawlers read. Third-party script weight for zero marginal signal.
+
+### Status — re-verified 2026-11-14 (live SERP + his signed-in accounts)
+
+Supersedes the two residuals recorded under 16b on 2026-08-16; both are closed.
+The text above is kept as the original diagnosis.
+
+**The site won.** Live Google SERP for `"Zubair Muwwakil"`: `zubairmuwwakil.com`
+is the **#1 result with sitelinks** (Résumé, Projects, "More results from
+zubairmuwwakil.com"). The stale Google Sites snippet and its phone number are
+gone. The AI Overview now places him in **Brooklyn / NYC**, describes Echelon as
+an **active** not-for-profit, and cites the personal site — the "Dissolved for
+non-compliance" registry entry is off page one entirely. Caveat from the
+original item still applies: this SERP was read from a signed-in session, so
+treat the presence of results as solid and the ordering as approximate.
+
+**16b residual 1 — CLOSED.** The apex now answers with
+`google-site-verification=HWQfLaiUGLKKaqSB6HrlY0oA764YVaspDgSF8bFjKSA`
+alongside the SPF record. No HTML-tag backup token is needed unless the DNS
+record goes missing a second time.
+
+**16b residual 2 — CLOSED.** Search Console → Sitemaps shows both properties
+submitted and successfully read: `https://zubairmuwwakil.com/sitemap.xml`
+(submitted Aug 5, last read **Nov 7 2026**, 16 pages discovered) and
+`https://www.zubairmuwwakil.com/sitemap.xml` (submitted Aug 16, last read
+**Nov 12 2026**, 23 pages discovered). Both "Success".
+
+**16a (LinkedIn) — the one thing still open, and it is not deindexing.**
+`site:linkedin.com/in/zubairmuwwakil` returns the profile with the correct
+full-name title, `Zubair Muwwakil - Software Engineer | Backend & Full-Stack`,
+so the August surname fix landed and Google holds the page. But on the name
+query the only LinkedIn result on page one is LinkedIn's own directory page
+(`1900+ "Zubair" profiles`) — the profile is indexed and outranked, which is the
+signature of thin content served to the crawler rather than a penalty.
+
+Read off `linkedin.com/public-profile/settings` the same day: public visibility
+is **On**, and every section toggle — photo (Public), headline, websites,
+summary, posts, current *and past* positions, educations, certifications,
+recommendations — is set to **Allow**. One switch is not:
+
+> **Public visibility limits: ON.** "Even when your profile's public visibility
+> is on, we may not display all profile fields. Turning this off may make it
+> easier for unauthorized third parties to collect your public profile data."
+
+That is LinkedIn's anti-scraping switch, and an unauthenticated crawler is the
+third party it limits. Turning it **off** is the remaining lever; the trade-off
+is genuine (easier harvesting by scrapers and recruiter-data vendors) and the
+profile is already public and job-hunt-facing. Owner's call — not changed here,
+and the account is never to be automated. Path: Public profile settings →
+right rail, bottom → Public visibility limits → Off.
+
+**Open, unrelated to the above:** the Person JSON-LD `sameAs` in
+`client/index.html` still lists only GitHub, LinkedIn, Instagram and Facebook —
+not ORCID, X, dev.to or the App Store developer page that the site's own sidebar
+carries. Facebook currently outranks the LinkedIn profile on his name while the
+markup vouches for it. Worth revisiting, but it is a repo change and needs a
+decision first, so it is logged rather than made.
