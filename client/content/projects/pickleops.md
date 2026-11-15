@@ -8,7 +8,7 @@ tags: [Product Engineering, Sports Technology, Operations, Reliability, React Na
 stack: [Next.js, React, React Native, TypeScript, PostgreSQL, Prisma, iOS, pgvector]
 liveUrl: https://www.pbsocial.ca
 appStoreUrl: https://apps.apple.com/us/app/the-pickleball-social/id6759585852
-repoUrl: https://github.com/zubairmuwwakil/pickleball-session-manager
+repoUrl: https://github.com/zubairmuwwakil/pickleops
 ---
 
 I didn't set out to build a big sports platform.
@@ -80,7 +80,7 @@ Based on my operational records and experience:
 - The platform supported roughly **850 accounts**, with more than **1,000 participants** across company and partner-club operations.
 - Some scheduling jobs that took around **10 minutes** of manual work could be completed in **seconds**.
 - In a tracked eight-week cohort, repeat registration increased from about **20% to 89%**.
-- I shipped **21 iOS releases in five months**.
+- I shipped **29 iOS releases since March 2026**.
 - About **136 unique people** used the production AI assistant after its release around April 2026.
 
 These are approximate, self-reported figures, not independently audited benchmarks. The retention improvement also came during changes to coaching, communications and program operations, so I don't claim the software caused that entire increase by itself.
@@ -101,4 +101,4 @@ I still care about clean architecture, tests and a sensible database design. But
 
 **The best part of building something is seeing it make somebody else's day easier.**
 
-[Why scorekeeping had to work with no signal](/blog/offline-first-sync-on-a-pickleball-court/) · [Explore PB Social](https://www.pbsocial.ca/) · [Browse the full implementation](https://github.com/zubairmuwwakil/pickleball-session-manager)
+[Why scorekeeping had to work with no signal](/blog/offline-first-sync-on-a-pickleball-court/) · [Explore PB Social](https://www.pbsocial.ca/) · [Read the architecture and the decisions behind it](https://github.com/zubairmuwwakil/pickleops)

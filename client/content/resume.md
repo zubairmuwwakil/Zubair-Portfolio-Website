@@ -4,7 +4,7 @@ description: Full-Stack Software Engineer in Brooklyn, NY — Java/Spring Boot, 
 date: 2026-08-18
 ---
 
-Full-Stack Software Engineer with experience across Java/Spring Boot, Python, TypeScript, Swift, and .NET, building data-driven products with strong API design, production reliability, and modern AI-assisted engineering. Proven track record shipping mobile products to the App Store across 21 releases, architecting autonomous coding-agent orchestrators, designing high-throughput data pipelines, and optimizing database performance in PostgreSQL and SQL Server.
+Full-Stack Software Engineer with experience across Java/Spring Boot, Python, TypeScript, Swift, and .NET, building data-driven products with strong API design, production reliability, and modern AI-assisted engineering. Proven track record shipping mobile products to the App Store across 29 releases, architecting autonomous coding-agent orchestrators, designing high-throughput data pipelines, and optimizing database performance in PostgreSQL and SQL Server.
 
 Brooklyn, NY · U.S. & Canadian citizen — no sponsorship required · Computer Science undergraduate, Ontario Tech University (expected April 2028)
 
@@ -79,7 +79,7 @@ Python 3.12, Typer, Pydantic, Claude Code CLI, Subprocess Execution, Git
 ### PickleOps — The Pickleball Social (Club Operations Platform)
 Next.js (App Router), React Native, TypeScript, Prisma, PostgreSQL, iOS · [App Store](https://apps.apple.com/us/app/the-pickleball-social/id6759585852) · [Case study](/projects/pickleops/)
 
-- Shipped a club-management platform (Next.js web app for organizers + React Native iOS client on the App Store) maintained through 21 production releases in 5 months.
+- Shipped a club-management platform (Next.js web app for organizers + React Native iOS client on the App Store) maintained through 29 App Store releases since March 2026.
 - Architected offline-first sync with version-based conflict resolution and client-generated operation IDs, allowing organizers to score matches on courts with zero cellular signal.
 - Implemented atomic match finalization inside a single database transaction boundary, closing race conditions, duplicate clicks, and retry-induced rating corruption.
 - Integrated DUPR single sign-on with opt-in match write-back and Bluetooth proximity discovery behind explicit user consent gates.
@@ -102,7 +102,7 @@ TypeScript, Node.js, Vitest, CI/CD · Published NPM Package · Zero Dependencies
 Swift 6, SwiftUI, SwiftData, iOS 18, CoreLocation, MapKit · [App Store](https://apps.apple.com/us/app/pick-me/id6801966373) · [Blog Post](/blog/i-have-too-many-credit-cards-so-i-built-an-app-to-pick-one/)
 
 - Architected a deterministic multi-card reward optimization engine using pure Swift packages and SwiftData to recommend the highest-earning card at checkout.
-- Engineered 216 unit and store tests verifying proration across spend caps, effective-dated earn rules, FX costs, switch thresholds, and merchant-category reconciliation against posted statements.
+- Engineered 1,500+ unit and store tests across three Swift targets, verifying proration across spend caps, effective-dated earn rules, FX costs, switch thresholds, and merchant-category reconciliation against posted statements.
 
 ### Looply — Returns, Subscriptions & Receipt Automation SaaS
 Next.js, React 19, TypeScript, Prisma, Neon Postgres, Clerk, Stripe, Resend · [Case study](/projects/looply/)
