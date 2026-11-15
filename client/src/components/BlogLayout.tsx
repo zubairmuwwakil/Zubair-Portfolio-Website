@@ -66,6 +66,18 @@ export function BlogLayout({ children }: { children: ReactNode }) {
               >
                 Blog
               </Link>
+              <Link
+                href="/story/"
+                className="text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide"
+              >
+                Story
+              </Link>
+              <Link
+                href="/interview-journey/"
+                className="hidden lg:inline text-muted-foreground hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide"
+              >
+                Interviews
+              </Link>
               <button
                 onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
                 className="inline-flex items-center justify-center hover-elevate active-elevate-2 border border-transparent h-9 w-9 rounded-full"
