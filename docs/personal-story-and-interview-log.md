@@ -56,3 +56,23 @@ application, Narmi interview or upcoming BFUTR interviews as of 2026-11-15)
 as rejections. OBSIDI's rejected February cohort and successful June cohort
 are presented in a separate narrative note, not incorrectly counted as job
 interviews.
+
+
+## Growth journal (November 15, 2026)
+
+- /growth/ is a separate manually maintained page at client/src/pages/Growth.tsx.
+- Milestones are data in client/src/data/growthMilestones.ts.
+- The site owner's first-person description of the emotional cycle is: after a
+  rejection, they feel discouraged for a while and eventually find motivation.
+  Do not rewrite this as instant recovery, a guaranteed success story, or a
+  relentless productivity ideal.
+- A milestone can be confirmed by a public commit, a private learning program
+  completion email, or a direct first-person account. Distinguish these
+  evidence types. A nearby rejection and a later milestone in time do not
+  establish motivation or causation.
+- Public commit links may be published. Do not include private emails,
+  certificate IDs, assessment feedback or calendar attendee details.
+- Growth is not limited to interview preparation. Show genuine interest
+  in building useful products and learning even when it is unrelated to hiring.
+- Update package.json pre-render routes, sitemap registration, route mapping,
+  SEO checks and links if the page moves or is renamed.

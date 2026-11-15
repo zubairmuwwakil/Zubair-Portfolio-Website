@@ -240,6 +240,9 @@ export default function Story() {
           <Link href="/interview-journey/" className="inline-flex items-center gap-1 text-primary hover:underline underline-offset-4">
             The interview journey <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
+          <Link href="/growth/" className="inline-flex items-center gap-1 text-primary hover:underline underline-offset-4">
+            The work between setbacks <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
           <Link href="/ventures/" className="inline-flex items-center gap-1 text-primary hover:underline underline-offset-4">
             What I'm building <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>

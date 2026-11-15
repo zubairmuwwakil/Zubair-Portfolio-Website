@@ -40,6 +40,13 @@ jobs:
           grep -q 'TELUS' dist/interview-journey/index.html
           grep -q 'https://zubairmuwwakil.com/story/' dist/sitemap.xml
           grep -q 'https://zubairmuwwakil.com/interview-journey/' dist/sitemap.xml
+      - name: Verify the growth timeline
+        run: |
+          set -eu
+          test -s dist/growth/index.html
+          grep -q 'The work between the rejections' dist/growth/index.html
+          grep -q 'PickMe' dist/growth/index.html
+          grep -q 'https://zubairmuwwakil.com/growth/' dist/sitemap.xml
       - name: Verify source-backed flagship proof pages
         run: |
           set -eu
