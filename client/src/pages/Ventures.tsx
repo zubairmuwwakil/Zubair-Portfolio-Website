@@ -12,7 +12,7 @@ const products = [
     name: "PB Social / The Pickleball Social",
     category: "Sports operations SaaS",
     description: "Software for registrations, scheduling, match operations, and organized pickleball programs.",
-    url: "https://pbsocial.ca",
+    url: "https://www.pbsocial.ca",
     cta: "Visit PB Social",
     icon: Laptop2,
   },
@@ -141,7 +141,7 @@ export default function Ventures() {
         <p className="mt-5 text-sm text-muted-foreground">
           Interested in the engineering behind the sports platform?{" "}
           <Link href="/projects/pickleops/" className="font-semibold text-primary hover:underline underline-offset-4">
-            Read the PickleOps case study
+            Read the Pickleball Social case study
           </Link>.
         </p>
       </section>

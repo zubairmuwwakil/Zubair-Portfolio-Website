@@ -195,7 +195,7 @@ export default function Portfolio() {
   const heroFocusLine = "I build reliable software—and the products and organizations that put it to work.";
   const heroStackLine = "Backend systems · APIs · TypeScript · PostgreSQL · Java · Production operations";
   const featuredProjectTitles = [
-    "PickleOps — The Pickleball Social",
+    "The Pickleball Social",
     "Looply",
     "MarketLens",
     "MindSky",
@@ -275,7 +275,7 @@ export default function Portfolio() {
         caseStudy: "/projects/looply/"
       },
     },
-    "PickleOps — The Pickleball Social": {
+    "The Pickleball Social": {
       problem: "As a program operator, I saw clubs manage registrations, attendance, matches, ratings, and payments across spreadsheets and messages. Every new session added manual effort and errors.",
       built: "I proposed, built, and deployed a web and iOS operations platform for organizers and players, then helped partner clubs adopt it. It brings registration, scheduling, scores, ratings, and payments into one workflow.",
       decisions: [
@@ -292,7 +292,7 @@ export default function Portfolio() {
       ],
       stack: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
       links: {
-        demo: "https://pickleball.zubairmuwwakil.com",
+        demo: "https://www.pbsocial.ca",
         appStore: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
         github: "https://github.com/zubairmuwwakil/pickleops",
         caseStudy: "/projects/pickleops/",

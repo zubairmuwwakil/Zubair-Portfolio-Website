@@ -222,9 +222,9 @@ export const projects: Project[] = [
   {
     id: 1,
     slug: "pickleops",
-    title: "PickleOps — The Pickleball Social",
+    title: "The Pickleball Social",
     description: "I turned manual league operations into a live web and iOS platform. Used across partner clubs, with automated scheduling, payments, ratings and an AI assistant.",
-    link: "https://pickleball.zubairmuwwakil.com",
+    link: "https://www.pbsocial.ca",
     appStoreLink: "https://apps.apple.com/us/app/the-pickleball-social/id6759585852",
     // Public architecture overview (production application source remains private).
     githubLink: "https://github.com/zubairmuwwakil/pickleops",
