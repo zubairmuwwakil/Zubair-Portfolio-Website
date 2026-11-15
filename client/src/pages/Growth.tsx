@@ -97,7 +97,7 @@ export default function Growth() {
             </p>
           </div>
           <ol className="relative space-y-6 border-l-2 border-border/70 pl-5 sm:pl-8">
-            {growthMilestones.map((item, index) => {
+            {growthMilestones.map((item) => {
               const Icon = icons[item.category];
               return (
                 <li key={item.period + item.title} className="relative">
