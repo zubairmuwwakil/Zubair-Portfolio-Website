@@ -147,7 +147,8 @@
       "/blog/your-inbox-already-knows-what-you-bought/",
       "/blog/i-have-too-many-credit-cards-so-i-built-an-app-to-pick-one/",
       "/blog/i-turned-an-iphone-shortcut-into-a-transaction-feed/",
-      "/blog/i-accidentally-built-four-pieces-of-the-same-financial-app/"
+      "/blog/i-accidentally-built-four-pieces-of-the-same-financial-app/",
+      "/blog/life-rarely-goes-according-to-plan/"
     ],
     "skipThirdPartyRequests": true,
     "puppeteerArgs": [
