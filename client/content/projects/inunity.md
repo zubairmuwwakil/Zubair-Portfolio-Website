@@ -1,5 +1,6 @@
 ---
 title: "I wanted to understand my money without handing over my bank login"
+repoUrl: https://github.com/zubairmuwwakil/inunity
 description: "Inunity is my attempt to bring transactions, cashflow and financial decisions into one system, while keeping data ownership clear."
 date: 2026-11-12
 tags: [Full Stack, Fintech, Privacy, Data Modeling, Integrations]

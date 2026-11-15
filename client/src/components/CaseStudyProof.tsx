@@ -19,8 +19,6 @@ type FlagshipProof = {
   caveat: string;
 };
 
-const RESTRICTED_PICKLEOPS =
-  "Private repo — PickleOps is live with real clubs, DUPR sign-on and payments. Walkthrough available on request.";
 const RESTRICTED_INUNITY =
   "Private repo — Inunity handles real financial data. Walkthrough available on request.";
 
@@ -52,18 +50,18 @@ const flagshipProofs: Record<string, FlagshipProof> = {
       },
       {
         label: "Offline conflict handling",
-        detail: "Conflicts resolve by version, so a late write never silently overwrites a newer score",
-        restricted: RESTRICTED_PICKLEOPS,
+        detail: "Read the version check that routes a stale write to review instead of overwriting",
+        href: "https://github.com/zubairmuwwakil/replay-safe-sync/blob/main/src/conflicts/version.ts",
       },
       {
         label: "Idempotency test cases",
-        detail: "Retries reuse a mutation key, so a double-tapped finalize applies once",
-        restricted: RESTRICTED_PICKLEOPS,
+        detail: "See the tests that prove a retried mutation key replays without applying twice",
+        href: "https://github.com/zubairmuwwakil/replay-safe-sync/blob/main/test/client.test.ts",
       },
       {
-        label: "Reconnect test flow",
-        detail: "A Maestro regression flow drops the network mid-session and replays the queue",
-        restricted: RESTRICTED_PICKLEOPS,
+        label: "Exactly-once finalize",
+        detail: "The test suite for applying a rating update once, however many times finalize is tapped",
+        href: "https://github.com/zubairmuwwakil/replay-safe-sync/blob/main/test/apply-once.test.ts",
       },
     ],
     caveat:

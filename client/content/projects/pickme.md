@@ -1,5 +1,6 @@
 ---
 title: "I was tired of guessing which credit card to use"
+repoUrl: https://github.com/zubairmuwwakil/pickme-ios
 description: "PickMe started as a checkout annoyance. Building it meant solving much harder problems around reward rules, privacy and trustworthy decisions."
 date: 2026-11-12
 tags: [iOS, Swift, Algorithms, Privacy, Product Engineering]
