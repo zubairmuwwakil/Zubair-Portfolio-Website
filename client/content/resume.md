@@ -109,7 +109,9 @@ React 19, TypeScript, `@xyflow/react` (React Flow), Express, PostgreSQL (JSONB),
 
 ## Education & certifications
 
-**University of Toronto** — Bachelor of Science (BSc), Computer Science & Mathematics (Finance/Economics) · 2020 – 2025
+**Ontario Tech University** — Bachelor of Science (BSc), Computer Science · In progress, expected April 2028
+
+**University of Toronto** — Computer Science & Mathematics (Finance/Economics) coursework · 2020 – 2025
 
 **Microsoft Certified: Azure Fundamentals (AZ-900)** — Microsoft · 2024
 

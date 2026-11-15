@@ -184,7 +184,7 @@ export const education: Education[] = [
     degree: "B.Sc. (in progress)",
     field: "Computer Science",
     startDate: "In progress",
-    endDate: null,
+    endDate: "Expected April 2028",
   },
   {
     id: 6,
