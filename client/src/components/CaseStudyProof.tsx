@@ -1,9 +1,12 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Lock } from "lucide-react";
 
 type EvidenceLink = {
   label: string;
   detail: string;
-  href: string;
+  /** Omitted when the source lives in a private product repo. */
+  href?: string;
+  /** Why there is no link. Shown instead of the open-in-new-tab affordance. */
+  restricted?: string;
 };
 
 type FlagshipProof = {
@@ -15,6 +18,11 @@ type FlagshipProof = {
   evidence: EvidenceLink[];
   caveat: string;
 };
+
+const RESTRICTED_PICKLEOPS =
+  "Private repo — PickleOps is live with real clubs, DUPR sign-on and payments. Walkthrough available on request.";
+const RESTRICTED_INUNITY =
+  "Private repo — Inunity handles real financial data. Walkthrough available on request.";
 
 /**
  * Evidence is hand-selected from public source, tests, and product destinations.
@@ -44,18 +52,18 @@ const flagshipProofs: Record<string, FlagshipProof> = {
       },
       {
         label: "Offline conflict handling",
-        detail: "Read the client-side conflict resolver",
-        href: "https://github.com/zubairmuwwakil/pickleball-session-manager/blob/main/apps/mobile/src/core/offline/offline.conflict-resolver.ts",
+        detail: "Conflicts resolve by version, so a late write never silently overwrites a newer score",
+        restricted: RESTRICTED_PICKLEOPS,
       },
       {
         label: "Idempotency test cases",
-        detail: "See how retries reuse a mutation key",
-        href: "https://github.com/zubairmuwwakil/pickleball-session-manager/blob/main/apps/mobile/src/core/offline/offline.idempotency.test.ts",
+        detail: "Retries reuse a mutation key, so a double-tapped finalize applies once",
+        restricted: RESTRICTED_PICKLEOPS,
       },
       {
         label: "Reconnect test flow",
-        detail: "Inspect the documented mobile regression flow",
-        href: "https://github.com/zubairmuwwakil/pickleball-session-manager/blob/main/.maestro/flows/offline-reconnect-resilience.yaml",
+        detail: "A Maestro regression flow drops the network mid-session and replays the queue",
+        restricted: RESTRICTED_PICKLEOPS,
       },
     ],
     caveat:
@@ -125,17 +133,17 @@ const flagshipProofs: Record<string, FlagshipProof> = {
       {
         label: "Wallet capture validation",
         detail: "Read the payload parser and constraints",
-        href: "https://github.com/zubairmuwwakil/MoneyTalks/blob/main/src/lib/domain/wallet/capturePayload.ts",
+        restricted: RESTRICTED_INUNITY,
       },
       {
         label: "Capture contract tests",
         detail: "See currency and incomplete-event cases",
-        href: "https://github.com/zubairmuwwakil/MoneyTalks/blob/main/src/lib/domain/wallet/capturePayload.test.ts",
+        restricted: RESTRICTED_INUNITY,
       },
       {
         label: "Purchase matching tests",
         detail: "Inspect exact, possible, and rejected matches",
-        href: "https://github.com/zubairmuwwakil/MoneyTalks/blob/main/src/lib/domain/spine/purchaseMerge.test.ts",
+        restricted: RESTRICTED_INUNITY,
       },
     ],
     caveat:
@@ -197,25 +205,45 @@ export function CaseStudyProof({ slug }: { slug: string }) {
         <div className="mt-8">
           <h3 className="text-lg font-bold">Check the evidence yourself</h3>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            {proof.evidence.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-start justify-between gap-3 rounded-xl border border-border/70 bg-background p-4 transition-colors hover:border-primary/40 hover:bg-primary/5"
-              >
-                <span>
-                  <span className="block text-sm font-bold text-primary group-hover:underline group-hover:underline-offset-4">
-                    {item.label}
+            {proof.evidence.map((item) =>
+              item.href ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start justify-between gap-3 rounded-xl border border-border/70 bg-background p-4 transition-colors hover:border-primary/40 hover:bg-primary/5"
+                >
+                  <span>
+                    <span className="block text-sm font-bold text-primary group-hover:underline group-hover:underline-offset-4">
+                      {item.label}
+                    </span>
+                    <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                      {item.detail}
+                    </span>
                   </span>
-                  <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
-                    {item.detail}
+                  <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                </a>
+              ) : (
+                <div
+                  key={item.label}
+                  className="flex items-start gap-3 rounded-xl border border-dashed border-border/70 bg-muted/30 p-4"
+                >
+                  <span>
+                    <span className="block text-sm font-bold text-foreground">{item.label}</span>
+                    <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                      {item.detail}
+                    </span>
+                    {item.restricted && (
+                      <span className="mt-2 flex items-start gap-1.5 text-xs leading-relaxed text-muted-foreground/90">
+                        <Lock className="mt-0.5 size-3 shrink-0" aria-hidden="true" />
+                        {item.restricted}
+                      </span>
+                    )}
                   </span>
-                </span>
-                <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-              </a>
-            ))}
+                </div>
+              ),
+            )}
           </div>
         </div>
 

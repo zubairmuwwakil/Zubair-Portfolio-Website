@@ -28,8 +28,8 @@ const products = [
     name: "PickMe",
     category: "iOS project in development",
     description: "An offline-first iOS card copilot that compares credit card rewards at checkout. Not yet a public App Store product.",
-    url: "https://github.com/zubairmuwwakil/PickMe",
-    cta: "View development project",
+    url: "/projects/pickme/",
+    cta: "Read the case study",
     icon: Smartphone,
   },
 ] as const;
@@ -126,7 +126,11 @@ export default function Ventures() {
                   </div>
                 </div>
                 <p className="mt-4 text-foreground/80 leading-relaxed">{product.description}</p>
-                <a href={product.url} target="_blank" rel="noopener noreferrer"
+                <a
+                  href={product.url}
+                  {...(product.url.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="mt-4 inline-flex items-center gap-2 font-semibold text-primary hover:underline underline-offset-4">
                   {product.cta} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </a>

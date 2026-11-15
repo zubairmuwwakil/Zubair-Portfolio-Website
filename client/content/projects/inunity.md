@@ -5,7 +5,6 @@ date: 2026-11-12
 tags: [Full Stack, Fintech, Privacy, Data Modeling, Integrations]
 stack: [Next.js, TypeScript, PostgreSQL, Prisma, Clerk, Vercel]
 liveUrl: https://inunity.ca
-repoUrl: https://github.com/zubairmuwwakil/MoneyTalks
 ---
 
 I got tired of financial information being scattered everywhere.
@@ -76,4 +75,4 @@ The more I work on financial software, the more I see that a useful interface de
 
 That's the part of Inunity I find most interesting.
 
-[Explore Inunity](https://inunity.ca) · [Inspect wallet capture tests](https://github.com/zubairmuwwakil/MoneyTalks/blob/main/src/lib/domain/wallet/capturePayload.test.ts) · [How an iPhone shortcut became a transaction feed](/blog/i-turned-an-iphone-shortcut-into-a-transaction-feed/)
+[Explore Inunity](https://inunity.ca) · [How an iPhone shortcut became a transaction feed](/blog/i-turned-an-iphone-shortcut-into-a-transaction-feed/)
