@@ -657,9 +657,23 @@ profile is already public and job-hunt-facing. Owner's call — not changed here
 and the account is never to be automated. Path: Public profile settings →
 right rail, bottom → Public visibility limits → Off.
 
-**Open, unrelated to the above:** the Person JSON-LD `sameAs` in
-`client/index.html` still lists only GitHub, LinkedIn, Instagram and Facebook —
-not ORCID, X, dev.to or the App Store developer page that the site's own sidebar
-carries. Facebook currently outranks the LinkedIn profile on his name while the
-markup vouches for it. Worth revisiting, but it is a repo change and needs a
-decision first, so it is logged rather than made.
+**Also addressed, 2026-11-14: the `sameAs` gap — DONE (commit d0e658c).** The
+Person JSON-LD in `client/index.html` had claimed only GitHub, LinkedIn,
+Instagram and Facebook. Since Facebook outranks the LinkedIn profile on his
+name, the markup was vouching hardest for the weakest result. Added, ordered
+professional-first and each checked to return 200 before being claimed (a
+`sameAs` pointing at a dead URL is a worse signal than no claim):
+
+- `https://orcid.org/0009-0009-6694-2184`
+- `https://apps.apple.com/us/developer/zubair-muwwakil/id1879669849`
+- `https://dev.to/zubairmuwwakil`
+- `https://x.com/zubairmw` (GitHub stores this as `http://`; normalised)
+
+Instagram and Facebook were kept. Both `ld+json` blocks re-parse as valid JSON.
+
+**Correction to the sentence 16c leaves lying around:** "the sidebar now also
+carries ORCID, LinkedIn, X, dev.to, and the App Store link" describes the
+**GitHub profile** sidebar, not the website's. None of those four URLs existed
+anywhere in this repo before d0e658c — they had to be read off the live GitHub
+profile and the App Store listing (the developer-page ID is not the app ID, and
+the profile links only the app). Worth knowing before trusting that line again.
