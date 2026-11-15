@@ -17,7 +17,9 @@
     "postbuild": "node script/copy-404.js && node script/generate-sitemap.mjs",
     "start": "vite preview --config vite.config.ts",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "resume:pdf": "node script/generate-resume-pdf.mjs",
+    "resume": "npm run build:ssg && npm run resume:pdf"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -118,7 +120,7 @@
   },
   "reactSnap": {
     "source": "dist",
-    "comment": "Every route listed here gets a pre-rendered .html file. A blog post missing from this list ships with no crawlable HTML — script/generate-sitemap.mjs warns when that happens. Keep the trailing slashes: they match the canonical URLs and the in-page links, so react-snap crawls each route once instead of once per spelling.",
+    "comment": "Every route listed here gets a pre-rendered .html file. A blog post missing from this list ships with no crawlable HTML \u2014 script/generate-sitemap.mjs warns when that happens. Keep the trailing slashes: they match the canonical URLs and the in-page links, so react-snap crawls each route once instead of once per spelling.",
     "include": [
       "/",
       "/projects/",

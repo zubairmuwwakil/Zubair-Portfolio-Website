@@ -6,7 +6,7 @@ date: 2026-08-18
 
 Full-Stack Software Engineer with experience across Java/Spring Boot, Python, TypeScript, Swift, and .NET, building data-driven products with strong API design, production reliability, and modern AI-assisted engineering. Proven track record shipping mobile products to the App Store across 21 releases, architecting autonomous coding-agent orchestrators, designing high-throughput data pipelines, and optimizing database performance in PostgreSQL and SQL Server.
 
-Brooklyn, NY · USA & Canadian Citizen
+Brooklyn, NY · U.S. & Canadian citizen — no sponsorship required · Computer Science undergraduate, Ontario Tech University (expected April 2028)
 
 ## Technical skills
 
@@ -31,10 +31,20 @@ Remote · Aug 2025 – Present · Contract
 
 - Build and maintain Django backend services — REST APIs, background jobs, data processing — in a PR-driven code review environment.
 - Own PostgreSQL/SQL Server changes: schema updates, indexing, and query tuning shipped through Dockerized CI gates.
+- Diagnosed registration latency and redesigned the underlying indexes and queries, cutting endpoint response time from ~1.2s to under 50ms (~24x).
+- Eliminated ~500K redundant health-check requests per month, removing avoidable load from the platform.
+- Collaborate with ML, data, and DevOps engineers through code review, tests, and design documentation.
 - Deliver releases safely with unit and integration tests plus data integrity validation, preventing regressions and keeping deployments repeatable.
 
+### Elevation Athletics — Software Engineer
+Canada · Feb 2026 – Present · Part-time · *Promoted from Regional Program Coordinator*
+
+- Migrated DUPR account linking from manual lookup to SSO-only authentication to meet the provider's requirements; designed partner/user token flows, encrypted credential storage, refresh and revocation handling, entitlements, and rating webhooks.
+- Led the DUPR provider integration review through direct technical correspondence, testing instructions, and recorded demonstrations; secured production credentials in July 2026.
+- Led partner-club demonstrations and onboarding with organizational leaders, offering proof-of-concept trials to address adoption concerns — including a three-month pilot that converted to a signed agreement.
+
 ### Elevation Athletics — Regional Program Coordinator (Tech & Ops)
-Toronto, ON · Mar 2023 – Present · Part-time · *Promoted: Coach → Lead Coach → District Lead*
+Toronto, ON · Mar 2023 – Feb 2026 · Part-time · *Promoted: Coach → Lead Coach → District Lead*
 
 - Built and deployed pbsocial.ca, a multi-tenant Next.js/TypeScript/PostgreSQL platform for session scheduling, registrations, attendance, and reporting; scaled from ~50 to 1,000+ active participants.
 - Engineered core match systems: automatic skill-balanced group and match generation, atomic single-transaction match finalization, and pure-function Glicko-2 ratings with audit history.
@@ -79,7 +89,7 @@ Java 21, Spring Boot 4, PostgreSQL, Flyway, Docker · Deployed on Render · [Cas
 
 - Built an idempotent market data ingestion pipeline processing ~50k–250k rows/run with yearly partitioned PostgreSQL tables, composite-key upserts, and Flyway migrations.
 - Implemented technical indicator calculations (RSI, EMA, MACD), NYSE trading calendar and early-close awareness, and quarantine tables for data-quality anomaly detection.
-- Productionized with API-key RBAC, Bucket4j rate limiting, Prometheus metrics, structured JSON logs with correlation IDs, OTLP distributed tracing, and Testcontainers integration tests.
+- Productionized with API-key RBAC, Bucket4j rate limiting, Prometheus metrics, structured JSON logs with correlation IDs, OTLP distributed tracing, and 81 Testcontainers integration tests.
 
 ### glicko2-ts — Zero-Dependency Rating Engine
 TypeScript, Node.js, Vitest, CI/CD · Published NPM Package · Zero Dependencies
@@ -89,7 +99,7 @@ TypeScript, Node.js, Vitest, CI/CD · Published NPM Package · Zero Dependencies
 - Implemented mutation testing introducing 18 deliberate algorithmic defects to prove test suite assertion rigor and numerical stability.
 
 ### PickMe — Privacy-First Canadian Card Copilot
-Swift 6, SwiftUI, SwiftData, iOS 18, CoreLocation, MapKit · [Blog Post](/blog/i-have-too-many-credit-cards-so-i-built-an-app-to-pick-one/)
+Swift 6, SwiftUI, SwiftData, iOS 18, CoreLocation, MapKit · [App Store](https://apps.apple.com/us/app/pick-me/id6801966373) · [Blog Post](/blog/i-have-too-many-credit-cards-so-i-built-an-app-to-pick-one/)
 
 - Architected a deterministic multi-card reward optimization engine using pure Swift packages and SwiftData to recommend the highest-earning card at checkout.
 - Engineered 216 unit and store tests verifying proration across spend caps, effective-dated earn rules, FX costs, switch thresholds, and merchant-category reconciliation against posted statements.
@@ -112,6 +122,8 @@ React 19, TypeScript, `@xyflow/react` (React Flow), Express, PostgreSQL (JSONB),
 **Ontario Tech University** — Bachelor of Science (BSc), Computer Science · In progress, expected April 2028
 
 **University of Toronto** — Computer Science & Mathematics (Finance/Economics) coursework · 2020 – 2025
+
+**Obsidi Academy x TELUS** — 12-week Software Engineering Bootcamp
 
 **Microsoft Certified: Azure Fundamentals (AZ-900)** — Microsoft · 2024
 
