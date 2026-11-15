@@ -286,7 +286,7 @@ export default function Portfolio() {
       ],
       impact: [
         "Automated scheduling work that previously took about 10 minutes, reducing it to seconds for supported workflows.",
-        "Supported approximately 850 accounts and 1,000+ participants across club operations; shipped 29 iOS releases since March 2026.",
+        "Supported approximately 850 accounts and 1,000+ participants across club operations; shipped 29 iOS releases since March 2026 behind 17,000+ automated tests and seven CI workflows.",
         "Tracked repeat registration grew from about 20% to 89% in an eight-week cohort during broader program improvements; this is not a software-only causal estimate.",
         "Added a production AI assistant used by approximately 136 unique people since April 2026.",
       ],

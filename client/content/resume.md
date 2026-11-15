@@ -60,8 +60,8 @@ Toronto, ON · Jun 2023 – May 2025 · *Assistant Financial Analyst (intern), J
 - Created financial modeling, budgeting, and variance dashboards with built-in guardrails, cutting formula defects by ~30% and surfacing $25K+ in annual operational efficiency gains.
 - Owned finance tooling operations, automated weekly/monthly executive deliverables with SQL and VBA, and authored repeatable operational runbooks.
 
-### NDCTrades — Finance Solutions Architect
-Sep 2022 – Jun 2023 · Internship
+### Neighbourhood Developing Careers (NDC Trades) — Finance Solutions Architect
+Toronto, ON · Sep 2022 – Jun 2023 · Internship
 
 - Automated invoicing and pricing workflows across QuickBooks and Humanity, increasing recurring revenue by ~20% while reducing operational errors.
 - Streamlined payroll processing via automated data cleanup and verification checks, cutting processing time by ~35% and eliminating calculation discrepancies.
@@ -79,7 +79,7 @@ Python 3.12, Typer, Pydantic, Claude Code CLI, Subprocess Execution, Git
 ### The Pickleball Social — Club Operations Platform
 Next.js (App Router), React Native, TypeScript, Prisma, PostgreSQL, iOS · [App Store](https://apps.apple.com/us/app/the-pickleball-social/id6759585852) · [Case study](/projects/pickleops/)
 
-- Shipped a club-management platform (Next.js web app for organizers + React Native iOS client on the App Store) maintained through 29 App Store releases since March 2026.
+- Shipped a club-management platform (Next.js web app for organizers + React Native iOS client on the App Store) maintained through 29 App Store releases since March 2026, behind 17,000+ automated tests and seven CI workflows.
 - Architected offline-first sync with version-based conflict resolution and client-generated operation IDs, allowing organizers to score matches on courts with zero cellular signal.
 - Implemented atomic match finalization inside a single database transaction boundary, closing race conditions, duplicate clicks, and retry-induced rating corruption.
 - Integrated DUPR single sign-on with opt-in match write-back and Bluetooth proximity discovery behind explicit user consent gates.

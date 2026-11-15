@@ -80,7 +80,7 @@ Based on my operational records and experience:
 - The platform supported roughly **850 accounts**, with more than **1,000 participants** across company and partner-club operations.
 - Some scheduling jobs that took around **10 minutes** of manual work could be completed in **seconds**.
 - In a tracked eight-week cohort, repeat registration increased from about **20% to 89%**.
-- I shipped **29 iOS releases since March 2026**.
+- I shipped **29 iOS releases since March 2026**, behind **17,000+ automated tests** and seven CI workflows.
 - About **136 unique people** used the production AI assistant after its release around April 2026.
 
 These are approximate, self-reported figures, not independently audited benchmarks. The retention improvement also came during changes to coaching, communications and program operations, so I don't claim the software caused that entire increase by itself.
