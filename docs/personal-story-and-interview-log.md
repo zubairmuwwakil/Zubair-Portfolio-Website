@@ -35,3 +35,24 @@ Sources at initial creation (November 15, 2026):
   acfc370a3be519ec6a449dcecaaff334bd46c08e.
 
 No private source email is linked from the public site.
+
+
+## November 15 expansion
+
+The public log includes a curated set of additional 2024–2026 recruiting decisions
+established through employer emails and the owner's earlier first-person account.
+Applications, recruiter conversations, cancelled or filled roles, actual interviews
+and offers are all separate stages. Records with no reliable date retain an empty
+period. Re-applications are separate if the position differs. Do not present
+an application rejection as a failed technical interview.
+
+This is **not** a complete copy of the user's inbox or a live synchronization.
+The site never stores Gmail message IDs, private correspondence, employer
+contacts, personal identifiers, or private assessment feedback. New entries
+are manually reviewed and edited in client/src/data/interviewJourney.ts.
+
+Do not treat pending roles (including the Roblox assessment, new Palantir
+application, Narmi interview or upcoming BFUTR interviews as of 2026-11-15)
+as rejections. OBSIDI's rejected February cohort and successful June cohort
+are presented in a separate narrative note, not incorrectly counted as job
+interviews.

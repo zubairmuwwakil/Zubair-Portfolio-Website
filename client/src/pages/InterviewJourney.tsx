@@ -24,6 +24,16 @@ const groups: Array<{
     description: "A process that ended before an offer. Not necessarily a failed technical interview.",
   },
   {
+    stage: "Recruiter conversation",
+    heading: "Recruiting conversations that ended",
+    description: "Early conversations about a job that didn't continue. These aren't failed interviews.",
+  },
+  {
+    stage: "Position closed",
+    heading: "Roles that were filled or cancelled",
+    description: "Sometimes the opportunity disappears, even when the candidate is still interested.",
+  },
+  {
     stage: "Offer setback",
     heading: "An offer that didn't turn into a job",
     description: "This was a different kind of disappointment. Getting an offer didn't mean everything was settled.",
@@ -70,17 +80,19 @@ export default function InterviewJourney() {
             People usually post the offer. I wanted to share the other side, too.
           </p>
           <p className="text-base text-foreground/80 leading-relaxed">
-            I've had interviews I didn't pass, assessments that didn't lead anywhere,
-            and an offer that fell through. Every time, I hoped this might be the
-            opportunity that helped me get closer to the future I'm working toward.
-            When it wasn't, I felt it.
+            I've had interviews I didn't pass, applications that ended before an
+            interview, roles that were cancelled or filled, and even an offer that
+            fell through. Every time, I hoped this might be the opportunity that
+            helped me get closer to the future I'm working toward. When it wasn't,
+            I felt it.
           </p>
           <p className="text-base text-foreground/80 leading-relaxed">
             This is a living record of the processes I can confidently document so
             far, not a claim that I've listed every application I've ever sent.
-            I'm separating interviews, assessment-stage outcomes, and offer setbacks
-            because they're not the same thing. I haven't included private recruiter
-            messages, interview questions, or dates I can't verify.
+            I'm separating interviews, application screening, recruiter conversations,
+            roles that closed, and offer setbacks because they're not the same thing.
+            I haven't included private recruiter messages, interview questions,
+            or dates I can't verify.
           </p>
         </header>
 
@@ -154,6 +166,20 @@ export default function InterviewJourney() {
             But I still love engineering. I can disappear into a project for
             hours because I'm excited about what it could become. That part of
             me doesn't disappear when an interview goes badly.
+          </p>
+        </section>
+
+        <section className="rounded-2xl border border-border/60 bg-card/75 p-5 sm:p-6 space-y-3">
+          <h2 className="font-serif text-2xl font-bold text-foreground">An early no that became a yes</h2>
+          <p className="leading-relaxed text-foreground/85">
+            In February 2026, I was turned down for an OBSIDI Academy cohort.
+            I applied again, and in June I received an acceptance to Cohort 10.
+            I wanted to include that here, too. Not every disappointing decision
+            stays the final answer.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            OBSIDI was a training program, not a job interview, so I keep it
+            outside the job-outcome list.
           </p>
         </section>
 
