@@ -41,11 +41,11 @@ const outPath = path.join(root, "client", "public", "resume.pdf");
 /**
  * The page omits the phone number on purpose — it is indexed, and a number on an
  * indexed page is scraped into spam lists within days (see the comment in
- * client/src/pages/Resume.tsx). A downloaded résumé is handed to a named
- * recruiter, so it carries one. That asymmetry is why these live here and not in
- * the markdown: this is the only surface that should show them.
+ * client/src/pages/Resume.tsx). The PDF is public too, so include only the
+ * contact number intended for this US-focused résumé. Keep it here instead of
+ * the markdown so the web page does not display it.
  */
-const PHONE = "(347) 584-2617";
+const PHONE = "(347) 794-7301";
 const EMAIL = "zmuwwakil@gmail.com";
 
 /**
@@ -133,7 +133,7 @@ function serve(dir) {
  * it is read on screen, and a dark background wastes a recruiter's toner.
  */
 const PRINT_CSS = `
-  @page { size: Letter; margin: 0.45in 0.55in; }
+  @page { size: Letter; margin: 0.35in 0.55in; }
 
   :root, :root[data-theme="dark"] { color-scheme: light !important; }
 
@@ -427,7 +427,7 @@ try {
       }
       return out;
     });
-    const perPage = (11 - 0.45 * 2) * 96; // Letter height minus @page margins, at 96dpi
+    const perPage = (11 - 0.35 * 2) * 96; // Letter height minus @page margins, at 96dpi
     console.log(`  [debug] ~${Math.round(perPage)}px fits one page`);
     for (const b of blocks) console.log(`  [debug] ${String(b.px).padStart(5)}px  ${b.what}`);
   }
