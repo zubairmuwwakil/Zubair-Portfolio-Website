@@ -232,6 +232,17 @@ export const projects: Project[] = [
     tags: ["React Native", "TypeScript", "Prisma", "Postgres", "iOS"],
   },
   {
+    id: 6,
+    slug: "pickme",
+    title: "Pick Me! — Card Copilot",
+    description: "Offline-first iOS app that picks the best credit card at checkout from a deterministic rules engine — earn rates, category caps, FX fees and network acceptance. Live on the App Store, currently v2.3.",
+    appStoreLink: "https://apps.apple.com/ca/app/pick-me/id6801966373",
+    // The app itself stays private; its ranking engine is public as a package.
+    githubLink: "https://github.com/zubairmuwwakil/pickme-engine",
+    caseStudyUrl: null,
+    tags: ["Swift 6", "SwiftUI", "SwiftData", "iOS", "Algorithms"],
+  },
+  {
     id: 4,
     slug: "looply",
     title: "Looply",

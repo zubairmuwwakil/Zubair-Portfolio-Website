@@ -25,11 +25,11 @@ const products = [
     icon: Laptop2,
   },
   {
-    name: "PickMe",
-    category: "iOS project in development",
-    description: "An offline-first iOS card copilot that compares credit card rewards at checkout. Not yet a public App Store product.",
-    url: "/projects/pickme/",
-    cta: "Read the case study",
+    name: "Pick Me! — Card Copilot",
+    category: "iOS app on the App Store",
+    description: "An offline-first iOS card copilot that compares Canadian credit card rewards at checkout. Live on the App Store, currently at version 2.3.",
+    url: "https://apps.apple.com/ca/app/pick-me/id6801966373",
+    cta: "View on the App Store",
     icon: Smartphone,
   },
 ] as const;

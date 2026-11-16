@@ -738,7 +738,7 @@ export default function Portfolio() {
               <h3 className="mt-2 font-serif text-2xl font-bold">Zemi Echelon</h3>
               <p className="mt-3 text-foreground/80 leading-relaxed">
                 The for-profit side of my work: software products including PB Social,
-                Inunity, and the PickMe iOS project.
+                Inunity, and the Pick Me! iOS app.
               </p>
             </div>
             <div className="rounded-3xl border border-border/60 p-7 bg-gradient-to-br from-accent/10 via-background to-primary/10">

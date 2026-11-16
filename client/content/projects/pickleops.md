@@ -8,6 +8,7 @@ tags: [Product Engineering, Sports Technology, Operations, Reliability, React Na
 stack: [Next.js, React, React Native, TypeScript, PostgreSQL, Prisma, iOS, pgvector]
 liveUrl: https://www.pbsocial.ca
 appStoreUrl: https://apps.apple.com/us/app/the-pickleball-social/id6759585852
+repoLabel: Architecture notes
 repoUrl: https://github.com/zubairmuwwakil/pickleops
 ---
 

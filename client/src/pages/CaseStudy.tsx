@@ -74,7 +74,7 @@ export default function CaseStudy() {
   const links = [
     study.appStoreUrl && { href: study.appStoreUrl, label: "App Store", icon: Apple, primary: true },
     study.liveUrl && { href: study.liveUrl, label: "Live", icon: ExternalLink },
-    study.repoUrl && { href: study.repoUrl, label: "Source", icon: Github },
+    study.repoUrl && { href: study.repoUrl, label: study.repoLabel ?? "Source", icon: Github },
   ].filter(Boolean) as { href: string; label: string; icon: typeof Github; primary?: boolean }[];
 
   return (

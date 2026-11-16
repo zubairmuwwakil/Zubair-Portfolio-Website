@@ -12,6 +12,8 @@ export type CaseStudy = {
   /** Shown under the link row. For services that sleep and need a wake-up warning. */
   liveNote?: string;
   repoUrl?: string;
+  /** Overrides the "Source" button label, e.g. for architecture-notes-only repos. */
+  repoLabel?: string;
   appStoreUrl?: string;
   /** Site-absolute path to the share/schema image, carried through from frontmatter. */
   cover?: string;
@@ -66,6 +68,7 @@ export const caseStudies: CaseStudy[] = Object.entries(modules)
       liveUrl: extraField(raw, "liveUrl"),
       liveNote: extraField(raw, "liveNote"),
       repoUrl: extraField(raw, "repoUrl"),
+      repoLabel: extraField(raw, "repoLabel"),
       appStoreUrl: extraField(raw, "appStoreUrl"),
     };
   })

@@ -13,9 +13,10 @@ export default function Projects() {
   const list = projects ?? [];
   // Smaller tools and focused integration stories belong alongside the main
   // product portfolio, but shouldn't be misrepresented as shipped businesses.
+  // Shipped products (anything with a live URL or App Store listing) belong in
+  // the main list above, not here.
   const extraStudySlugs = [
     "product-tracker",
-    "pickme",
     "inunity",
     "llm4life",
     "agent-orchestrator",

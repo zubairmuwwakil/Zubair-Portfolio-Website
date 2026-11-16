@@ -7,7 +7,7 @@ coverAlt: "Hand-drawn diagram of the MarketLens pipeline: rate-limited price fee
 tags: [Java, Spring Boot, Data Pipelines, Reliability, PostgreSQL]
 stack: [Java 21, Spring Boot 4, PostgreSQL, Flyway, Prometheus, OpenTelemetry]
 liveUrl: https://marketdata.zubairmuwwakil.com
-liveNote: "The demo may take a little time to respond after being idle."
+liveNote: "The demo sleeps on a free tier. A cold start shows a 'waking up' page and can take up to a minute before the app loads — it is not down."
 repoUrl: https://github.com/zubairmuwwakil/marketdata
 ---
 
@@ -25,7 +25,7 @@ I started **MarketLens** because I wanted to understand those problems properly 
 
 I built a Java backend to ingest market prices, recover from bad external data, and tell callers when information is stale. The interesting part is not displaying a stock price. It is making the price **explainable and safe to reuse**.
 
-You can [explore the running demo](https://marketdata.zubairmuwwakil.com) or look at the ingestion, quote service, and tests linked above. The demo uses seeded data; it is not evidence of live-market trading performance.
+You can [explore the running demo](https://marketdata.zubairmuwwakil.com) (it sleeps when idle, so a cold start takes up to a minute) or look at the ingestion, quote service, and tests linked above. The demo uses seeded data; it is not evidence of live-market trading performance.
 
 ## A price isn't just a number
 
@@ -89,4 +89,4 @@ A chart can look perfect while its data is wrong. That's a dangerous kind of bug
 
 **I'd rather show someone a stale quote honestly than give them a fresh-looking number I can't explain.**
 
-[Try the seeded-data demo](https://marketdata.zubairmuwwakil.com) · [Explore the source](https://github.com/zubairmuwwakil/marketdata) · [Why I stopped treating stock prices like a frontend problem](/blog/why-i-stopped-treating-stock-prices-like-a-frontend-problem/)
+[Try the seeded-data demo](https://marketdata.zubairmuwwakil.com) (cold start: up to a minute) · [Explore the source](https://github.com/zubairmuwwakil/marketdata) · [Why I stopped treating stock prices like a frontend problem](/blog/why-i-stopped-treating-stock-prices-like-a-frontend-problem/)

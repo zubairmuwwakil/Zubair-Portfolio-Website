@@ -1,6 +1,7 @@
 ---
 title: "I was tired of guessing which credit card to use"
-repoUrl: https://github.com/zubairmuwwakil/pickme-ios
+repoUrl: https://github.com/zubairmuwwakil/pickme-engine
+appStoreUrl: https://apps.apple.com/ca/app/pick-me/id6801966373
 description: "PickMe started as a checkout annoyance. Building it meant solving much harder problems around reward rules, privacy and trustworthy decisions."
 date: 2026-11-12
 tags: [iOS, Swift, Algorithms, Privacy, Product Engineering]
@@ -45,9 +46,9 @@ One decision I'm particularly happy with is keeping the original recommendation 
 
 If I guessed a merchant category incorrectly, I want to know. I don't want the system silently changing yesterday's answer to make itself look right.
 
-The repository documents 216 engine and storage tests, as well as an experiment designed to compare checkout predictions against confirmed outcomes.
+The repository documents 216 engine and storage tests, as well as an experiment designed to compare checkout predictions against confirmed outcomes. The ranking engine itself is now public as [PickMeEngine](https://github.com/zubairmuwwakil/pickme-engine), a zero-dependency Swift package: the same rules, the same refusal to guess, readable without installing the app.
 
-That isn't the same as proving the app is accurate in the field. Physical-device testing and wider release validation are still part of the work.
+That isn't the same as proving the app is accurate in the field. The app has since shipped on the App Store and is on its 2.3 release, so that validation now happens against real checkouts rather than a test harness.
 
 ## What I learned
 

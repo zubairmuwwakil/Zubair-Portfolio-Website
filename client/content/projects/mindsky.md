@@ -7,7 +7,7 @@ coverAlt: "Screenshot of the MindSky canvas: labelled thought bubbles connected 
 tags: [React, TypeScript, React Flow, Node.js, PostgreSQL]
 stack: [React, TypeScript, React Flow, Node.js, PostgreSQL (JSONB)]
 liveUrl: https://mindsky.zubairmuwwakil.com
-liveNote: "The live demo runs on a free tier and sleeps when idle — the first load can take ~30 seconds to wake it."
+liveNote: "The live demo runs on a free tier and sleeps when idle — the first load can take ~30 seconds to wake it. If its database is ever unreachable, the app falls back to saving in your browser and says so on screen."
 repoUrl: https://github.com/zubairmuwwakil/mindmap
 ---
 

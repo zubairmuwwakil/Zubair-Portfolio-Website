@@ -8,6 +8,12 @@ export type GrowthMilestone = {
   category: "Building" | "Learning" | "Persistence";
   title: string;
   description: string;
+  /**
+   * Only ever a link to a genuinely public commit. Work in private repos is
+   * described in the entry text instead — a link that 404s, or a bare "private
+   * repo" label, is weaker than simply saying what was built. The evidence for
+   * that work lives on /projects, not here.
+   */
   proof?: { title: string; url: string }[];
 };
 
@@ -17,16 +23,6 @@ export const growthMilestones: GrowthMilestone[] = [
     category: "Building",
     title: "Improving the software people use to play",
     description: "I kept developing Pickleball Social's match operations, including court-balanced round-robin scheduling and notifications. Working on real problems helps me remember why I love engineering in the first place.",
-    proof: [
-      {
-        title: "Court-balanced round-robin scheduling",
-        url: "https://github.com/The-Pickleball-Social/pbsocial/commit/15edf359c1af57a5f7bff9c701711b625f9e620b",
-      },
-      {
-        title: "Notification improvements",
-        url: "https://github.com/The-Pickleball-Social/pbsocial/commit/0071918a898836cf25e550680bf73ad3f78bd0eb",
-      },
-    ],
   },
   {
     period: "November 14, 2026",
@@ -51,12 +47,6 @@ export const growthMilestones: GrowthMilestone[] = [
     category: "Building",
     title: "Teaching my finance app when not to guess",
     description: "In PickMe, I worked on how rewards are calculated and how the app handles uncertainty. One change was withholding a wallet recommendation when the purchase category was only a guess. Getting the answer right matters more than always giving one.",
-    proof: [
-      {
-        title: "PickMe: decline an uncertain recommendation",
-        url: "https://github.com/zubairmuwwakil/PickMe/commit/eb90736c0c580157441e8c78c5956fdc88f07372",
-      },
-    ],
   },
   {
     period: "August 2026",
@@ -81,11 +71,5 @@ export const growthMilestones: GrowthMilestone[] = [
     category: "Building",
     title: "Making it easier for one person to enjoy pickleball again",
     description: "I built recurring group tools in Pickleball Social after watching someone I cared about struggle to organize weekly matches. Seeing her smile and actually enjoy playing again changed what building software meant to me.",
-    proof: [
-      {
-        title: "Pickleball Social: recurring play groups",
-        url: "https://github.com/The-Pickleball-Social/pbsocial/commit/acfc370a3be519ec6a449dcecaaff334bd46c08e",
-      },
-    ],
   },
 ];
