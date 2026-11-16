@@ -103,6 +103,14 @@ export default function Story() {
             making sense. Others branch off into a completely new direction. Sometimes
             the most interesting outcome is something you couldn't have planned at all.
           </p>
+          <p>
+            That's how the pickleball work started. I was coaching at a school in
+            Courtice, watching coaches write out schedules by hand, working out
+            matchups and moving people between courts. All of that time belonged to
+            the players, and it was going on paperwork instead. I kept thinking: why
+            are we still doing all of this by hand? I started with Excel and a few
+            automations, hit their limits, and kept going.
+          </p>
         </section>
 
         <section className="space-y-5 leading-relaxed text-lg">
@@ -142,8 +150,11 @@ export default function Story() {
             <p className="font-semibold text-foreground mb-2">The work behind the story</p>
             <p className="text-foreground/80">
               The group feature grew into recurring play groups, member management,
-              host tools, and ways to find substitutes. You can see the early work
-              in the repository, not just read about it here.
+              host tools, and ways to find substitutes. It's part of an app that has
+              shipped 29 App Store releases since March 2026, serving around 850
+              accounts and more than 1,000 players, behind 17,000+ automated tests
+              and seven CI workflows. You can see the early work in the repository,
+              not just read about it here.
             </p>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
               <a
