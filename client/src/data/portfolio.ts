@@ -125,27 +125,54 @@ export const experiences: Experience[] = [
     ].join("\n"),
   },
   {
-    id: 3,
+    id: "elevation-swe",
     company: "Elevation Athletics",
-    role: "Regional Program Coordinator (Tech & Ops)",
+    role: "Software Engineer, Multi Regional",
     employmentType: "Part-time",
-    subtitle: "Next.js · TypeScript · PostgreSQL · Glicko-2 ratings · TeamSnap API",
-    startDate: "Mar 2023",
+    subtitle: "Next.js · React Native · Prisma · PostgreSQL · DUPR SSO",
+    startDate: "Feb 2026",
     endDate: "Present",
+    description: [
+      "Migrated DUPR account linking from manual lookup to SSO-only authentication to meet the provider's requirements; designed partner/user token flows, encrypted credential storage, refresh and revocation handling, entitlements, and rating webhooks.",
+      "Led the DUPR provider integration review through direct technical correspondence, testing instructions, and recorded demonstrations; secured production credentials in July 2026.",
+      "Led partner-club demonstrations and onboarding with organizational leaders, offering proof-of-concept trials to address adoption concerns — including a three-month pilot that converted to a signed agreement.",
+      "Promoted from Regional Operations Manager after leadership adopted the platform org-wide."
+    ].join("\n"),
+  },
+  {
+    id: "elevation-regional-ops",
+    company: "Elevation Athletics",
+    role: "Regional Operations Manager",
+    employmentType: "Part-time",
+    subtitle: "Next.js · TypeScript · PostgreSQL · Glicko-2 ratings",
+    startDate: "Sep 2024",
+    endDate: "Feb 2026",
     description: [
       "Built and deployed pbsocial.ca, a multi-tenant Next.js/TypeScript/PostgreSQL platform for session scheduling, registrations, attendance, and reporting; scaled from ~50 to 1,000+ participants.",
       "Engineered the core match systems: automatic group and match generation, atomic match finalization, and Glicko-2 rating with standings history for reliable competitive play.",
-      "Implemented role-based ops workflows and retention analytics — roster/waitlist automation, check-in tooling — contributing to repeat sign-ups rising from ~20% to ~89% in a tracked cohort (16/18).",
+      "Implemented role-based ops workflows and retention analytics — roster/waitlist automation, check-in tooling — contributing to repeat sign-ups rising from ~20% to ~89% in a tracked cohort (16/18)."
+    ].join("\n"),
+  },
+  {
+    id: "elevation-district-ops",
+    company: "Elevation Athletics",
+    role: "District Operations Manager",
+    employmentType: "Part-time",
+    subtitle: "TeamSnap API · Excel automation · Multi-site program ops",
+    startDate: "Sep 2023",
+    endDate: "Sep 2024",
+    description: [
       "Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.",
       "Ran a structured support + triage workflow for 1,000+ users across 8 cities, keeping stakeholders unblocked with clear updates.",
       "Developed Excel automation utilities that reduced game-day data entry/reporting time by ~60%; led tooling/process enablement for staff/coaches.",
-      "Promoted Coach → Lead Coach → District Lead."
+      "Coordinated multi-site programs across 8 cities — scheduling, budgeting, and staffing — and led a team of 16 coaches.",
+      "Promoted from Sports Instructor (Mar 2023 – Sep 2023)."
     ].join("\n"),
   },
   {
     id: 2,
     company: "The Senac Group",
-    role: "Financial Software Analyst — Automation & Analytics",
+    role: "Software Developer, Automation & Analytics",
     employmentType: "Part-time → Full-time",
     subtitle: "C# · .NET · SQL Server (T-SQL) · Excel VBA · Reporting pipelines",
     startDate: "Jun 2023",
@@ -156,13 +183,13 @@ export const experiences: Experience[] = [
       "Built pipelines to ingest and normalize exports from CRM, ERP, HR, and accounting systems, and shipped validation dashboards that surfaced discrepancies earlier — reducing rework during close.",
       "Created budgeting/variance dashboards with validation checks and guardrails, cutting formula defects by ~30% and improving forecast reliability.",
       "Produced scenario + cost/benefit models surfacing $25K+ in annual efficiency gains; owned finance tooling ops and wrote repeatable runbooks.",
-      "Promoted Intern → Assistant Financial Analyst → Software Developer."
+      "Promoted Assistant Financial Analyst (intern) → Junior Software Engineer → Software Developer."
     ].join("\n"),
   },
   {
     id: 4,
-    company: "NDCTrades",
-    role: "Finance Solutions Architect",
+    company: "Neighbourhood Developing Careers (NDC Trades)",
+    role: "Financial Assistant",
     employmentType: "Internship",
     subtitle: "Revenue ops · Automation · Dashboards",
     startDate: "Sep 2022",
@@ -171,7 +198,9 @@ export const experiences: Experience[] = [
       "Tech: QuickBooks, Humanity, workflow automation, reporting dashboards, implementation playbooks.",
       "Automated invoicing + pricing workflows across QuickBooks/Humanity, increasing recurring revenue by ~20% while reducing operational errors.",
       "Streamlined payroll via data cleanup and automated checks, cutting processing time by ~35% and improving correctness.",
-      "Built compliance/performance dashboards so risks surfaced earlier; wrote reusable implementation templates to standardize customer setups."
+      "Built compliance/performance dashboards so risks surfaced earlier; wrote reusable implementation templates to standardize customer setups.",
+      "Monitored grant spending against budget for youth-focused programs, keeping fund allocation compliant and surfacing variances to leadership.",
+      "Reconciled accounts in QuickBooks and maintained audit-ready records for CRA and donor compliance."
     ].join("\n"),
   },
 ];

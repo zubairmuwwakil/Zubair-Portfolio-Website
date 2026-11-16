@@ -7,7 +7,7 @@ import puppeteer from "puppeteer";
 import { findChrome } from "./find-chrome.mjs";
 
 /**
- * Renders client/public/resume.pdf by printing the already-built /resume/ page.
+ * Renders the US and Canadian PDFs by printing the already-built /resume/ page.
  *
  * Why print the page rather than lay the PDF out separately: the served PDF has
  * drifted from the site twice. Once it was a different document altogether — the
@@ -36,16 +36,22 @@ import { findChrome } from "./find-chrome.mjs";
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
-const outPath = path.join(root, "client", "public", "resume.pdf");
 
 /**
  * The page omits the phone number on purpose — it is indexed, and a number on an
  * indexed page is scraped into spam lists within days (see the comment in
- * client/src/pages/Resume.tsx). The PDF is public too, so include only the
- * contact number intended for this US-focused résumé. Keep it here instead of
- * the markdown so the web page does not display it.
+ * client/src/pages/Resume.tsx). The PDFs are public too, so each carries only
+ * its application-specific number. Keep these details here instead of the
+ * markdown so the web page does not display either phone number.
  */
-const PHONE = "(347) 794-7301";
+const RESUME_VARIANTS = [
+  { filename: "resume.pdf", phone: "(347) 794-7301" },
+  {
+    filename: "resume-canada.pdf",
+    phone: "(647) 643-5497",
+    locationLine: "Whitby, ON · Canadian citizen — no sponsorship required",
+  },
+];
 const EMAIL = "zmuwwakil@gmail.com";
 
 /**
@@ -247,7 +253,7 @@ const browser = await puppeteer.launch({
   args: ["--no-sandbox", "--disable-dev-shm-usage"],
 });
 
-try {
+async function renderVariant(variant) {
   const page = await browser.newPage();
 
   // Match the viewport to the printable width (Letter 8.5in less the @page side
@@ -265,6 +271,19 @@ try {
     () => document.querySelectorAll("article h3").length > 2,
     { timeout: 30_000 },
   );
+
+  if (variant.locationLine) {
+    const updated = await page.evaluate((locationLine) => {
+      const source = "Brooklyn, NY · U.S. & Canadian citizen — no sponsorship required";
+      const paragraph = [...document.querySelectorAll("article > div p")].find(
+        (p) => p.textContent.includes(source),
+      );
+      if (!paragraph) return false;
+      paragraph.textContent = paragraph.textContent.replace(source, locationLine);
+      return true;
+    }, variant.locationLine);
+    if (!updated) throw new Error(`could not set location for ${variant.filename}`);
+  }
 
   const injected = await page.evaluate(
     ({ phone, email }) => {
@@ -309,7 +328,7 @@ try {
       header.appendChild(line);
       return true;
     },
-    { phone: PHONE, email: EMAIL },
+    { phone: variant.phone, email: EMAIL },
   );
   if (!injected) throw new Error("could not find article header to inject contact line");
 
@@ -439,13 +458,14 @@ try {
     displayHeaderFooter: false,
   });
 
+  const outPath = path.join(root, "client", "public", variant.filename);
   await writeFile(outPath, pdf);
 
   // A résumé that silently grows to three pages is a regression worth seeing in
   // the build log rather than discovering in an application portal.
   const pages = (pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
   console.log(
-    `Wrote client/public/resume.pdf — ${pages} page(s), ${(pdf.length / 1024).toFixed(0)} kB, printed from ${target}`,
+    `Wrote client/public/${variant.filename} — ${pages} page(s), ${(pdf.length / 1024).toFixed(0)} kB, printed from ${target}`,
   );
   console.log(`  printed projects: ${PDF_PROJECTS.join(", ")}`);
   if (selection.hidden.length) {
@@ -454,6 +474,11 @@ try {
   if (pages > 2) {
     console.warn(`  ! ${pages} pages. Early-career résumés are expected to be one, two at most.`);
   }
+  await page.close();
+}
+
+try {
+  for (const variant of RESUME_VARIANTS) await renderVariant(variant);
 } finally {
   await browser.close();
   server.close();

@@ -76,7 +76,7 @@ export async function registerRoutes(
     },
     {
       company: "The Senac Group",
-      role: "Financial Software Analyst",
+      role: "Software Developer, Automation & Analytics",
       startDate: "Jun 2023",
       endDate: "May 2025",
       description: [
@@ -88,9 +88,33 @@ export async function registerRoutes(
     },
     {
       company: "Elevation Athletics",
-      role: "Regional Program Coordinator",
-      startDate: "Mar 2023",
+      role: "Software Engineer, Multi Regional",
+      startDate: "Feb 2026",
       endDate: "Present",
+      description: [
+        "Tech: Next.js, React Native, Prisma, PostgreSQL, DUPR SSO.",
+        "Migrated DUPR account linking to SSO-only authentication; designed partner/user token flows, encrypted credential storage, refresh and revocation handling, entitlements, and rating webhooks.",
+        "Led the DUPR provider integration review and secured production credentials in July 2026.",
+        "Led partner-club demonstrations and onboarding, including a three-month pilot that converted to a signed agreement."
+      ].join("\n")
+    },
+    {
+      company: "Elevation Athletics",
+      role: "Regional Operations Manager",
+      startDate: "Sep 2024",
+      endDate: "Feb 2026",
+      description: [
+        "Tech: Next.js, TypeScript, PostgreSQL, Glicko-2 ratings.",
+        "Built and deployed pbsocial.ca, a multi-tenant platform for session scheduling, registrations, attendance, and reporting; scaled from ~50 to 1,000+ participants.",
+        "Engineered the core match systems: automatic group and match generation, atomic match finalization, and Glicko-2 rating with standings history.",
+        "Implemented role-based ops workflows and retention analytics, contributing to repeat sign-ups rising from ~20% to ~89% in a tracked cohort."
+      ].join("\n")
+    },
+    {
+      company: "Elevation Athletics",
+      role: "District Operations Manager",
+      startDate: "Sep 2023",
+      endDate: "Sep 2024",
       description: [
         "Tech: TeamSnap API, Excel automation, operational tooling, support workflows, process training.",
         "Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.",
@@ -99,10 +123,10 @@ export async function registerRoutes(
       ].join("\n")
     },
     {
-      company: "NDCTrades",
-      role: "Finance Solutions Architect",
-      startDate: "Sep 2023",
-      endDate: "Sep 2024",
+      company: "Neighbourhood Developing Careers (NDC Trades)",
+      role: "Financial Assistant",
+      startDate: "Sep 2022",
+      endDate: "Jun 2023",
       description: [
         "Tech: QuickBooks, Humanity, workflow automation, reporting dashboards, implementation playbooks.",
         "Automated invoicing + pricing workflows across QuickBooks/Humanity, increasing recurring revenue by ~20% while reducing operational errors.",

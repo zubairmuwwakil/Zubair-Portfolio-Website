@@ -36,19 +36,23 @@ Remote · Aug 2025 – Present · Contract
 - Collaborate with ML, data, and DevOps engineers through code review, tests, and design documentation.
 - Deliver releases safely with unit and integration tests plus data integrity validation, preventing regressions and keeping deployments repeatable.
 
-### Elevation Athletics — Software Engineer
-Canada · Feb 2026 – Present · Part-time · *Promoted from Regional Program Coordinator*
+### Elevation Athletics — Software Engineer, Multi Regional
+Whitby, ON · Feb 2026 – Present · Part-time · *Promoted from Regional Operations Manager*
 
 - Migrated DUPR account linking from manual lookup to SSO-only authentication to meet the provider's requirements; designed partner/user token flows, encrypted credential storage, refresh and revocation handling, entitlements, and rating webhooks.
 - Led the DUPR provider integration review through direct technical correspondence, testing instructions, and recorded demonstrations; secured production credentials in July 2026.
 - Led partner-club demonstrations and onboarding with organizational leaders, offering proof-of-concept trials to address adoption concerns — including a three-month pilot that converted to a signed agreement.
 
-### Elevation Athletics — Regional Program Coordinator (Tech & Ops)
-Toronto, ON · Mar 2023 – Feb 2026 · Part-time · *Promoted: Coach → Lead Coach → District Lead*
+### Elevation Athletics — Regional Operations Manager
+Whitby, ON · Sep 2024 – Feb 2026 · Part-time
 
 - Built and deployed pbsocial.ca, a multi-tenant Next.js/TypeScript/PostgreSQL platform for session scheduling, registrations, attendance, and reporting; scaled from ~50 to 1,000+ active participants.
 - Engineered core match systems: automatic skill-balanced group and match generation, atomic single-transaction match finalization, and pure-function Glicko-2 ratings with audit history.
 - Implemented role-based ops workflows and retention analytics — roster/waitlist automation, check-in tooling — contributing to repeat sign-ups rising from ~20% to ~89% in a tracked cohort.
+
+### Elevation Athletics — District Operations Manager
+Whitby, ON · Sep 2023 – Sep 2024 · Part-time · *Promoted from Sports Instructor (Mar 2023)*
+
 - Built a participant tracking system on the TeamSnap API, increasing onboarding throughput by ~40% via cleaner workflows and automation.
 - Ran a structured support and triage workflow for 1,000+ users across 8 cities, keeping organizers and players unblocked with clear updates.
 
@@ -60,12 +64,14 @@ Toronto, ON · Jun 2023 – May 2025 · *Assistant Financial Analyst (intern), J
 - Created financial modeling, budgeting, and variance dashboards with built-in guardrails, cutting formula defects by ~30% and surfacing $25K+ in annual operational efficiency gains.
 - Owned finance tooling operations, automated weekly/monthly executive deliverables with SQL and VBA, and authored repeatable operational runbooks.
 
-### Neighbourhood Developing Careers (NDC Trades) — Finance Solutions Architect
+### Neighbourhood Developing Careers (NDC Trades) — Financial Assistant
 Toronto, ON · Sep 2022 – Jun 2023 · Internship
 
 - Automated invoicing and pricing workflows across QuickBooks and Humanity, increasing recurring revenue by ~20% while reducing operational errors.
 - Streamlined payroll processing via automated data cleanup and verification checks, cutting processing time by ~35% and eliminating calculation discrepancies.
 - Built compliance and performance dashboards to surface risk metrics early; authored reusable implementation templates to standardize client configurations.
+- Monitored grant spending against budget for youth-focused programs, keeping fund allocation compliant and surfacing variances to leadership.
+- Reconciled accounts in QuickBooks and maintained audit-ready records for CRA and donor compliance.
 
 ## Projects
 
