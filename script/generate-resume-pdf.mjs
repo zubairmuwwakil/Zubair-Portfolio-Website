@@ -192,13 +192,13 @@ const PRINT_CSS = `
      the name: a level-2 heading becomes h3, a level-3 heading becomes h4. */
   article h3 {
     font-size: 11.2pt !important;
-    margin: 6.5pt 0 2.5pt !important;
+    margin: 5.5pt 0 2pt !important;
     padding-bottom: 1.5pt !important;
     border-bottom: 0.6pt solid #c7ccd4 !important;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
-  article h4 { font-size: 10.3pt !important; margin: 5pt 0 0.5pt !important; }
+  article h4 { font-size: 10.3pt !important; margin: 4pt 0 0.5pt !important; }
 
   /* Font size has to be set per element, not inherited from body. The page
      styles text with Tailwind utilities on the elements themselves (li renders
@@ -208,7 +208,7 @@ const PRINT_CSS = `
     font-size: 9pt !important;
     line-height: 1.23 !important;
     margin-top: 0 !important;
-    margin-bottom: 1.8pt !important;
+    margin-bottom: 1.4pt !important;
   }
   article ul { margin: 1pt 0 3pt !important; padding-left: 11pt !important; }
   article li { padding-left: 0 !important; margin-bottom: 0.4pt !important; }

@@ -83,14 +83,14 @@ export default function Resume() {
             )}
           </div>
 
-          {/* A paper résumé prints these URLs in the contact line; the web
-              version had them only as hrefs, so anything reading the page as
-              text saw two unlabelled buttons. Unlike the phone number above,
-              public profile URLs are safe to expose — they are already public. */}
+          {/* Keep all three public destinations readable in the page and PDF.
+              The PDF generator turns these handles into clickable links. */}
           <p className="mt-3 font-mono text-xs text-muted-foreground">
             {profileHandle(profile.githubUrl)}
             {profile.githubUrl && profile.linkedinUrl && " · "}
             {profileHandle(profile.linkedinUrl)}
+            {" · "}
+            {profileHandle(SITE_ORIGIN)}
           </p>
         </header>
 
